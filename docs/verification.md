@@ -1,4 +1,4 @@
-# Verification evidence — M1a
+# Verification evidence — M1a and M1b
 
 **Verification** asks whether the specified TLE-to-TEME software boundary was
 built correctly. **Validation** asks whether the eventual mission-analysis
@@ -50,3 +50,51 @@ Run locally after installing `.[dev]`:
 The GitHub workflow runs these same checks on push and pull request with
 Python 3.11. Passing this same-model vector test does not establish physical
 orbit truth or validate future access outputs.
+
+## M1b published frame comparison
+
+The independent fixture is [Vallado et al., _Revisiting Spacetrack Report #3_,
+AIAA 2006-6753 Rev. 2, Appendix C, printed page 32](../tests/fixtures/frames/README.md).
+At `2004-04-06T07:51:28.386` UTC it specifies `UT1−UTC = −0.439961 s`,
+`xp = −0.140682 arcsec`, `yp = +0.333309 arcsec`, and `ΔAT = 32 s`.
+The published TEME input is `(5094.18016210, 6127.64465950,
+6380.34453270)` km and `(−4.746131487, 0.785818041, 5.531931288)` km/s.
+The expected Earth-fixed ITRF result is `(−1033.47938300, 7901.29527540,
+6380.35659580)` km and `(−3.225636520, −2.872451450,
+5.531924446)` km/s. Astropy's corresponding Earth-fixed frame is ITRS.
+
+The comparison uses a test-only two-day IERS table whose values are held at
+the published EOP inputs around the case instant. This ensures interpolation
+returns the printed values at that instant; the table is not a model of those
+surrounding days. The test scopes `auto_download=False` and restores the
+previous IERS table and configuration. Normal analysis leaves Astropy's
+automatic download setting enabled. Installed versions for this local run:
+`astropy==7.2.1`, `astropy-iers-data==0.2026.10.5.1.0.7`. No dependency pin
+or version changed for M1b.
+
+Before the comparison was run, the [fixture record](../tests/fixtures/frames/README.md)
+froze per-component limits of `1e-5 km` (10 mm) for position and `1e-7 km/s`
+(0.1 mm/s) for velocity. The paper prints position to `1e-8 km`, velocity to
+`1e-9 km/s`, UT1 to `1e-6 s`, and polar motion to `1e-6 arcsec`. The limits
+allow printed input precision and modest numerical convention differences;
+they also detect an omitted Earth-rotation term in velocity by a large margin.
+
+Calculated minus published components with the printed inputs are:
+
+- Position: `(-1.317365741e-5, -1.729577889e-6, -4.887897376e-8)` km.
+- Velocity: `(+7.095414922e-8, +3.933593007e-9, +3.025828477e-10)` km/s.
+
+**The first position component exceeds its frozen 10 mm limit by 3.17 mm.**
+The other position components and all velocity components meet their limits.
+The strict expected-failure test preserves this discrepancy visibly in CI;
+it is not a passing position acceptance. The printed input and limit were not
+changed. Investigation confirmed the specified UTC/EOP values and Astropy's
+Vallado-compatible GMST82 and polar-motion path. A diagnostic 20 µs time
+shift moved that component by 11.52 mm, indicating sensitivity at this scale;
+the root cause of the paper/Astropy difference remains unresolved.
+
+The velocity comparison independently remains an active passing test. Simply
+rotating the velocity, without accounting for Earth rotation, would miss by
+roughly `ω⊕ × r` (about 0.58 km/s at this radius), far above `1e-7 km/s`.
+The tests also check the typed state, exact split time, three finite components,
+scoped IERS restoration, and an out-of-range EOP error before state return.

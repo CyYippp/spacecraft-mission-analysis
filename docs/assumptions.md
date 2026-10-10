@@ -12,6 +12,17 @@
 - The archived M1a reference case checks reproduction of a published/package
   SGP4 vector. It is **not** a measurement of physical-orbit truth or TLE
   prediction uncertainty.
+- Astropy 7.2.1 supplies the TEME-of-date to ITRS conversion. The output is an
+  Earth-centred, Earth-fixed `ItrsState` in km and km/s at exactly the input UTC
+  epoch. Astropy applies its Vallado-compatible 1982 sidereal-time convention
+  and Earth-orientation data; the project supplies neither a custom rotation
+  nor custom velocity correction.
+- ITRS conversion depends on UT1−UTC and polar motion from an IERS table.
+  Normal analysis retains Astropy's automatic IERS download setting (enabled
+  by default) and any relevant Astropy warnings. The adapter rejects missing
+  or out-of-range EOP and warns when using predicted EOP. Formal tests disable
+  downloads only in scoped contexts and inject the published EOP for the
+  Vallado case; global settings are restored after each test.
 - Future access analysis is planned as geometric line of sight to fixed
   ground stations with a minimum elevation threshold. Atmospheric refraction,
   terrain masks, link margin, eclipse, and geographic sensor footprint require

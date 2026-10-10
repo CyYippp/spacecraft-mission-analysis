@@ -1,6 +1,14 @@
 # Changelog
 
-## Unreleased — M1a orbit kernel and repository setup
+## Unreleased
+
+- Added M1b Astropy TEME-to-ITRS position/velocity conversion with an immutable
+  ITRS state and explicit Earth-orientation failure/warning policy.
+- Added a scoped, offline Vallado Appendix C comparison. Velocity and two
+  position components meet predeclared limits; the first position component
+  exceeds its 10 mm limit by 3.17 mm and remains an open discrepancy.
+
+## M1a orbit kernel and repository setup
 
 - Established source, test-fixture, documentation, and CI structure.
 - Implemented validation of archived TLE lines and explicit WGS72 SGP4

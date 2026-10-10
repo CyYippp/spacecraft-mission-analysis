@@ -2,16 +2,17 @@
 
 A reproducible spacecraft mission-analysis demonstrator for archived TLE
 propagation, coordinate-frame handling, ground-station visibility, access
-windows, and temporal station coverage. **Only the TLE → SGP4 → TEME orbit
-kernel exists today.** This is a portfolio engineering project, not operational
-mission software.
+windows, and temporal station coverage. **The TLE → SGP4 → TEME orbit kernel
+and TEME → ITRS frame conversion exist today.** This is a portfolio engineering
+project, not operational mission software.
 
 ## Status and scope
 
 - M0: the orbit-kernel design and verification case are agreed; acceptance
   criteria for later geometry and events remain to be defined.
 - M1a: archived TLE → WGS72 SGP4 → typed TEME state is implemented and verified.
-- M1b: TEME → ITRS has not started.
+- M1b: TEME → ITRS is implemented; its published position comparison has an
+  open 3.17 mm overrun against the predeclared 10 mm component limit.
 - Station geometry, access events, temporal coverage, versioned outputs, and
   independent end-to-end validation have not started.
 
@@ -62,7 +63,7 @@ software verification, not evidence of physical orbit accuracy.
 
 ## Repository guide
 
-- `src/spacecraft_mission_analysis/`: implemented orbit kernel only.
+- `src/spacecraft_mission_analysis/`: implemented orbit kernel and frame conversion.
 - `tests/`: contract, failure-path, and reference-vector tests; `fixtures/`
   holds the minimal archived verification case.
 - `docs/`: requirements, assumptions, architecture, verification, validation
@@ -76,5 +77,6 @@ The software is **not flight-qualified** and **not operational mission
 software**. TLE predictions depend on the SGP4 model and TLE age. The current
 reference-vector check confirms integration with the same/reference model
 family; it does not establish physical orbit truth, coordinate-transform
-correctness, ground-station access, or end-to-end validation. See
+correctness of the still-open position reference component, ground-station
+access, or end-to-end validation. See
 [validation](docs/validation.md) for the evidence still needed.

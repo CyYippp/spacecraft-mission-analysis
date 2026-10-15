@@ -1,9 +1,9 @@
-# Verification evidence — M1a and M1b
+# Verification evidence — orbit, frame, and station/ENU boundaries
 
-**Verification** asks whether the specified TLE-to-TEME and TEME-to-ITRS
-software boundaries were built correctly. **Validation** asks whether the
-eventual mission-analysis model is useful for the intended planning question;
-see [validation](validation.md).
+**Verification** asks whether the specified TLE-to-TEME, TEME-to-ITRS, and
+station/ENU software boundaries were built correctly. **Validation** asks
+whether the eventual mission-analysis model is useful for the intended planning
+question; see [validation](validation.md).
 
 ## Reference vector
 
@@ -204,3 +204,77 @@ Both active position and velocity acceptance tests pass. No acceptance-related
 expected failure remains. The production frame code and original 10 mm limit
 are unchanged. This is a controlled single-case software comparison, not a
 claim of general physical or end-to-end mission-analysis validity.
+
+## Fixed WGS84 station and ENU geometry
+
+Production uses Astropy `EarthLocation.from_geodetic(lon, lat, height,
+ellipsoid="WGS84")` followed by `get_itrs(obstime=time)`. Inputs are WGS84
+**geodetic** latitude, east-positive longitude, and ellipsoidal height in metres;
+output is geocentric ITRS position in km at the scalar UTC observation time.
+The independent reference in `tests/verification/wgs84.py` implements the
+geodetic-to-Cartesian equations directly and does not call Astropy's geodetic
+conversion. Its constants come from the
+[NGA WGS 84 defining parameters](https://earth-info.nga.mil/index.php?action=wgs84&dir=wgs84):
+`a = 6,378,137.0 m` and `1/f = 298.257223563`, with `b = a(1−f)` and
+`e² = f(2−f)`. Astropy's
+[EarthLocation API](https://docs.astropy.org/en/stable/api/astropy.coordinates.EarthLocation.html)
+documents east longitude, ellipsoidal height, WGS84 selection, and geocentric
+ITRS output.
+
+Before evaluating the new production residuals, the tests fixed these
+per-component numerical limits: **`1e-8 km`** for WGS84 station Cartesian
+agreement, **`1e-10 km`** for synthetic ENU reconstruction, and **`1e-14`**
+dimensionless for basis properties. They test software arithmetic agreement,
+not surveyed station uncertainty or WGS84 frame-realization accuracy.
+
+Production minus direct WGS84 equation residuals, in `(x, y, z)` km. Expected
+axis coordinates use `a` and `b` converted from metres to km:
+
+- Equator/Greenwich, `φ=0°, λ=0°, h=0`: `(0, 0, 0)`; expected `(a, 0, 0)`.
+- Equator/90° east, `φ=0°, λ=90°, h=0`:
+  `(+3.905482531e-13, 0, 0)`; expected `(0, a, 0)`.
+- North Pole, `φ=90°, λ=0°, h=0`:
+  `(+3.918620925e-13, 0, 0)`; expected `(0, 0, b)`.
+- Arbitrary station, `φ=37.5°, λ=−122.25°, h=1234.5 m`:
+  `(0, −9.094947018e-13, +4.547473509e-13)`.
+- Negative height, `φ=42°, λ=180°, h=−25.5 m`:
+  `(0, +1.009741959e-28, 0)`.
+- Near pole, `φ=89.99999°, λ=120°, h=50 m`:
+  `(0, 0, +9.094947018e-13)`.
+
+All station components meet `1e-8 km`; the maximum observed absolute component
+is `9.095e-13 km`. Longitudes `+180°` and `−180°` give equivalent Cartesian
+positions within the same limit. Negative ellipsoidal height is accepted;
+invalid latitude, longitude, non-finite inputs, and ambiguous/non-UTC times are
+rejected.
+
+For local geometry, `station_to_satellite_itrs()` accepts typed `ItrsState` and
+`ItrsPosition` at exactly matching UTC instants and computes
+`r_satellite − r_station`. The direction fixture returns `(100, 2, 3) km` from
+station `(6378, 20, −30) km` and satellite `(6478, 22, −27) km`; a one-microsecond
+epoch mismatch is rejected. `itrs_to_enu()` projects that typed relative vector
+onto explicit geodetic East, North, and Up axes, with output components in km.
+It does not use Astropy AltAz.
+
+- At equator/Greenwich, the `+X`, `+Y`, and `+Z` ITRS directions map to local
+  Up, East, and North respectively. Each 100 km axis fixture has zero reported
+  component residual within floating-point precision.
+- The composed station-position → relative-ITRS → ENU path recovers a 100 km
+  local Up displacement at equator/Greenwich with zero reported residual.
+- At `φ=45°, λ=30°`, independent analytic axes construct
+  `rho = 100 East + 200 North + 300 Up` km. Production-minus-expected ENU is
+  `(0, 0, +5.684341886e-14) km`, within `1e-10 km` per component.
+- At equator, mid-latitude, southern hemisphere, and near-pole sites, the
+  production basis agrees with the analytic basis, its unit/orthogonality
+  residual is at most `2.220446049e-16`, and the right-handed cross-product
+  residual is at most `1.110223025e-16`, all within `1e-14`.
+- At `φ=45°, λ=30°`, geodetic Up differs from the normalized station radial
+  vector by norm `0.003358417098`; projecting that radial unit vector gives a
+  nonzero North component of `−0.003358412363 km` for a 1 km input. This
+  demonstrates the ellipsoid-normal convention without adopting a physical
+  angle threshold.
+- `+180°`/`−180°` longitude ENU results agree within `1e-10 km`. At an exact
+  pole, East/North depend on the supplied longitude; no azimuth claim is made.
+
+These are deterministic station and local-vector checks. They do not validate
+satellite visibility, access events, or any angle/range output.

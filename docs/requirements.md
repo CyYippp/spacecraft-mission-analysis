@@ -20,8 +20,11 @@ acceptance thresholds must be declared before their verification runs.
   Both pass the frozen limits against an independent matched split-UT1 Vallado
   calculation. The printed Appendix C x position remains 3.17 mm over the
   10 mm limit when compared directly with production; its numerical reference
-  path is separately reproduced. Station/topocentric geometry is future work.
-  Evidence: `tests/test_frames.py` and the frame fixture record.
+  path is separately reproduced. **Station/ENU partial:** fixed WGS84 station
+  ITRS position, station-to-satellite ITRS displacement, and local ENU components
+  are implemented and numerically checked. Azimuth, elevation, range reporting,
+  and access geometry remain future work. Evidence: `tests/test_frames.py`,
+  `tests/test_station_enu.py`, and their verification records.
 - **MA-04 — Access events.** Detect and refine threshold crossings, pass
   duration, and maximum elevation. **Not started.** No verification claim.
 - **MA-05 — Versioned outputs and provenance.** Produce machine-readable

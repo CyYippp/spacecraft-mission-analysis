@@ -23,6 +23,16 @@
   or out-of-range EOP and warns when using predicted EOP. Formal tests disable
   downloads only in scoped contexts and inject the published EOP for the
   Vallado case; global settings are restored after each test.
+- Fixed stations use the **WGS84 ellipsoid**, separately from SGP4's WGS72
+  gravity constants. Latitude is **geodetic** (the ellipsoid-normal direction),
+  longitude is **east-positive** in `[-180°, +180°]`, and height is **ellipsoidal**
+  metres, including possible negative values. No geoid or mean-sea-level
+  conversion is performed. Station ITRS position is geocentric and in km.
+- The station-relative ITRS vector points **station → satellite** at one exact
+  scalar UTC instant. Local Up follows the WGS84 geodetic ellipsoid normal,
+  not the geocentric radial direction. At an exact pole, supplied longitude
+  selects the local East/North basis; a later azimuth would not be physically
+  unique there. The current ENU output contains km components only.
 - Future access analysis is planned as geometric line of sight to fixed
   ground stations with a minimum elevation threshold. Atmospheric refraction,
   terrain masks, link margin, eclipse, and geographic sensor footprint require

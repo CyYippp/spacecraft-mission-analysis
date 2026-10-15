@@ -2,8 +2,8 @@
 
 A reproducible spacecraft mission-analysis demonstrator for archived TLE
 propagation, coordinate-frame handling, ground-station visibility, access
-windows, and temporal station coverage. **The TLE → SGP4 → TEME orbit kernel
-and TEME → ITRS frame conversion exist today.** This is a portfolio engineering
+windows, and temporal station coverage. **The TLE → SGP4 → TEME → ITRS chain
+and fixed-station ENU geometry exist today.** This is a portfolio engineering
 project, not operational mission software.
 
 ## Status and scope
@@ -15,8 +15,9 @@ project, not operational mission software.
   reference at the original 10 mm position and 0.1 mm/s velocity limits. The
   printed Appendix C position retains a documented 3.17 mm limit overrun
   because its reproducible single-JD path has a different numerical UT1 instant.
-- Station geometry, access events, temporal coverage, versioned outputs, and
-  independent end-to-end validation have not started.
+- Fixed WGS84 station → ITRS position → station-relative ITRS → ENU is
+  implemented and numerically verified. Azimuth/elevation/range, access events,
+  temporal coverage, versioned outputs, and end-to-end validation have not started.
 
 The planned baseline is one spacecraft per analysis, archived TLEs, fixed
 ground stations, geometric visibility, and temporal station coverage. Eclipse,
@@ -65,7 +66,8 @@ software verification, not evidence of physical orbit accuracy.
 
 ## Repository guide
 
-- `src/spacecraft_mission_analysis/`: implemented orbit kernel and frame conversion.
+- `src/spacecraft_mission_analysis/`: orbit kernel, frame conversion, and
+  fixed-station/ENU geometry.
 - `tests/`: contract, failure-path, and reference-vector tests; `fixtures/`
   holds the minimal archived verification case.
 - `docs/`: requirements, assumptions, architecture, verification, validation
@@ -79,6 +81,7 @@ The software is **not flight-qualified** and **not operational mission
 software**. TLE predictions depend on the SGP4 model and TLE age. The current
 reference-vector check confirms integration with the same/reference model
 family; the matched frame comparison checks the M1b transformation at one
-controlled case. Neither establishes physical orbit truth, ground-station
-access, or end-to-end validation. See
+controlled case. Station/ENU tests check local numerical geometry. None of
+these establishes physical orbit truth, ground-station access, or end-to-end
+validation. See
 [validation](docs/validation.md) for the evidence still needed.

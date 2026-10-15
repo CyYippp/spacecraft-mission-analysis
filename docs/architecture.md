@@ -7,7 +7,8 @@ archived input / TLE
     → SGP4 orbit adapter [implemented M1a]
     → Astropy TEME-to-ITRS frame service [implemented and matched-case verified M1b]
     → WGS84 station ITRS → station-relative ITRS → ENU [implemented]
-    → azimuth/elevation/range and access-event solver [future]
+    → geometric azimuth/elevation/range [implemented]
+    → elevation threshold and access-event solver [future]
     → temporal metrics and versioned outputs [future]
 ```
 
@@ -45,5 +46,8 @@ to return a typed `ItrsPosition` in km with the observation epoch and station
 identity. `station_to_satellite_itrs()` subtracts this position from an
 `ItrsState` at the **exact same UTC instant**, producing a station-to-satellite
 `RelativeItrsVector`. `itrs_to_enu()` projects it onto the geodetic East,
-North, Up basis and returns an `EnuVector` in km. No local angles, range output,
-access events, or geoid conversion exist yet.
+North, Up basis and returns an `EnuVector` in km. `enu_to_az_el_range()` resolves
+that typed vector into `AzElRange`: azimuth east of north in `[0°, 360°)`,
+elevation above the horizon in `[−90°, +90°]`, and geometric range in km.
+Azimuth is undefined (`None`) on the exact vertical axis. A zero-length vector
+is rejected. No threshold, access event, refraction, or geoid conversion exists.

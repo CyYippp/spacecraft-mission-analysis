@@ -22,9 +22,12 @@ acceptance thresholds must be declared before their verification runs.
   10 mm limit when compared directly with production; its numerical reference
   path is separately reproduced. **Station/ENU partial:** fixed WGS84 station
   ITRS position, station-to-satellite ITRS displacement, and local ENU components
-  are implemented and numerically checked. Azimuth, elevation, range reporting,
-  and access geometry remain future work. Evidence: `tests/test_frames.py`,
-  `tests/test_station_enu.py`, and their verification records.
+  are implemented and numerically checked. **Look-angle increment:** geometric
+  azimuth, elevation, and range are implemented and analytically checked, with
+  undefined vertical azimuth represented explicitly. MA-03's component chain
+  is implemented; satellite-access validation remains future work. Evidence:
+  `tests/test_frames.py`, `tests/test_station_enu.py`, `tests/test_look_angles.py`,
+  and their verification records.
 - **MA-04 — Access events.** Detect and refine threshold crossings, pass
   duration, and maximum elevation. **Not started.** No verification claim.
 - **MA-05 — Versioned outputs and provenance.** Produce machine-readable

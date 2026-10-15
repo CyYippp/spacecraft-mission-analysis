@@ -1,9 +1,9 @@
-# Verification evidence — orbit, frame, and station/ENU boundaries
+# Verification evidence — orbit, frame, station, and look-angle boundaries
 
-**Verification** asks whether the specified TLE-to-TEME, TEME-to-ITRS, and
-station/ENU software boundaries were built correctly. **Validation** asks
-whether the eventual mission-analysis model is useful for the intended planning
-question; see [validation](validation.md).
+**Verification** asks whether the specified TLE-to-TEME, TEME-to-ITRS,
+station/ENU, and look-angle software boundaries were built correctly.
+**Validation** asks whether the eventual mission-analysis model is useful for
+the intended planning question; see [validation](validation.md).
 
 ## Reference vector
 
@@ -276,5 +276,43 @@ It does not use Astropy AltAz.
 - `+180°`/`−180°` longitude ENU results agree within `1e-10 km`. At an exact
   pole, East/North depend on the supplied longitude; no azimuth claim is made.
 
-These are deterministic station and local-vector checks. They do not validate
-satellite visibility, access events, or any angle/range output.
+These deterministic station and local-vector checks alone do not verify the
+angle/range calculation below or validate satellite access events.
+
+## ENU to geometric azimuth, elevation, and range
+
+`enu_to_az_el_range()` accepts a typed `EnuVector` and returns an immutable
+`AzElRange` with station and exact UTC epoch preserved. For East `E`, North `N`,
+and Up `U` in km, it computes horizontal norm `H = hypot(E, N)`, geometric
+range `R = hypot(H, U)`, elevation `atan2(U, H)` in degrees, and azimuth
+`atan2(E, N)` in degrees modulo 360. The azimuth convention is east of north:
+North `0°`, East `90°`, South `180°`, West `270°`, consistent with the
+[Astropy AltAz convention](https://docs.astropy.org/en/stable/api/astropy.coordinates.AltAz.html).
+Production uses these explicit scalar equations, not an Astropy AltAz transform.
+No refraction, elevation mask, or access criterion is applied.
+
+Before evaluating the implementation, `tests/test_look_angles.py` fixed
+numerical limits of **`1e-12°`** per angle and **`1e-12 km`** for range. These
+test arithmetic against analytic inputs; they are not orbit or station
+uncertainty claims.
+
+- Four 100 km cardinal horizon vectors return azimuths `0°, 90°, 180°, 270°`,
+  elevation `0°`, and range `100 km`. All reported residuals are zero.
+- Four diagonal horizon vectors cover azimuth quadrants `45°, 135°, 225°, 315°`;
+  elevation and range also meet the frozen limits with zero reported residual.
+- Exact zenith and nadir `(E,N)=(0,0)`, `U=±100 km` return elevation `±90°`,
+  range `100 km`, and **azimuth `None`**. No arbitrary azimuth is manufactured.
+  A nonzero but tiny horizontal component retains a defined azimuth; there is
+  no hidden near-zenith threshold.
+- The independent `sqrt(E²+N²+U²)` check for `(3,4,12) km` gives `13 km`.
+  Independent `asin(U/R)` elevation differs from production by
+  `−1.421085472e-14°`; azimuth and range residuals are zero. Its `(3,4,0) km`
+  horizon counterpart gives `5 km` at elevation `0°`.
+- A synthetic station ITRS → relative ITRS → ENU → look-angle chain at
+  equator/Greenwich yields `90°` azimuth, `45°` elevation, and `sqrt(20000) km`
+  range with zero reported residuals. The result retains station and epoch.
+- A zero-length vector and non-finite/overflowing ranges raise `ValueError`;
+  unlabeled vector input raises `TypeError`.
+
+These component and synthetic-chain checks do not validate a satellite pass
+boundary or end-to-end orbit-based access prediction.

@@ -2,10 +2,13 @@
 
 ## Unreleased
 
+- Added typed geometric azimuth/elevation/range output from ENU, with explicit
+  undefined azimuth on the vertical axis and a failure for zero displacement.
+  Analytic direction, horizon, zenith/nadir, quadrant, and range checks pass.
 - Added fixed WGS84 ground stations, typed station ITRS positions, typed
   station-to-satellite ITRS displacements, and explicit geodetic ENU projection.
   Verified against NGA-parameter WGS84 equations and analytic/synthetic ENU
-  cases. Azimuth, elevation, range reporting, and access events remain future.
+  cases. Access events remain future.
 - Added M1b Astropy TEME-to-ITRS position/velocity conversion with an immutable
   ITRS state and explicit Earth-orientation failure/warning policy.
 - Added a scoped, offline Vallado Appendix C comparison. The direct

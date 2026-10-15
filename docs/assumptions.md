@@ -31,8 +31,15 @@
 - The station-relative ITRS vector points **station → satellite** at one exact
   scalar UTC instant. Local Up follows the WGS84 geodetic ellipsoid normal,
   not the geocentric radial direction. At an exact pole, supplied longitude
-  selects the local East/North basis; a later azimuth would not be physically
-  unique there. The current ENU output contains km components only.
+  selects the local East/North basis; azimuth at an exact pole therefore follows
+  the supplied longitude convention and is not physically unique there. The
+  ENU output contains km components.
+- Geometric azimuth is measured clockwise/eastward from local North in
+  `[0°, 360°)`; elevation is above the local horizon in `[−90°, +90°]`; range is
+  the Euclidean station-to-satellite displacement in km. Azimuth is `None`
+  when both horizontal ENU components are exactly zero (zenith or nadir). There
+  is no hidden near-zenith threshold. A zero-length displacement has no viewing
+  direction and raises an error. No atmospheric refraction is applied.
 - Future access analysis is planned as geometric line of sight to fixed
   ground stations with a minimum elevation threshold. Atmospheric refraction,
   terrain masks, link margin, eclipse, and geographic sensor footprint require

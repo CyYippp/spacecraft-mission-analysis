@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+- Added configurable elevation-threshold access windows with 5 s default
+  sampling, local-second Brent refinement at 0.01 s, clipped-boundary flags,
+  and an internal archived-orbit smoke test. Analytic event verification is
+  separate from future independent access validation.
 - Added typed geometric azimuth/elevation/range output from ENU, with explicit
   undefined azimuth on the vertical axis and a failure for zero displacement.
   Analytic direction, horizon, zenith/nadir, quadrant, and range checks pass.

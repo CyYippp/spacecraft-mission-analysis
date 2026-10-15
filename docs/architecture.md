@@ -8,7 +8,8 @@ archived input / TLE
     → Astropy TEME-to-ITRS frame service [implemented and matched-case verified M1b]
     → WGS84 station ITRS → station-relative ITRS → ENU [implemented]
     → geometric azimuth/elevation/range [implemented]
-    → elevation threshold and access-event solver [future]
+    → elevation evaluator → coarse event search → bracketed root refinement
+      → AccessWindow [implemented, internally verified]
     → temporal metrics and versioned outputs [future]
 ```
 
@@ -34,7 +35,7 @@ data; predicted EOP emits a warning.
 
 The public states label their frames rather than exposing unlabeled six-element
 arrays. Later geometry can depend on them without depending on `Satrec`. No
-access-event or output service exists yet. The frame service passes the
+versioned output service exists yet. The frame service passes the
 independent matched split-UT1 comparison at the frozen limits. The direct
 published-vector comparison retains a documented 3.17 mm x-position overrun
 from the numerical time-path mismatch.
@@ -50,4 +51,15 @@ North, Up basis and returns an `EnuVector` in km. `enu_to_az_el_range()` resolve
 that typed vector into `AzElRange`: azimuth east of north in `[0°, 360°)`,
 elevation above the horizon in `[−90°, +90°]`, and geometric range in km.
 Azimuth is undefined (`None`) on the exact vertical axis. A zero-length vector
-is rejected. No threshold, access event, refraction, or geoid conversion exists.
+is rejected. No refraction or geoid conversion exists.
+
+`elevation.py` composes these existing public interfaces at each requested UTC
+time and exposes `satellite_elevation_deg()`. Its mission-level convenience
+function defaults to a 10° mask. `access.py` depends only on a scalar elevation
+callback, UTC start/end times, a configurable mask and sampling/refinement
+settings; it does not import a TLE, propagator, frame, or station model. It
+samples both analysis boundaries, finds positive-elevation intervals, and uses
+SciPy `brentq` on elapsed seconds within each sign-changing bracket. An exact
+sampled zero is used once as an endpoint. `AccessWindow` stores immutable split
+UTC endpoints and derives duration in seconds. Clipped flags distinguish an
+analysis bound from a threshold crossing. Upstream failures propagate.

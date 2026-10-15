@@ -3,7 +3,8 @@
 A reproducible spacecraft mission-analysis demonstrator for archived TLE
 propagation, coordinate-frame handling, ground-station visibility, access
 windows, and temporal station coverage. **The TLE → SGP4 → TEME → ITRS chain
-and fixed-station geometric azimuth/elevation/range exist today.** This is a
+fixed-station geometric azimuth/elevation/range and numerical access windows
+exist today.** This is a
 portfolio engineering project, not operational mission software.
 
 ## Status and scope
@@ -17,8 +18,10 @@ portfolio engineering project, not operational mission software.
   because its reproducible single-JD path has a different numerical UT1 instant.
 - Fixed WGS84 station → ITRS position → station-relative ITRS → ENU is
   implemented and numerically verified. Geometric azimuth/elevation/range is
-  implemented and analytically verified. Access events, temporal coverage,
-  versioned outputs, and end-to-end validation have not started.
+  implemented and analytically verified. Threshold access events are
+  implemented and checked against analytic roots plus one internal archived
+  orbit smoke case. Temporal coverage, versioned outputs, and independent
+  end-to-end access validation have not started.
 
 The planned baseline is one spacecraft per analysis, archived TLEs, fixed
 ground stations, geometric visibility, and temporal station coverage. Eclipse,
@@ -45,7 +48,8 @@ shows the split-Julian-date call.
 ## Install and verify
 
 Python **3.11 or newer** is required. Direct dependencies and developer tools
-are pinned in `pyproject.toml`. On Windows PowerShell:
+are pinned in `pyproject.toml`, including SciPy 1.17.1 for bracketed root
+refinement. On Windows PowerShell:
 
 ```powershell
 python -m venv .venv
@@ -68,7 +72,8 @@ software verification, not evidence of physical orbit accuracy.
 ## Repository guide
 
 - `src/spacecraft_mission_analysis/`: orbit kernel, frame conversion, and
-  fixed-station viewing geometry through azimuth/elevation/range.
+  fixed-station viewing geometry through azimuth/elevation/range, plus the
+  separate elevation composition and numerical access-event modules.
 - `tests/`: contract, failure-path, and reference-vector tests; `fixtures/`
   holds the minimal archived verification case.
 - `docs/`: requirements, assumptions, architecture, verification, validation
@@ -83,6 +88,7 @@ software**. TLE predictions depend on the SGP4 model and TLE age. The current
 reference-vector check confirms integration with the same/reference model
 family; the matched frame comparison checks the M1b transformation at one
 controlled case. Station and look-angle tests check local numerical geometry.
-None of these establishes physical orbit truth, ground-station access, or end-to-end
-validation. See
+The access tests establish numerical event behaviour and internal composition
+only; they do not establish physical orbit truth or independently validate
+pass times. See
 [validation](docs/validation.md) for the evidence still needed.

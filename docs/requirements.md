@@ -29,7 +29,12 @@ acceptance thresholds must be declared before their verification runs.
   `tests/test_frames.py`, `tests/test_station_enu.py`, `tests/test_look_angles.py`,
   and their verification records.
 - **MA-04 — Access events.** Detect and refine threshold crossings, pass
-  duration, and maximum elevation. **Not started.** No verification claim.
+  duration, and maximum elevation. **Partial:** the configurable scalar
+  elevation-threshold solver detects sampled entry/exit brackets, refines them
+  with local-second Brent roots, and returns typed windows with derived
+  duration and clipped-boundary flags. Analytic and internal archived-orbit
+  tests pass. Maximum elevation and independent access validation remain future
+  work. Evidence: `tests/test_access.py`, `tests/test_access_integration.py`.
 - **MA-05 — Versioned outputs and provenance.** Produce machine-readable
   results with units, UTC timestamps, configuration, and source history.
   **Not started.** The M1a fixture records test provenance only.

@@ -1,7 +1,7 @@
-# Verification evidence — orbit, frame, station, and look-angle boundaries
+# Verification evidence — orbit, frame, station, look-angle, and access boundaries
 
 **Verification** asks whether the specified TLE-to-TEME, TEME-to-ITRS,
-station/ENU, and look-angle software boundaries were built correctly.
+station/ENU, look-angle, and access-event software boundaries were built correctly.
 **Validation** asks whether the eventual mission-analysis model is useful for
 the intended planning question; see [validation](validation.md).
 
@@ -316,3 +316,56 @@ uncertainty claims.
 
 These component and synthetic-chain checks do not validate a satellite pass
 boundary or end-to-end orbit-based access prediction.
+
+## Elevation-threshold events
+
+`find_access_windows()` tests use only analytic scalar elevation functions;
+they do not call SGP4, frame conversion, or station geometry. The primary
+case is `El(t)=20−0.5(t−10)²` degrees for `t` seconds from the UTC analysis
+start, with a 10° mask. Exact roots calculated analytically are
+`10−√20 = 5.527864045000420 s` and `10+√20 = 14.472135954999580 s`.
+The predeclared Brent `xtol` is **0.01 s**, applied to elapsed seconds from
+each local bracket endpoint. This is a numerical root setting, not a physical
+pass-time accuracy claim. SciPy `brentq` is the pinned bracketed scalar root
+finder (`scipy==1.17.1`); [SciPy's `brentq` documentation](https://docs.scipy.org/doc/scipy/reference/generated/scipy.optimize.brentq.html)
+specifies a sign-changing bracket and positive absolute `xtol`.
+
+At a 5 s coarse grid, observed roots are `5.527691778466348 s` and
+`14.472308221535180 s`. Observed-minus-analytic residuals are
+`−0.000172266534072 s` and `+0.000172266535600 s`, each below 0.01 s.
+At a 1 s grid, the same case has one window and identical endpoints: count
+`1 vs 1`, entry/exit shifts `0, 0 s`. An asymmetric cubic with exact roots
+`6.2, 15.3 s` gives one window on each grid. At 5 s, its roots are
+`6.198865047917934, 15.302470713019290 s`; at 1 s,
+`6.200339218116646, 15.300128179875827 s`. The 5 s minus 1 s shifts
+are `−0.001474170198712 s` entry and `+0.002342533143462 s` exit.
+Both count comparisons pass and shifts are below the **provisional** 0.1 s
+convergence criterion. This criterion awaits real-orbit convergence cases;
+unequal event counts would be a detection-convergence failure, not pairable
+events.
+
+Synthetic checks also cover no pass, the entire interval accessible, access
+already active at the start, access continuing at the end, exact grid-sample
+crossings without duplicate windows, and an exact below-zero tangent with
+**no positive-duration window**. For a near-grazing function positive only on
+`(1.8, 3.0) s`, 5 s sampling returns zero windows; 1 s sampling detects one
+window with observed endpoints `1.801044368208515, 3.000000000000469 s`.
+This demonstrates finite-grid detection limits. Invalid intervals/settings,
+ambiguous time, non-finite evaluator output, and reversed window endpoints
+raise errors; a forced SGP4 code-6 failure also propagates through the real
+composition without producing `no access`.
+
+The internal smoke fixture is
+[`tests/fixtures/access/vanguard_greenwich.json`](../tests/fixtures/access/vanguard_greenwich.json):
+Vallado/python-sgp4 2.27 archived Vanguard 1 catalogue 00005 TLE, synthetic
+WGS84 equator/Greenwich station `(0°,0°,0 m)`, UTC interval
+`2000-06-27T20:00:00`–`20:40:00`, 10° mask, 5 s grid, 0.01 s root tolerance.
+The exact TLE lines are in the fixture, with original source provenance in
+[`tests/fixtures/sgp4/README.md`](../tests/fixtures/sgp4/README.md). To keep
+the test offline and deterministic, it scopes `auto_download=False` and a
+**test-only synthetic** zero UT1−UTC/xp/yp table at MJD 51722–51723. It returns
+one unclipped positive window, `20:11:00.832`–`20:31:30.100` UTC, duration
+`1229.268021100 s`. Entry/exit computed elevation-minus-mask residuals are
+`+7.283304999e-6°` and `+1.045237734e-5°`, below the predeclared
+`0.01°` integration check. These times are observations from the production
+chain and are **not** independent expected event times or physical validation.

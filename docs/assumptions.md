@@ -40,8 +40,26 @@
   when both horizontal ENU components are exactly zero (zenith or nadir). There
   is no hidden near-zenith threshold. A zero-length displacement has no viewing
   direction and raises an error. No atmospheric refraction is applied.
-- Future access analysis is planned as geometric line of sight to fixed
-  ground stations with a minimum elevation threshold. Atmospheric refraction,
+- Access is the set of times with geometric elevation **strictly greater than**
+  the minimum elevation. Equality is a boundary, not positive access. The
+  mission-level default mask is 10°, and callers may configure it. The generic
+  numerical solver has no fixed mask.
+- Normal event search samples every 5 s, includes exact analysis boundaries,
+  and refines sign-changing brackets with SciPy `brentq` using elapsed seconds
+  from a bracket endpoint and `xtol=0.01 s`. This tolerance controls numerical
+  root refinement only; it does not establish physical pass-time, TLE, frame,
+  or station-coordinate accuracy. A finite grid cannot guarantee discovery of
+  arbitrarily narrow or near-grazing positive intervals. A sampled tangent
+  touching the threshold from below creates no access.
+- A window beginning or ending while elevation is already above the mask is
+  clipped at that analysis boundary; no event outside the requested interval
+  is inferred. Endpoint times denote threshold crossings or clipped bounds;
+  access itself is strict `elevation > mask`, so equality endpoints need not
+  be members of the positive set. Duration is the endpoint time difference.
+- The internal orbit smoke fixture uses a synthetic fixed equator/Greenwich
+  WGS84 station and a test-only zero-valued EOP table at MJD 51722–51723. It
+  demonstrates software integration only, not realistic EOP or independent
+  prediction accuracy. Atmospheric refraction,
   terrain masks, link margin, eclipse, and geographic sensor footprint require
   separate scope and evidence.
 - TLE prediction quality can degrade with age. Staleness warnings and a

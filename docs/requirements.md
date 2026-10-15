@@ -1,7 +1,7 @@
 # Requirements and current disposition
 
 Source baseline: `01-spacecraft-mission-analysis.md` in the portfolio plans.
-The M1a implementation covers only the archived-TLE/SGP4 boundary. Later
+M1a covers the archived-TLE/SGP4 boundary, and M1b adds the frame boundary. Later
 acceptance thresholds must be declared before their verification runs.
 
 - **MA-01 — Archived TLE input.** Preserve original lines, epoch, catalogue ID,
@@ -16,7 +16,12 @@ acceptance thresholds must be declared before their verification runs.
   Evidence: `tests/test_orbit.py` vector and error tests.
 - **MA-03 — Frames and topocentric geometry.** Convert TEME to an Earth-fixed
   frame and station azimuth/elevation/range with declared conventions.
-  **Not started.** No verification claim.
+  **M1b partial:** TEME→ITRS position and velocity conversion is implemented.
+  Both pass the frozen limits against an independent matched split-UT1 Vallado
+  calculation. The printed Appendix C x position remains 3.17 mm over the
+  10 mm limit when compared directly with production; its numerical reference
+  path is separately reproduced. Station/topocentric geometry is future work.
+  Evidence: `tests/test_frames.py` and the frame fixture record.
 - **MA-04 — Access events.** Detect and refine threshold crossings, pass
   duration, and maximum elevation. **Not started.** No verification claim.
 - **MA-05 — Versioned outputs and provenance.** Produce machine-readable
@@ -25,10 +30,15 @@ acceptance thresholds must be declared before their verification runs.
 - **MA-06 — Warnings and failures.** Make invalid propagation and later stale
   TLE, unsupported interval, or unavailable Earth-orientation conditions
   explicit. **M1a partial:** propagation failure is explicit and blocks state
-  return. Other warnings are future work.
+  return. **M1b partial:** unavailable EOP raises `FrameTransformError`; predicted
+  EOP warns. Other warnings are future work.
 - **MA-07 — Independent comparison.** Compare agreed cases with an independent
   implementation and later GMAT under matched modelling assumptions.
-  **Not started.** The current package fixture is same-model verification.
+  **Partial evidence:** M1b passes an independent matched split-UT1 Vallado
+  equation reference, and the printed vector is separately reproduced by the
+  historical single-JD path. The direct printed-vector x discrepancy remains
+  recorded. Independent end-to-end implementation and GMAT comparisons are
+  future work. The M1a package fixture is same-model verification.
 - **MA-08 — Temporal station coverage.** Calculate coverage and no-access gaps
   from validated access intervals. **Not started.** No verification claim.
 

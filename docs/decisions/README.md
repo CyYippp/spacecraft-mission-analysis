@@ -7,7 +7,8 @@ the decision question, context, alternatives, evidence, chosen decision,
 consequences, and verification impact. Include the date and any affected
 requirement IDs. Do not reconstruct fictional approvals or decisions.
 
-The current orbit boundary and its evidence are described in
+The [first decision record](0001-matched-split-ut1-frame-reference.md) changes
+the M1b acceptance reference while retaining the numerical limits. The current
+orbit boundary and its evidence are described in
 [`architecture.md`](../architecture.md) and
-[`verification.md`](../verification.md). No separate retrospective decision
-record is needed for this setup milestone.
+[`verification.md`](../verification.md).

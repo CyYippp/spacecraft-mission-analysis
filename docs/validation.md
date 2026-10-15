@@ -1,10 +1,14 @@
 # Validation status
 
-There is **no end-to-end mission-analysis validation** yet. TEME-to-ITRS,
-station geometry, access windows, and temporal coverage are unimplemented.
-There has been no independent Skyfield comparison and no GMAT comparison.
+There is **no end-to-end mission-analysis validation** yet. M1b verifies the
+selected Astropy TEME-to-ITRS frame transform against independent Vallado
+equations at matched split UT1. The direct comparison with the printed
+Appendix C x position retains a documented 3.17 mm limit overrun caused by
+the numerical time-path difference. Ground-station geometry, access windows,
+and temporal coverage are unimplemented. There has been no independent
+Skyfield access comparison and no GMAT comparison.
 
-The current Vanguard 1 check reproduces a reference vector distributed with
+The M1a Vanguard 1 check reproduces a reference vector distributed with
 the SGP4 implementation. It verifies the software's integration with the
 same/reference SGP4 model family. It does **not** establish physical orbit
 truth, quantify prediction error, or validate a pass boundary.

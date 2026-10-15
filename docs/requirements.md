@@ -17,10 +17,11 @@ acceptance thresholds must be declared before their verification runs.
 - **MA-03 — Frames and topocentric geometry.** Convert TEME to an Earth-fixed
   frame and station azimuth/elevation/range with declared conventions.
   **M1b partial:** TEME→ITRS position and velocity conversion is implemented.
-  The Vallado velocity and two position components meet their frozen limits;
-  one position component is 3.17 mm over its 10 mm limit. Station/topocentric
-  geometry is future work. Evidence: `tests/test_frames.py` and the frame
-  fixture discrepancy record.
+  Both pass the frozen limits against an independent matched split-UT1 Vallado
+  calculation. The printed Appendix C x position remains 3.17 mm over the
+  10 mm limit when compared directly with production; its numerical reference
+  path is separately reproduced. Station/topocentric geometry is future work.
+  Evidence: `tests/test_frames.py` and the frame fixture record.
 - **MA-04 — Access events.** Detect and refine threshold crossings, pass
   duration, and maximum elevation. **Not started.** No verification claim.
 - **MA-05 — Versioned outputs and provenance.** Produce machine-readable
@@ -33,10 +34,11 @@ acceptance thresholds must be declared before their verification runs.
   EOP warns. Other warnings are future work.
 - **MA-07 — Independent comparison.** Compare agreed cases with an independent
   implementation and later GMAT under matched modelling assumptions.
-  **Partial evidence:** the M1b frame output is compared with an independent
-  published Vallado example, with one unresolved position residual. Independent
-  end-to-end implementation and GMAT comparisons are future work. The M1a
-  package fixture is same-model verification.
+  **Partial evidence:** M1b passes an independent matched split-UT1 Vallado
+  equation reference, and the printed vector is separately reproduced by the
+  historical single-JD path. The direct printed-vector x discrepancy remains
+  recorded. Independent end-to-end implementation and GMAT comparisons are
+  future work. The M1a package fixture is same-model verification.
 - **MA-08 — Temporal station coverage.** Calculate coverage and no-access gaps
   from validated access intervals. **Not started.** No verification claim.
 

@@ -5,7 +5,7 @@ Planned pipeline:
 ```text
 archived input / TLE
     → SGP4 orbit adapter [implemented M1a]
-    → Astropy TEME-to-ITRS frame service [implemented M1b; position discrepancy open]
+    → Astropy TEME-to-ITRS frame service [implemented and matched-case verified M1b]
     → fixed-station/topocentric geometry [future]
     → access-event solver [future]
     → temporal metrics and versioned outputs [future]
@@ -33,5 +33,7 @@ data; predicted EOP emits a warning.
 
 The public states label their frames rather than exposing unlabeled six-element
 arrays. Later geometry can depend on them without depending on `Satrec`. No
-station, event, or output service exists yet. The published frame position
-comparison has a documented 3.17 mm overrun against its frozen component limit.
+station, event, or output service exists yet. The frame service passes the
+independent matched split-UT1 comparison at the frozen limits. The direct
+published-vector comparison retains a documented 3.17 mm x-position overrun
+from the numerical time-path mismatch.

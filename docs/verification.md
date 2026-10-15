@@ -1,8 +1,9 @@
 # Verification evidence — M1a and M1b
 
-**Verification** asks whether the specified TLE-to-TEME software boundary was
-built correctly. **Validation** asks whether the eventual mission-analysis
-model is useful for the intended planning question; see [validation](validation.md).
+**Verification** asks whether the specified TLE-to-TEME and TEME-to-ITRS
+software boundaries were built correctly. **Validation** asks whether the
+eventual mission-analysis model is useful for the intended planning question;
+see [validation](validation.md).
 
 ## Reference vector
 
@@ -51,7 +52,7 @@ The GitHub workflow runs these same checks on push and pull request with
 Python 3.11. Passing this same-model vector test does not establish physical
 orbit truth or validate future access outputs.
 
-## M1b published frame comparison
+## M1b frame case and frozen limits
 
 The independent fixture is [Vallado et al., _Revisiting Spacetrack Report #3_,
 AIAA 2006-6753 Rev. 2, Appendix C, printed page 32](../tests/fixtures/frames/README.md).
@@ -79,30 +80,34 @@ froze per-component limits of `1e-5 km` (10 mm) for position and `1e-7 km/s`
 allow printed input precision and modest numerical convention differences;
 they also detect an omitted Earth-rotation term in velocity by a large margin.
 
-Calculated minus published components with the printed inputs are:
+Production split-UT1 minus published components with the printed inputs are:
 
 - Position: `(-1.317365741e-5, -1.729577889e-6, -4.887897376e-8)` km.
 - Velocity: `(+7.095414922e-8, +3.933593007e-9, +3.025828477e-10)` km/s.
 
 **The first position component exceeds its frozen 10 mm limit by 3.17 mm.**
 The other position components and all velocity components meet their limits.
-The strict expected-failure test preserves this discrepancy visibly in CI;
-it is not a passing position acceptance. The printed input and limit were not
-changed. Investigation confirmed the specified UTC/EOP values and Astropy's
+This remains a documented **direct printed-vector discrepancy**, not a passing
+direct comparison. The printed input and limit were not changed. The
+[approved decision](decisions/0001-matched-split-ut1-frame-reference.md)
+retains the printed vector as historical reproduction evidence and defines the
+active production oracle as independent Vallado equations at matched split
+UT1. Investigation confirmed the specified UTC/EOP values and Astropy's
 Vallado-compatible GMST82 and polar-motion path. A diagnostic 20 µs time
 shift moved that component by 11.52 mm, indicating sensitivity at this scale.
-The later controlled precision diagnosis below explains the comparison offset.
+The controlled precision diagnosis below explains the comparison offset.
 
-The velocity comparison independently remains an active passing test. Simply
+The matched-reference velocity comparison is an active passing test. Simply
 rotating the velocity, without accounting for Earth rotation, would miss by
 roughly `ω⊕ × r` (about 0.58 km/s at this radius), far above `1e-7 km/s`.
 The tests also check the typed state, exact split time, three finite components,
 scoped IERS restoration, and an out-of-range EOP error before state return.
 
-## Single-JD precision diagnosis
+## Published-reference reproduction and single-JD diagnosis
 
-The independent diagnostic in `tests/test_frames.py` reproduces the equations
-and evaluation order in [Skyfield's Appendix C test](https://github.com/skyfielders/python-skyfield/blob/31a6ed7584cd09b6e48e07546a4b5921e1cd5bb4/skyfield/tests/test_earth_satellites.py),
+The independent verification-only code in `tests/verification/vallado.py`
+reproduces the equations and evaluation order in
+[Skyfield's Appendix C test](https://github.com/skyfielders/python-skyfield/blob/31a6ed7584cd09b6e48e07546a4b5921e1cd5bb4/skyfield/tests/test_earth_satellites.py),
 [GMST/TEME implementation](https://github.com/skyfielders/python-skyfield/blob/31a6ed7584cd09b6e48e07546a4b5921e1cd5bb4/skyfield/sgp4lib.py),
 and [Julian-date builder](https://github.com/skyfielders/python-skyfield/blob/31a6ed7584cd09b6e48e07546a4b5921e1cd5bb4/skyfield/timelib.py).
 It uses no Skyfield package at runtime. The following values were calculated
@@ -149,7 +154,7 @@ The PEF position is `(-1033.4750444880924, 7901.3055838546325,
 motion, the single-JD calculation gives the following calculated-minus-
 published residuals:
 
-- Position: `(-4.271691978e-8, -1.207808964e-8, -4.886715033e-8)` km,
+- Position: `(-4.271714715e-8, -1.207899913e-8, -4.886715033e-8)` km,
   inside Skyfield's own `5e-8 km` check.
 - Velocity: `(+6.632236316e-8, +9.311117655e-9, +3.037587959e-10)` km/s,
   inside Skyfield's own `7e-8 km/s` check.
@@ -172,11 +177,30 @@ Astropy `Time` after changing IERS context can matter elsewhere.
 **Disposition:** the discrepancy is strongly bounded to the published
 single-JD numerical path. Skyfield's reproducible calculation shows how the
 printed vector arises, but the original author's internal arithmetic is not
-available to prove its exact historical path. The frozen `1e-5 km` test against
-the printed vector remains a strict expected failure. Its target vector is
-incompatible with the more precise split-UT1 epoch at that limit; production
-precision must not be degraded to make it pass. For engineering review, propose
-retaining the 10 mm numerical limit but comparing the production split-UT1
-result with an independently computed **split-UT1** reference, while keeping
-the published single-JD reproduction as a separate provenance check. No
-acceptance criterion or engineering baseline decision has changed here.
+available to prove its exact historical path. The historical reproduction test
+uses Skyfield's `5e-8 km` and `7e-8 km/s` checks for the printed vector. This
+test does not accept the production implementation.
+
+## Active matched split-UT1 production acceptance
+
+The independent function in `tests/verification/vallado.py` evaluates GMST1982,
+the TEME→PEF rotation, the Earth-rotation velocity term, and the polar-motion
+rotations using ordinary numerical operations. It does not call production
+`teme_to_itrs()` or Astropy's high-level frame transformation. The test supplies
+the same published TEME vector and xp/yp to this function. Its split UT1 comes
+from the fixture's UTC epoch and exact DUT1 under the scoped IERS table; the
+production calculation runs under that same table. The test compares the two
+results directly at the **unchanged** per-component `1e-5 km` position and
+`1e-7 km/s` velocity limits.
+
+Production minus independent matched split-UT1 components with Astropy 7.2.1:
+
+- Position: `(+2.137312549e-11, +4.547473509e-12, 0)` km; maximum absolute
+  component `2.138e-11 km`.
+- Velocity: `(-1.418474227e-10, -1.693534202e-11, -1.170619157e-12)`
+  km/s; maximum absolute component `1.419e-10 km/s`.
+
+Both active position and velocity acceptance tests pass. No acceptance-related
+expected failure remains. The production frame code and original 10 mm limit
+are unchanged. This is a controlled single-case software comparison, not a
+claim of general physical or end-to-end mission-analysis validity.

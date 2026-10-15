@@ -17,8 +17,8 @@ published ITRF vector at the same UTC epoch and Earth-orientation inputs.
 - Published ITRF velocity: `(−3.225636520, −2.872451450,
   5.531924446)` km/s.
 
-The formal test builds a two-day **test-only** Astropy IERS table with constant
-published EOP values across the case epoch. This makes Astropy's interpolation
+The production acceptance test builds a two-day **test-only** Astropy IERS table
+with constant published EOP values across the case epoch. This makes Astropy's interpolation
 at the instant equal the published inputs; it does not claim those constants
 describe the surrounding days. Automatic IERS download is disabled only in
 the scoped test context, which restores the previous settings afterwards.
@@ -38,7 +38,7 @@ standards/library numerical differences while remaining far below the error
 from omitting Earth rotation in velocity. They are not derived from a measured
 residual. A failure requires investigation, not an adjusted limit.
 
-## Observed comparison and open discrepancy
+## Direct printed-vector discrepancy and disposition
 
 With Astropy 7.2.1 and the exact printed UTC/EOP inputs above, the calculated
 minus published residuals are:
@@ -48,16 +48,21 @@ minus published residuals are:
 
 The first position component is **13.17 mm**, above the frozen 10 mm limit.
 The other position components and all velocity components meet their limits.
-The position test remains a strict expected failure, so it stays visible in
-CI and will fail if it unexpectedly passes. The published numbers are not
-altered, and the limit is not relaxed.
+This direct comparison remains recorded as evidence. The published numbers are
+unaltered. The printed vector is reproduced by a separate single-JD reference
+test, while active production acceptance compares an independent Vallado
+calculation at matched split UT1 against the original 10 mm/0.1 mm/s limits.
+See [decision 0001](../../../docs/decisions/0001-matched-split-ut1-frame-reference.md).
 
-The [precision diagnosis](../../../docs/verification.md#single-jd-precision-diagnosis)
+The [precision diagnosis](../../../docs/verification.md#published-reference-reproduction-and-single-jd-diagnosis)
 reproduces the published position within Skyfield's `5e-8 km` reference check
 by following its historical **single-JD** Appendix C path. Using the same
 equations with Astropy's **split UT1 JD** instead reproduces Astropy's result.
 The single-JD path is 22.79 µs later in Earth-rotation phase at this epoch;
 that shift accounts for essentially the entire 13.17 mm x discrepancy. This
 strongly bounds the numerical cause, but does not prove the exact arithmetic
-used to generate Vallado's original printed vector. Acceptance against that
-vector remains open for engineering disposition.
+used to generate Vallado's original printed vector. The matched split-UT1
+production-minus-reference residuals are `(+2.137312549e-11,
++4.547473509e-12, 0) km` and `(-1.418474227e-10, -1.693534202e-11,
+-1.170619157e-12) km/s`, within the unchanged limits. Full details are in the
+[verification record](../../../docs/verification.md#active-matched-split-ut1-production-acceptance).

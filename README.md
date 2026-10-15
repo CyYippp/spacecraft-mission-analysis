@@ -11,8 +11,10 @@ project, not operational mission software.
 - M0: the orbit-kernel design and verification case are agreed; acceptance
   criteria for later geometry and events remain to be defined.
 - M1a: archived TLE → WGS72 SGP4 → typed TEME state is implemented and verified.
-- M1b: TEME → ITRS is implemented; its published position comparison has an
-  open 3.17 mm overrun against the predeclared 10 mm component limit.
+- M1b: TEME → ITRS is implemented and passes a matched split-UT1 independent
+  reference at the original 10 mm position and 0.1 mm/s velocity limits. The
+  printed Appendix C position retains a documented 3.17 mm limit overrun
+  because its reproducible single-JD path has a different numerical UT1 instant.
 - Station geometry, access events, temporal coverage, versioned outputs, and
   independent end-to-end validation have not started.
 
@@ -76,7 +78,7 @@ software verification, not evidence of physical orbit accuracy.
 The software is **not flight-qualified** and **not operational mission
 software**. TLE predictions depend on the SGP4 model and TLE age. The current
 reference-vector check confirms integration with the same/reference model
-family; it does not establish physical orbit truth, coordinate-transform
-correctness of the still-open position reference component, ground-station
+family; the matched frame comparison checks the M1b transformation at one
+controlled case. Neither establishes physical orbit truth, ground-station
 access, or end-to-end validation. See
 [validation](docs/validation.md) for the evidence still needed.

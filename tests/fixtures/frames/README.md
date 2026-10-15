@@ -50,8 +50,14 @@ The first position component is **13.17 mm**, above the frozen 10 mm limit.
 The other position components and all velocity components meet their limits.
 The position test remains a strict expected failure, so it stays visible in
 CI and will fail if it unexpectedly passes. The published numbers are not
-altered, and the limit is not relaxed. The paper gives no extra precision for
-the UTC or UT1−UTC input. A diagnostic 20 µs epoch change moved the first
-component by 11.52 mm, demonstrating sensitivity at the observed scale; it
-does not prove the cause of the paper/Astropy difference. This comparison
-therefore provides only partial acceptance pending engineering review.
+altered, and the limit is not relaxed.
+
+The [precision diagnosis](../../../docs/verification.md#single-jd-precision-diagnosis)
+reproduces the published position within Skyfield's `5e-8 km` reference check
+by following its historical **single-JD** Appendix C path. Using the same
+equations with Astropy's **split UT1 JD** instead reproduces Astropy's result.
+The single-JD path is 22.79 µs later in Earth-rotation phase at this epoch;
+that shift accounts for essentially the entire 13.17 mm x discrepancy. This
+strongly bounds the numerical cause, but does not prove the exact arithmetic
+used to generate Vallado's original printed vector. Acceptance against that
+vector remains open for engineering disposition.

@@ -90,11 +90,93 @@ The strict expected-failure test preserves this discrepancy visibly in CI;
 it is not a passing position acceptance. The printed input and limit were not
 changed. Investigation confirmed the specified UTC/EOP values and Astropy's
 Vallado-compatible GMST82 and polar-motion path. A diagnostic 20 µs time
-shift moved that component by 11.52 mm, indicating sensitivity at this scale;
-the root cause of the paper/Astropy difference remains unresolved.
+shift moved that component by 11.52 mm, indicating sensitivity at this scale.
+The later controlled precision diagnosis below explains the comparison offset.
 
 The velocity comparison independently remains an active passing test. Simply
 rotating the velocity, without accounting for Earth rotation, would miss by
 roughly `ω⊕ × r` (about 0.58 km/s at this radius), far above `1e-7 km/s`.
 The tests also check the typed state, exact split time, three finite components,
 scoped IERS restoration, and an out-of-range EOP error before state return.
+
+## Single-JD precision diagnosis
+
+The independent diagnostic in `tests/test_frames.py` reproduces the equations
+and evaluation order in [Skyfield's Appendix C test](https://github.com/skyfielders/python-skyfield/blob/31a6ed7584cd09b6e48e07546a4b5921e1cd5bb4/skyfield/tests/test_earth_satellites.py),
+[GMST/TEME implementation](https://github.com/skyfielders/python-skyfield/blob/31a6ed7584cd09b6e48e07546a4b5921e1cd5bb4/skyfield/sgp4lib.py),
+and [Julian-date builder](https://github.com/skyfielders/python-skyfield/blob/31a6ed7584cd09b6e48e07546a4b5921e1cd5bb4/skyfield/timelib.py).
+It uses no Skyfield package at runtime. The following values were calculated
+with the fixture's printed UTC and EOP inputs under the scoped IERS table.
+
+- Fresh UTC split JD: `(2453102.0, -0.17258812500000004)`.
+- Astropy retrieves `UT1−UTC = -0.439961 s`, `xp = -0.140682 arcsec`, and
+  `yp = +0.333309 arcsec` (all table statuses `0`). The resulting split UT1
+  JD is `(2453102.0, -0.17259321714120376)`.
+- `erfa.gmst82(ut1.jd1, ut1.jd2) = 5.4595625860266885 rad`. Skyfield's
+  Appendix C GMST1982 equation with that **same split UT1 instant** yields
+  `5.459562586026686 rad`, a difference of `-2.664535259e-15 rad` or
+  `-0.00003654 µs` of sidereal phase.
+- Skyfield's published test builds one floating-point `jd_utc`, then adds
+  DUT1 as `jd_utc + dut1/86400`. This gives `2453101.827406783` UT1 JD and
+  `5.459562587688558 rad`. Relative to split UT1, it is `+22.789995 µs` in
+  time and `+1.661869753e-9 rad` (`+0.000342785 arcsec`) in GMST phase.
+  One float64 JD unit in the last place here is `40.233135 µs`. Simply
+  collapsing Astropy's split UT1 with `jd1 + jd2` produces a *different*
+  `-17.443141 µs` error; evaluation order matters.
+
+The Astropy/PyERFA matrix and the Skyfield-equation matrix using split UT1
+agree element by element. Their maximum absolute element difference is
+`1.998401444e-15`; the full Astropy-minus-Skyfield-split residual matrix is:
+
+```text
+[[+1.998401444e-15, +1.776356839e-15, 0],
+ [-1.776356839e-15, +1.998401444e-15, 0],
+ [-1.694065895e-21, +4.446922973e-21, 0]]
+```
+
+Replacing only the split GMST input with the single-JD value changes the
+Astropy-minus-Skyfield matrix to:
+
+```text
+[[-1.219168433e-9, -1.129353500e-9, 0],
+ [+1.129353500e-9, -1.219168433e-9, 0],
+ [+9.934250163e-16, -2.740358578e-15, 0]]
+```
+
+The PEF position is `(-1033.4750444880924, 7901.3055838546325,
+6380.3445327)` km using split UT1 and `(-1033.475031357152,
+7901.305585572133, 6380.3445327)` km using single-JD UT1. After polar
+motion, the single-JD calculation gives the following calculated-minus-
+published residuals:
+
+- Position: `(-4.271691978e-8, -1.207808964e-8, -4.886715033e-8)` km,
+  inside Skyfield's own `5e-8 km` check.
+- Velocity: `(+6.632236316e-8, +9.311117655e-9, +3.037587959e-10)` km/s,
+  inside Skyfield's own `7e-8 km/s` check.
+
+With `xp = yp = 0`, the split-vs-single xy position difference persists as
+`(+1.313094049e-5, +1.717500709e-6)` km, ruling out polar motion as its
+dominant source. The difference between the split and single results almost
+exactly cancels the original position residual.
+
+Time caching was tested separately. A fresh `Time` made inside the IERS
+context and an untouched `Time` made before it both use the published DUT1 and
+give the same position. A `Time` whose UT1 was accessed *before* entering the
+context retains `-0.440425036040625 s` DUT1 and gives x position
+`-1033.4796635384494 km`, far from the observed residual. The public adapter
+reconstructs a fresh `Time` from the immutable split JD and still returns
+`-1033.4793961736575 km` even when the source `Time` had a cached UT1.
+Caching is therefore not the cause in this test, although direct reuse of
+Astropy `Time` after changing IERS context can matter elsewhere.
+
+**Disposition:** the discrepancy is strongly bounded to the published
+single-JD numerical path. Skyfield's reproducible calculation shows how the
+printed vector arises, but the original author's internal arithmetic is not
+available to prove its exact historical path. The frozen `1e-5 km` test against
+the printed vector remains a strict expected failure. Its target vector is
+incompatible with the more precise split-UT1 epoch at that limit; production
+precision must not be degraded to make it pass. For engineering review, propose
+retaining the 10 mm numerical limit but comparing the production split-UT1
+result with an independently computed **split-UT1** reference, while keeping
+the published single-JD reproduction as a separate provenance check. No
+acceptance criterion or engineering baseline decision has changed here.

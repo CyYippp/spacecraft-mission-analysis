@@ -7,6 +7,9 @@
 - Added a scoped, offline Vallado Appendix C comparison. Velocity and two
   position components meet predeclared limits; the first position component
   exceeds its 10 mm limit by 3.17 mm and remains an open discrepancy.
+- Diagnosed that Skyfield's single-JD Appendix C path reproduces the printed
+  vector, while its split-UT1 path agrees with Astropy; retained the original
+  strict expected failure pending verification-requirement review.
 
 ## M1a orbit kernel and repository setup
 

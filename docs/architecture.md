@@ -6,8 +6,8 @@ Planned pipeline:
 archived input / TLE
     → SGP4 orbit adapter [implemented M1a]
     → Astropy TEME-to-ITRS frame service [implemented and matched-case verified M1b]
-    → fixed-station/topocentric geometry [future]
-    → access-event solver [future]
+    → WGS84 station ITRS → station-relative ITRS → ENU [implemented]
+    → azimuth/elevation/range and access-event solver [future]
     → temporal metrics and versioned outputs [future]
 ```
 
@@ -33,7 +33,17 @@ data; predicted EOP emits a warning.
 
 The public states label their frames rather than exposing unlabeled six-element
 arrays. Later geometry can depend on them without depending on `Satrec`. No
-station, event, or output service exists yet. The frame service passes the
+access-event or output service exists yet. The frame service passes the
 independent matched split-UT1 comparison at the frozen limits. The direct
 published-vector comparison retains a documented 3.17 mm x-position overrun
 from the numerical time-path mismatch.
+
+`GroundStation` holds fixed WGS84 geodetic latitude, east-positive longitude,
+and ellipsoidal height. `station_itrs_position()` uses Astropy
+`EarthLocation.from_geodetic(..., ellipsoid="WGS84")` and `get_itrs(obstime=...)`
+to return a typed `ItrsPosition` in km with the observation epoch and station
+identity. `station_to_satellite_itrs()` subtracts this position from an
+`ItrsState` at the **exact same UTC instant**, producing a station-to-satellite
+`RelativeItrsVector`. `itrs_to_enu()` projects it onto the geodetic East,
+North, Up basis and returns an `EnuVector` in km. No local angles, range output,
+access events, or geoid conversion exist yet.

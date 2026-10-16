@@ -33,8 +33,11 @@ acceptance thresholds must be declared before their verification runs.
   elevation-threshold solver detects sampled entry/exit brackets, refines them
   with local-second Brent roots, and returns typed windows with derived
   duration and clipped-boundary flags. Analytic and internal archived-orbit
-  tests pass. Maximum elevation and independent access validation remain future
-  work. Evidence: `tests/test_access.py`, `tests/test_access_integration.py`.
+  tests pass. Phase A has characterized two development cases against
+  Skyfield's downstream implementation with a shared SGP4 kernel. Maximum
+  elevation and frozen hold-out acceptance remain future work. Evidence:
+  `tests/test_access.py`, `tests/test_access_integration.py`, and
+  `docs/validation.md`.
 - **MA-05 — Versioned outputs and provenance.** Produce machine-readable
   results with units, UTC timestamps, configuration, and source history.
   **Not started.** The M1a fixture records test provenance only.
@@ -48,8 +51,11 @@ acceptance thresholds must be declared before their verification runs.
   **Partial evidence:** M1b passes an independent matched split-UT1 Vallado
   equation reference, and the printed vector is separately reproduced by the
   historical single-JD path. The direct printed-vector x discrepancy remains
-  recorded. Independent end-to-end implementation and GMAT comparisons are
-  future work. The M1a package fixture is same-model verification.
+  recorded. Phase A compares downstream access geometry and events with
+  Skyfield on two development cases; both paths share `sgp4==2.27`, so this
+  does not independently validate propagation. The Skyfield hold-out and GMAT
+  comparisons are future work. The M1a package fixture is same-model
+  verification.
 - **MA-08 — Temporal station coverage.** Calculate coverage and no-access gaps
   from validated access intervals. **Not started.** No verification claim.
 

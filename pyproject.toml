@@ -17,6 +17,7 @@ dependencies = [
 [project.optional-dependencies]
 test = ["pytest==9.1.1"]
 dev = ["pytest==9.1.1", "ruff==0.16.10"]
+validation = ["skyfield==1.55"]
 
 [tool.setuptools.packages.find]
 where = ["src"]

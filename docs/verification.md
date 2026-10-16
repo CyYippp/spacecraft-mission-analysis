@@ -369,3 +369,7 @@ one unclipped positive window, `20:11:00.832`–`20:31:30.100` UTC, duration
 `+7.283304999e-6°` and `+1.045237734e-5°`, below the predeclared
 `0.01°` integration check. These times are observations from the production
 chain and are **not** independent expected event times or physical validation.
+
+The later [Skyfield Phase A record](validation.md) characterizes downstream
+cross-implementation agreement using a shared SGP4 package. It does not
+replace these analytic verification or internal integration tests.

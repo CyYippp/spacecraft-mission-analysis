@@ -20,8 +20,10 @@ portfolio engineering project, not operational mission software.
   implemented and numerically verified. Geometric azimuth/elevation/range is
   implemented and analytically verified. Threshold access events are
   implemented and checked against analytic roots plus one internal archived
-  orbit smoke case. Temporal coverage, versioned outputs, and independent
-  end-to-end access validation have not started.
+  orbit smoke case. Skyfield Phase A compares two development access cases
+  under matched EOP as downstream cross-implementation characterization with
+  a shared SGP4 kernel. The frozen hold-out, temporal coverage, versioned
+  outputs, and independent propagation validation have not started.
 
 The planned baseline is one spacecraft per analysis, archived TLEs, fixed
 ground stations, geometric visibility, and temporal station coverage. Eclipse,
@@ -49,11 +51,12 @@ shows the split-Julian-date call.
 
 Python **3.11 or newer** is required. Direct dependencies and developer tools
 are pinned in `pyproject.toml`, including SciPy 1.17.1 for bracketed root
-refinement. On Windows PowerShell:
+refinement. Skyfield 1.55 is optional for validation and CI. On Windows
+PowerShell:
 
 ```powershell
 python -m venv .venv
-.\.venv\Scripts\python.exe -m pip install -e '.[dev]'
+.\.venv\Scripts\python.exe -m pip install -e '.[dev,validation]'
 .\.venv\Scripts\python.exe -m pip check
 .\.venv\Scripts\python.exe -m compileall -q src tests
 .\.venv\Scripts\python.exe -m ruff format --check .
@@ -89,6 +92,7 @@ reference-vector check confirms integration with the same/reference model
 family; the matched frame comparison checks the M1b transformation at one
 controlled case. Station and look-angle tests check local numerical geometry.
 The access tests establish numerical event behaviour and internal composition
-only; they do not establish physical orbit truth or independently validate
-pass times. See
+only. Phase A adds a matched-input Skyfield comparison of downstream access
+geometry and events; both use the same SGP4 package. It does not establish
+physical orbit truth or independently validate propagation. See
 [validation](docs/validation.md) for the evidence still needed.

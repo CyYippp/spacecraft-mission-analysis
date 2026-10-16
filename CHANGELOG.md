@@ -2,6 +2,11 @@
 
 ## Unreleased
 
+- Added Phase A Skyfield development-case comparison with bundled-timescale
+  DUT1 matched into scoped Astropy IERS data, zero polar motion, pointwise
+  geometric elevation checks, Skyfield event discovery, and validation-only
+  bisection. Skyfield is an optional validation dependency; the shared SGP4
+  kernel and unexecuted hold-out are explicit.
 - Added configurable elevation-threshold access windows with 5 s default
   sampling, local-second Brent refinement at 0.01 s, clipped-boundary flags,
   and an internal archived-orbit smoke test. Analytic event verification is

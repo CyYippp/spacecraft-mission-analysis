@@ -2,6 +2,11 @@
 
 ## Unreleased
 
+- Froze Phase B Skyfield hold-out acceptance before execution: 20 ms per
+  ordinary refined rise/set, `1e-9 deg` maximum pointwise elevation difference,
+  and genuine crossing count/order agreement. Retired the provisional ±2 s
+  proposal; near-threshold and raw-search events retain diagnostic status.
+  Phase A characterization and the unexecuted hold-out fixture are unchanged.
 - Added Phase A Skyfield development-case comparison with bundled-timescale
   DUT1 matched into scoped Astropy IERS data, zero polar motion, pointwise
   geometric elevation checks, Skyfield event discovery, and validation-only

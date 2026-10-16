@@ -129,7 +129,7 @@ complete passes, rise/set respectively, is `(+1.776e-13,+1.386e-13)`,
 `(−1.936e-13,+2.167e-13)`, and `(−4.992e-13,+2.132e-14)°`.
 The JSON report also retains ±30 s residuals and the two boundary crossings.
 
-## Aggregate, limits, and frozen future hold-out
+## Phase A aggregate and Phase B acceptance freeze
 
 For the **ten ordinary complete-window events** (case A plus B passes 2–5),
 maximum absolute production-minus-bisected-Skyfield timing residual is
@@ -138,15 +138,69 @@ elevation residual across both cases is `9.094947018e-13°`. Complete-window
 counts agree. This very close agreement establishes matched software
 conventions for these cases with shared SGP4, not TLE, station, or physical
 pass-time accuracy. Skyfield's raw `find_events()` times are discovery
-outputs, not sub-millisecond references. **No old ±2 s limit or new
-acceptance tolerance is enforced or proposed from this development sample.**
+outputs, not sub-millisecond references. Phase A was characterization only:
+it enforced no ±2 s or other acceptance limit. The Phase B limits below were
+frozen after this development characterization and before any hold-out run.
 
-**Frozen but unexecuted future hold-out:** same archived Vanguard 1 TLE;
+### Frozen Phase B criteria
+
+The comparison retains the same archived TLE, shared `sgp4==2.27` kernel,
+matched Skyfield DUT1 with `xp=yp=0`, WGS84 station convention, and geometric
+altitude without refraction. These are **cross-implementation numerical
+agreement** criteria for the downstream access calculation. They do not
+measure physical pass-time accuracy, TLE prediction accuracy, operational
+navigation accuracy, or physical angular accuracy.
+
+- **Genuine crossing count and order:** compare actual in-interval geometric
+  10° threshold crossings, not the number of `AccessWindow` containers. Both
+  paths must have the same number of genuine rises and genuine sets in the
+  same chronological rise/set order, with corresponding events belonging to
+  the same physical accesses. A clipped analysis boundary is not a crossing.
+  Record every unmatched genuine crossing; any such mismatch fails the
+  event-count/order criterion and requires investigation.
+- **Ordinary crossing time:** for each corresponding rise and set of a
+  complete pass whose Skyfield culmination is `>=15°`, require independently
+  `abs(t_production - t_skyfield_bisected) <= 0.020 s`. Use the
+  validation-only Skyfield geometric bisection, with final bracket width
+  `<=0.001 s`, as the timing reference. The production root-refinement
+  setting is `0.01 s`; matched DUT1 disagreement (`5.362377209e-14 s` at
+  checked instants) and the 14 µs Skyfield epoch-label difference are small
+  against this numerical scale. Phase A had near floating-point pointwise
+  agreement and millisecond refined crossing residuals. The 20 ms margin
+  reflects the two numerical refinement paths; it is not an estimate of the
+  real spacecraft's crossing-time uncertainty.
+- **Pointwise elevation:** on the predefined Phase B sample set, require
+  `max(abs(elevation_production - elevation_skyfield)) <= 1e-9 deg`.
+  The sample set contains the interval start and end, every 300 s from the
+  start, and `−30, 0, +30 s` about each Skyfield bisection-refined genuine
+  rise/set when inside the interval; duplicate timestamps are removed. This
+  is the fixed case-B sampling policy applied to Phase B. The limit leaves
+  numerical margin above Phase A's approximately `1e-12°` residual while
+  detecting a material implementation mismatch.
+- **Near-threshold passes:** when `10° <` Skyfield culmination `<15°`, report
+  the pass, detection by each path, and timing residuals if pairable. Classify
+  it as a near-threshold diagnostic and exclude it from the primary ordinary
+  timing aggregate. A detection disagreement stays visible as a separate
+  detection-validation issue requiring engineering interpretation, given the
+  known finite 5 s production search step. Exclusion alone does not fail the
+  ordinary timing criterion; an unmatched genuine crossing still fails the
+  separate event-count/order criterion.
+- **Raw event timestamps:** retain `t_production - t_skyfield_raw` from
+  `find_events()` as a diagnostic only. No pass/fail decision uses raw search
+  timestamps. The earlier provisional ±2 s proposal is retired; see
+  [decision 0002](decisions/0002-skyfield-holdout-acceptance.md).
+
+**Frozen but unexecuted Phase B hold-out:** same archived Vanguard 1 TLE;
 WGS84 station latitude `−33.5°`, east longitude `+151.2°`, ellipsoidal height
 `100.0 m`; UTC interval `2000-06-28T00:00:00Z` through
 `2000-06-29T00:00:00Z`; 10° geometric mask. No elevation, event, or access
-result for that station/interval has been calculated or recorded. It remains
-untouched until engineering review freezes a hold-out acceptance tolerance.
+result for that station/interval has been calculated or recorded. **Hold-out
+status: defined and acceptance criteria frozen; not yet executed.**
+
+The normal Phase A test checks the two-case registry before it runs; the
+southern-hemisphere hold-out is present only as this written fixture and has
+no executable case in the Phase A registry. No Phase B expected values or
+runner are introduced by this criteria freeze.
 
 Earlier matched split-UT1 Vallado frame verification and its documented
 direct printed-vector x-position overrun of 3.17 mm remain unchanged; see

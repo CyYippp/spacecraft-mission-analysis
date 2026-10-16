@@ -35,7 +35,8 @@ acceptance thresholds must be declared before their verification runs.
   duration and clipped-boundary flags. Analytic and internal archived-orbit
   tests pass. Phase A has characterized two development cases against
   Skyfield's downstream implementation with a shared SGP4 kernel. Maximum
-  elevation and frozen hold-out acceptance remain future work. Evidence:
+  elevation and hold-out execution remain future work; Phase B acceptance
+  criteria are frozen before execution. Evidence:
   `tests/test_access.py`, `tests/test_access_integration.py`, and
   `docs/validation.md`.
 - **MA-05 — Versioned outputs and provenance.** Produce machine-readable
@@ -53,9 +54,9 @@ acceptance thresholds must be declared before their verification runs.
   historical single-JD path. The direct printed-vector x discrepancy remains
   recorded. Phase A compares downstream access geometry and events with
   Skyfield on two development cases; both paths share `sgp4==2.27`, so this
-  does not independently validate propagation. The Skyfield hold-out and GMAT
-  comparisons are future work. The M1a package fixture is same-model
-  verification.
+  does not independently validate propagation. The Skyfield hold-out criteria
+  are frozen, but its comparison has not run; GMAT remains future work. The
+  M1a package fixture is same-model verification.
 - **MA-08 — Temporal station coverage.** Calculate coverage and no-access gaps
   from validated access intervals. **Not started.** No verification claim.
 

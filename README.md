@@ -22,8 +22,9 @@ portfolio engineering project, not operational mission software.
   implemented and checked against analytic roots plus one internal archived
   orbit smoke case. Skyfield Phase A compares two development access cases
   under matched EOP as downstream cross-implementation characterization with
-  a shared SGP4 kernel. The frozen hold-out, temporal coverage, versioned
-  outputs, and independent propagation validation have not started.
+  a shared SGP4 kernel. Phase B hold-out acceptance criteria are frozen, but
+  the hold-out has not been executed. Temporal coverage, versioned outputs,
+  and independent propagation validation have not started.
 
 The planned baseline is one spacecraft per analysis, archived TLEs, fixed
 ground stations, geometric visibility, and temporal station coverage. Eclipse,

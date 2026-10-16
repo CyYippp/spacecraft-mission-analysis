@@ -1,12 +1,12 @@
-# Validation status — Skyfield Phase A development characterization
+# Validation status — Skyfield development and hold-out comparison
 
 The analytic access tests are **verification**, and the archived Vanguard 1
-smoke test is **internal integration verification**. Phase A adds
-**downstream cross-implementation validation with a shared SGP4 kernel**.
+smoke test is **internal integration verification**. Phase A characterized two
+development cases; Phase B tested a frozen hold-out. Both are **downstream
+cross-implementation validation with a shared SGP4 kernel**.
 Skyfield 1.55 constructs its `EarthSatellite` through the same installed
-`sgp4==2.27` package used by production. This is not independent SGP4
-propagation, operational orbit prediction, or a frozen hold-out acceptance
-test. Installed versions for this record: Skyfield 1.55, sgp4 2.27, Astropy
+`sgp4==2.27` package used by production. Neither phase independently validates
+SGP4 propagation or operational orbit prediction. Installed versions: Skyfield 1.55, sgp4 2.27, Astropy
 7.2.1, SciPy 1.17.1. Skyfield is a `validation` optional dependency only.
 
 The reproducible [Phase A comparison code](../tests/validation/skyfield_phase_a.py)
@@ -190,20 +190,79 @@ navigation accuracy, or physical angular accuracy.
   timestamps. The earlier provisional ±2 s proposal is retired; see
   [decision 0002](decisions/0002-skyfield-holdout-acceptance.md).
 
-**Frozen but unexecuted Phase B hold-out:** same archived Vanguard 1 TLE;
+**Pre-execution frozen Phase B fixture:** same archived Vanguard 1 TLE;
 WGS84 station latitude `−33.5°`, east longitude `+151.2°`, ellipsoidal height
 `100.0 m`; UTC interval `2000-06-28T00:00:00Z` through
-`2000-06-29T00:00:00Z`; 10° geometric mask. No elevation, event, or access
-result for that station/interval has been calculated or recorded. **Hold-out
-status: defined and acceptance criteria frozen; not yet executed.**
+`2000-06-29T00:00:00Z`; 10° geometric mask. At the criteria-freeze commit,
+**hold-out status was: defined and acceptance criteria frozen; not yet
+executed.** The first execution and its result are recorded below.
 
 The normal Phase A test checks the two-case registry before it runs; the
-southern-hemisphere hold-out is present only as this written fixture and has
-no executable case in the Phase A registry. No Phase B expected values or
-runner are introduced by this criteria freeze.
+southern-hemisphere hold-out was present only as this written fixture at the
+criteria freeze and has never been added to the Phase A registry. The Phase B
+runner is explicitly invoked and is not run by normal pytest or CI.
+
+## Phase B first-observed hold-out result — PASS
+
+The fixture and all criteria above were frozen in merged Decision 0002 before
+any hold-out result was exposed. The already frozen pointwise sampling rule
+was used unchanged: 300 s grid including both boundaries, plus the bisected
+Skyfield genuine crossings at `−30, 0, +30 s` within the interval, with
+identical timestamps removed. The validation-only runner was committed before
+execution. An initial launch stopped in an EOP-only preflight: Astropy needed
+June 30 as interpolation support for the exact June 29 end. No Phase B orbit,
+elevation, event, or result artifact existed at that point. Commit `fdaa200`
+added that support day with the same Skyfield DUT1, scoped offline IERS,
+zero-polar-motion convention; the subsequent first numerical execution used
+source commit `fdaa2002b733dbc937312aa558d74bfaeec11000` and completed
+on 2026-10-16 at `15:35:59.708412Z`. No acceptance or production setting was
+changed.
+
+The complete first-observed [machine-readable result](../tests/validation/phase_b_results.json)
+contains every event, raw and bisected time, access window, pairing, pointwise
+sample, and criterion status. Its SHA-256 is
+`a521e8e859e2b799f1ead7b5b295ba1ff4afacac0c24ec1530a24e9bc3b20fc6`.
+The archived TLE fixture SHA-256 was
+`40382ec8a43d7f5e410de127103d1faed9fd35d5e0d4ad0a496ab799bde087bb`;
+the unchanged Phase A artifact SHA-256 was
+`7472063e8ae304dc10948a712cabdebdf2d570753f08c09884cf5b35914fb3a4`.
+
+Skyfield's bundled daily `UT1−UTC` values, in seconds, were June 26
+`+0.20572409999999763`, June 27 `+0.20528859999999582`, June 28
+`+0.20485180000000014`, June 29 `+0.20448189999999755`, and June 30
+`+0.20424069999999972`. The outer dates support interpolation; June 30 is
+needed at the hold-out end. At the start, an interior instant, and the end,
+the maximum absolute Astropy-minus-Skyfield DUT1 mismatch was
+`4.482525462e-14 s`. Both paths used `xp=yp=0`, geometric altitude without
+refraction, and the same `sgp4==2.27` WGS72 propagation kernel.
+
+- **Event sequence — PASS:** production and Skyfield each found five complete
+  passes, five genuine rises, and five genuine sets. Both sequences alternate
+  rise/set in the same order; the five access intervals correspond uniquely.
+  No interval was clipped and no genuine crossing was unmatched.
+- **Ordinary timing — PASS:** four passes had Skyfield culmination `>=15°`,
+  yielding eight independently checked rise/set events. Maximum absolute
+  production-minus-bisected-Skyfield difference was `0.001921201 s` and RMS
+  was `0.000832603 s`, against `<=0.020 s` per event.
+- **Pointwise elevation — PASS:** across 319 frozen samples, maximum absolute
+  production-minus-Skyfield geometric elevation difference was
+  `1.108446668e-12°` at `2000-06-28T09:50:00Z`; RMS was
+  `2.812810257e-13°`, against `<=1e-9°`.
+- **Near-threshold diagnostic:** pass 5 culminated at `14.373091122°`.
+  Both implementations detected and uniquely paired its rise and set. The
+  refined differences were `+0.001616865 s` and `+0.000247823 s`; both are
+  reported but excluded from the ordinary timing aggregate. Its raw
+  Skyfield set-time difference was `−0.106258177 s`, illustrating why raw
+  `find_events()` timestamps remain diagnostic only.
+
+The five Skyfield culmination elevations were `34.595140988°`,
+`66.932373145°`, `86.074007220°`, `70.584128757°`, and `14.373091122°`
+in chronological order. The **overall Phase B disposition is PASS** for the
+frozen downstream numerical agreement criteria. This does not establish the
+real spacecraft's pass times, physical angular accuracy, independent SGP4
+accuracy, or operational navigation performance. GMAT comparison, physical
+orbit-prediction accuracy, and temporal coverage remain future work.
 
 Earlier matched split-UT1 Vallado frame verification and its documented
 direct printed-vector x-position overrun of 3.17 mm remain unchanged; see
-[verification](verification.md). GMAT secondary cross-tool/cross-model
-comparison, physical orbit-prediction accuracy, and temporal coverage are
-future work.
+[verification](verification.md).

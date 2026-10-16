@@ -1,0 +1,435 @@
+{
+  "versions": {
+    "skyfield": "1.55",
+    "sgp4": "2.27",
+    "astropy": "7.2.1",
+    "scipy": "1.17.1"
+  },
+  "tle_catalog_id": 5,
+  "tle_epoch_utc": "2000-06-27T18:50:19.734",
+  "skyfield_epoch_utc": "2000-06-27T18:50:19.733582+00:00",
+  "sgp4_mu_km3_s2": 398600.8,
+  "sgp4_radius_km": 6378.135,
+  "dut1_by_day_s": {
+    "2000-06-26T00:00:00+00:00": 0.20572409999999763,
+    "2000-06-27T00:00:00+00:00": 0.20528859999999582,
+    "2000-06-28T00:00:00+00:00": 0.20485180000000014,
+    "2000-06-29T00:00:00+00:00": 0.20448189999999755
+  },
+  "max_abs_dut1_interpolation_residual_s": 5.362377208939506e-14,
+  "polar_motion_arcsec": {
+    "xp": 0.0,
+    "yp": 0.0
+  },
+  "cases": [
+    {
+      "name": "A_equator_greenwich",
+      "station": {
+        "name": "Equator Greenwich synthetic fixed WGS84 station",
+        "latitude_deg": 0.0,
+        "longitude_deg": 0.0,
+        "height_m": 0.0
+      },
+      "start_utc": "2000-06-27T20:00:00+00:00",
+      "end_utc": "2000-06-27T20:40:00+00:00",
+      "mask_deg": 10.0,
+      "pointwise_sample_count": 47,
+      "pointwise_max_abs_delta_el_deg": 5.995204332975845e-13,
+      "pointwise_signed_delta_el_at_max_deg": 5.995204332975845e-13,
+      "pointwise_max_time_utc": "2000-06-27T20:37:00+00:00",
+      "pointwise_rms_delta_el_deg": 2.211816873861195e-13,
+      "near_crossings": [
+        {
+          "code": 0,
+          "refined_utc": "2000-06-27T20:11:00.879347+00:00",
+          "delta_el_deg": {
+            "-30": 1.4210854715202004e-14,
+            "0": -1.2256862191861728e-13,
+            "30": 4.263256414560601e-14
+          }
+        },
+        {
+          "code": 2,
+          "refined_utc": "2000-06-27T20:31:30.103292+00:00",
+          "delta_el_deg": {
+            "-30": 4.796163466380676e-13,
+            "0": 9.414691248821327e-14,
+            "30": 3.0020430585864233e-13
+          }
+        }
+      ],
+      "production_total_windows": 1,
+      "production_complete_windows": 1,
+      "production_clipped_windows": [],
+      "skyfield_complete_windows": 1,
+      "skyfield_raw_rises": 1,
+      "skyfield_raw_sets": 1,
+      "skyfield_culminations": [
+        {
+          "time_utc": "2000-06-27T20:22:58.291995+00:00",
+          "elevation_deg": 20.19309467365025
+        }
+      ],
+      "skyfield_incomplete_events": [],
+      "paired_complete_windows": [
+        {
+          "culmination_deg": 20.19309467365025,
+          "ordinary_for_timing": true,
+          "rise": {
+            "production_utc": "2000-06-27T20:11:00.879898+00:00",
+            "skyfield_raw_utc": "2000-06-27T20:11:01.017592+00:00",
+            "skyfield_refined_utc": "2000-06-27T20:11:00.879347+00:00",
+            "production_minus_raw_s": -0.13769377863503962,
+            "production_minus_refined_s": 0.000551221378941591,
+            "skyfield_mask_at_production_deg": 7.611160565801356e-06,
+            "production_mask_at_skyfield_refined_deg": -3.671118319559241e-06,
+            "skyfield_bisection_width_s": 0.00061,
+            "skyfield_bisection_mask_residual_deg": -3.6711181969906193e-06,
+            "skyfield_initial_bracket_half_width_s": 5
+          },
+          "set": {
+            "production_utc": "2000-06-27T20:31:30.103190+00:00",
+            "skyfield_raw_utc": "2000-06-27T20:31:30.209798+00:00",
+            "skyfield_refined_utc": "2000-06-27T20:31:30.103292+00:00",
+            "production_minus_raw_s": -0.10660834772728833,
+            "production_minus_refined_s": -0.00010234773029083044,
+            "skyfield_mask_at_production_deg": 1.0786882528535102e-05,
+            "production_mask_at_skyfield_refined_deg": 6.970103504144731e-06,
+            "skyfield_bisection_width_s": 0.000611,
+            "skyfield_bisection_mask_residual_deg": 6.970103409997819e-06,
+            "skyfield_initial_bracket_half_width_s": 5
+          }
+        }
+      ]
+    },
+    {
+      "name": "B_35N_120W",
+      "station": {
+        "name": "Synthetic WGS84 35N 120W station",
+        "latitude_deg": 35.0,
+        "longitude_deg": -120.0,
+        "height_m": 250.0
+      },
+      "start_utc": "2000-06-27T00:00:00+00:00",
+      "end_utc": "2000-06-28T00:00:00+00:00",
+      "mask_deg": 10.0,
+      "pointwise_sample_count": 325,
+      "pointwise_max_abs_delta_el_deg": 9.094947017729282e-13,
+      "pointwise_signed_delta_el_at_max_deg": -9.094947017729282e-13,
+      "pointwise_max_time_utc": "2000-06-27T17:00:00+00:00",
+      "pointwise_rms_delta_el_deg": 2.4829522997642745e-13,
+      "near_crossings": [
+        {
+          "code": 2,
+          "refined_utc": "2000-06-27T00:10:44.353931+00:00",
+          "delta_el_deg": {
+            "-30": -7.460698725481052e-14,
+            "0": -7.638334409421077e-13,
+            "30": -5.5067062021407764e-14
+          }
+        },
+        {
+          "code": 0,
+          "refined_utc": "2000-06-27T02:05:03.673842+00:00",
+          "delta_el_deg": {
+            "-30": 6.625811010962934e-13,
+            "0": 1.7763568394002505e-13,
+            "30": 3.943512183468556e-13
+          }
+        },
+        {
+          "code": 2,
+          "refined_utc": "2000-06-27T02:23:10.577944+00:00",
+          "delta_el_deg": {
+            "-30": 4.050093593832571e-13,
+            "0": 1.3855583347321954e-13,
+            "30": 1.3855583347321954e-13
+          }
+        },
+        {
+          "code": 0,
+          "refined_utc": "2000-06-27T14:30:35.655113+00:00",
+          "delta_el_deg": {
+            "-30": -8.43769498715119e-14,
+            "0": -1.0658141036401503e-13,
+            "30": -1.1368683772161603e-13
+          }
+        },
+        {
+          "code": 2,
+          "refined_utc": "2000-06-27T14:46:37.280572+00:00",
+          "delta_el_deg": {
+            "-30": 1.5987211554602254e-14,
+            "0": -2.1316282072803006e-14,
+            "30": -5.329070518200751e-15
+          }
+        },
+        {
+          "code": 0,
+          "refined_utc": "2000-06-27T16:48:19.568479+00:00",
+          "delta_el_deg": {
+            "-30": -2.877698079828406e-13,
+            "0": -2.3447910280083306e-13,
+            "30": 4.369837824924616e-13
+          }
+        },
+        {
+          "code": 2,
+          "refined_utc": "2000-06-27T17:15:33.840608+00:00",
+          "delta_el_deg": {
+            "-30": 1.5631940186722204e-13,
+            "0": 5.346834086594754e-13,
+            "30": 1.2789769243681803e-13
+          }
+        },
+        {
+          "code": 0,
+          "refined_utc": "2000-06-27T19:08:53.947734+00:00",
+          "delta_el_deg": {
+            "-30": -2.149391775674303e-13,
+            "0": -1.936228954946273e-13,
+            "30": -1.4033219031261979e-13
+          }
+        },
+        {
+          "code": 2,
+          "refined_utc": "2000-06-27T19:45:10.960360+00:00",
+          "delta_el_deg": {
+            "-30": 1.2967404927621828e-13,
+            "0": 2.1671553440683056e-13,
+            "30": 2.220446049250313e-13
+          }
+        },
+        {
+          "code": 0,
+          "refined_utc": "2000-06-27T21:31:08.392089+00:00",
+          "delta_el_deg": {
+            "-30": 8.348877145181177e-14,
+            "0": -4.991562718714704e-13,
+            "30": 6.039613253960852e-14
+          }
+        },
+        {
+          "code": 2,
+          "refined_utc": "2000-06-27T22:12:29.079633+00:00",
+          "delta_el_deg": {
+            "-30": 3.730349362740526e-14,
+            "0": 2.1316282072803006e-14,
+            "30": 4.440892098500626e-14
+          }
+        },
+        {
+          "code": 0,
+          "refined_utc": "2000-06-27T23:56:31.505327+00:00",
+          "delta_el_deg": {
+            "-30": 2.682298827494378e-13,
+            "0": 3.2507330161024584e-13,
+            "30": 1.1546319456101628e-13
+          }
+        }
+      ],
+      "production_total_windows": 7,
+      "production_complete_windows": 5,
+      "production_clipped_windows": [
+        {
+          "start_utc": "2000-06-27T00:00:00+00:00",
+          "end_utc": "2000-06-27T00:10:44.353987+00:00",
+          "start_clipped": true,
+          "end_clipped": false
+        },
+        {
+          "start_utc": "2000-06-27T23:56:31.505438+00:00",
+          "end_utc": "2000-06-28T00:00:00+00:00",
+          "start_clipped": false,
+          "end_clipped": true
+        }
+      ],
+      "skyfield_complete_windows": 5,
+      "skyfield_raw_rises": 6,
+      "skyfield_raw_sets": 6,
+      "skyfield_culminations": [
+        {
+          "time_utc": "2000-06-27T02:14:21.464624+00:00",
+          "elevation_deg": 13.759443429057018
+        },
+        {
+          "time_utc": "2000-06-27T14:36:45.232712+00:00",
+          "elevation_deg": 28.926670451107697
+        },
+        {
+          "time_utc": "2000-06-27T16:57:38.835823+00:00",
+          "elevation_deg": 74.93103682360666
+        },
+        {
+          "time_utc": "2000-06-27T19:22:18.436059+00:00",
+          "elevation_deg": 87.19576207894298
+        },
+        {
+          "time_utc": "2000-06-27T21:48:57.734499+00:00",
+          "elevation_deg": 67.23331775840784
+        }
+      ],
+      "skyfield_incomplete_events": [
+        {
+          "kind": "set_without_in_interval_rise",
+          "code": 2,
+          "time_utc": "2000-06-27T00:10:44.374378+00:00"
+        },
+        {
+          "kind": "rise_without_in_interval_set",
+          "code": 0,
+          "time_utc": "2000-06-27T23:56:31.529436+00:00"
+        }
+      ],
+      "paired_complete_windows": [
+        {
+          "culmination_deg": 13.759443429057018,
+          "ordinary_for_timing": false,
+          "rise": {
+            "production_utc": "2000-06-27T02:05:03.672310+00:00",
+            "skyfield_raw_utc": "2000-06-27T02:05:03.701002+00:00",
+            "skyfield_refined_utc": "2000-06-27T02:05:03.673842+00:00",
+            "production_minus_raw_s": -0.02869194108860995,
+            "production_minus_refined_s": -0.0015319410907821407,
+            "skyfield_mask_at_production_deg": -2.0299144473767683e-05,
+            "production_mask_at_skyfield_refined_deg": -9.700308218896225e-07,
+            "skyfield_bisection_width_s": 0.000611,
+            "skyfield_bisection_mask_residual_deg": -9.700309995253065e-07,
+            "skyfield_initial_bracket_half_width_s": 5
+          },
+          "set": {
+            "production_utc": "2000-06-27T02:23:10.576034+00:00",
+            "skyfield_raw_utc": "2000-06-27T02:23:10.580080+00:00",
+            "skyfield_refined_utc": "2000-06-27T02:23:10.577944+00:00",
+            "production_minus_raw_s": -0.004046347586594834,
+            "production_minus_refined_s": -0.0019103475825232863,
+            "skyfield_mask_at_production_deg": 3.0340050486188375e-05,
+            "production_mask_at_skyfield_refined_deg": 3.671227325696691e-06,
+            "skyfield_bisection_width_s": 0.00061,
+            "skyfield_bisection_mask_residual_deg": 3.6712271871408575e-06,
+            "skyfield_initial_bracket_half_width_s": 5
+          }
+        },
+        {
+          "culmination_deg": 28.926670451107697,
+          "ordinary_for_timing": true,
+          "rise": {
+            "production_utc": "2000-06-27T14:30:35.653896+00:00",
+            "skyfield_raw_utc": "2000-06-27T14:30:35.703636+00:00",
+            "skyfield_refined_utc": "2000-06-27T14:30:35.655113+00:00",
+            "production_minus_raw_s": -0.04974044070067407,
+            "production_minus_refined_s": -0.001217440705048034,
+            "skyfield_mask_at_production_deg": -7.14506572450091e-05,
+            "production_mask_at_skyfield_refined_deg": 1.559320010535714e-05,
+            "skyfield_bisection_width_s": 0.00061,
+            "skyfield_bisection_mask_residual_deg": 1.559320021193855e-05,
+            "skyfield_initial_bracket_half_width_s": 5
+          },
+          "set": {
+            "production_utc": "2000-06-27T14:46:37.282603+00:00",
+            "skyfield_raw_utc": "2000-06-27T14:46:37.313226+00:00",
+            "skyfield_refined_utc": "2000-06-27T14:46:37.280572+00:00",
+            "production_minus_raw_s": -0.030622677651237495,
+            "production_minus_refined_s": 0.0020313223359380572,
+            "skyfield_mask_at_production_deg": -6.89556594988261e-05,
+            "production_mask_at_skyfield_refined_deg": -1.5342373309579216e-06,
+            "skyfield_bisection_width_s": 0.00061,
+            "skyfield_bisection_mask_residual_deg": -1.5342373096416395e-06,
+            "skyfield_initial_bracket_half_width_s": 5
+          }
+        },
+        {
+          "culmination_deg": 74.93103682360666,
+          "ordinary_for_timing": true,
+          "rise": {
+            "production_utc": "2000-06-27T16:48:19.566882+00:00",
+            "skyfield_raw_utc": "2000-06-27T16:48:19.592588+00:00",
+            "skyfield_refined_utc": "2000-06-27T16:48:19.568479+00:00",
+            "production_minus_raw_s": -0.02570621990152233,
+            "production_minus_refined_s": -0.001597219901938729,
+            "skyfield_mask_at_production_deg": -0.00014791475441988666,
+            "production_mask_at_skyfield_refined_deg": -1.6264759270967488e-05,
+            "skyfield_bisection_width_s": 0.00061,
+            "skyfield_bisection_mask_residual_deg": -1.6264759036488385e-05,
+            "skyfield_initial_bracket_half_width_s": 5
+          },
+          "set": {
+            "production_utc": "2000-06-27T17:15:33.842092+00:00",
+            "skyfield_raw_utc": "2000-06-27T17:15:33.853730+00:00",
+            "skyfield_refined_utc": "2000-06-27T17:15:33.840608+00:00",
+            "production_minus_raw_s": -0.011637619504867303,
+            "production_minus_refined_s": 0.0014843805065112292,
+            "skyfield_mask_at_production_deg": -4.8654800961500655e-05,
+            "production_mask_at_skyfield_refined_deg": -7.060192785957042e-07,
+            "skyfield_bisection_width_s": 0.00061,
+            "skyfield_bisection_mask_residual_deg": -7.060198132791129e-07,
+            "skyfield_initial_bracket_half_width_s": 5
+          }
+        },
+        {
+          "culmination_deg": 87.19576207894298,
+          "ordinary_for_timing": true,
+          "rise": {
+            "production_utc": "2000-06-27T19:08:53.945443+00:00",
+            "skyfield_raw_utc": "2000-06-27T19:08:53.952312+00:00",
+            "skyfield_refined_utc": "2000-06-27T19:08:53.947734+00:00",
+            "production_minus_raw_s": -0.006869131637898818,
+            "production_minus_refined_s": -0.0022911316523988035,
+            "skyfield_mask_at_production_deg": -0.00014955093769764005,
+            "production_mask_at_skyfield_refined_deg": 5.090041833355485e-06,
+            "skyfield_bisection_width_s": 0.00061,
+            "skyfield_bisection_mask_residual_deg": 5.090042026978381e-06,
+            "skyfield_initial_bracket_half_width_s": 5
+          },
+          "set": {
+            "production_utc": "2000-06-27T19:45:10.960948+00:00",
+            "skyfield_raw_utc": "2000-06-27T19:45:10.996066+00:00",
+            "skyfield_refined_utc": "2000-06-27T19:45:10.960360+00:00",
+            "production_minus_raw_s": -0.03511811026299938,
+            "production_minus_refined_s": 0.0005878897464839383,
+            "skyfield_mask_at_production_deg": -2.6644738191805573e-05,
+            "production_mask_at_skyfield_refined_deg": -7.918022296493632e-06,
+            "skyfield_bisection_width_s": 0.00061,
+            "skyfield_bisection_mask_residual_deg": -7.918022513209166e-06,
+            "skyfield_initial_bracket_half_width_s": 5
+          }
+        },
+        {
+          "culmination_deg": 67.23331775840784,
+          "ordinary_for_timing": true,
+          "rise": {
+            "production_utc": "2000-06-27T21:31:08.390860+00:00",
+            "skyfield_raw_utc": "2000-06-27T21:31:08.421691+00:00",
+            "skyfield_refined_utc": "2000-06-27T21:31:08.392089+00:00",
+            "production_minus_raw_s": -0.030831440143330724,
+            "production_minus_refined_s": -0.0012294401496859564,
+            "skyfield_mask_at_production_deg": -7.508678875289831e-05,
+            "production_mask_at_skyfield_refined_deg": -1.0974417016029747e-05,
+            "skyfield_bisection_width_s": 0.000611,
+            "skyfield_bisection_mask_residual_deg": -1.0974416516873475e-05,
+            "skyfield_initial_bracket_half_width_s": 5
+          },
+          "set": {
+            "production_utc": "2000-06-27T22:12:29.080264+00:00",
+            "skyfield_raw_utc": "2000-06-27T22:12:29.111676+00:00",
+            "skyfield_refined_utc": "2000-06-27T22:12:29.079633+00:00",
+            "production_minus_raw_s": -0.0314123571794056,
+            "production_minus_refined_s": 0.0006306428243618711,
+            "skyfield_mask_at_production_deg": -2.090320980840943e-05,
+            "production_mask_at_skyfield_refined_deg": 1.2625826020240538e-06,
+            "skyfield_bisection_width_s": 0.000611,
+            "skyfield_bisection_mask_residual_deg": 1.2625825807077717e-06,
+            "skyfield_initial_bracket_half_width_s": 5
+          }
+        }
+      ]
+    }
+  ],
+  "aggregate": {
+    "ordinary_event_count": 10,
+    "max_abs_refined_timing_residual_s": 0.0022911316523988035,
+    "rms_refined_timing_residual_s": 0.0013483835258846022,
+    "max_abs_pointwise_delta_el_deg": 9.094947017729282e-13,
+    "complete_window_count_agreement": true
+  }
+}

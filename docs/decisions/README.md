@@ -12,3 +12,6 @@ the M1b acceptance reference while retaining the numerical limits. The current
 orbit boundary and its evidence are described in
 [`architecture.md`](../architecture.md) and
 [`verification.md`](../verification.md).
+
+[Decision 0002](0002-skyfield-holdout-acceptance.md) freezes the Skyfield
+Phase B downstream comparison criteria before the hold-out is executed.

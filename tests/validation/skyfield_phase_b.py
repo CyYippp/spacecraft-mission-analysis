@@ -11,15 +11,18 @@ import json
 import os
 import subprocess
 import sys
+from contextlib import contextmanager
 from datetime import datetime, timedelta, timezone
 from math import isfinite, sqrt
 from pathlib import Path
 
 import astropy
+import astropy.units as u
 import scipy
 import sgp4
 import skyfield
 import skyfield_phase_a as phase_a
+from astropy.utils import iers
 from skyfield.api import EarthSatellite, load, wgs84
 
 from spacecraft_mission_analysis import (
@@ -71,6 +74,23 @@ def _git(*args: str) -> str:
 
 def _sha256(path: Path) -> str:
     return hashlib.sha256(path.read_bytes()).hexdigest()
+
+
+@contextmanager
+def _matched_holdout_eop(ts):
+    """Use Phase A's EOP convention, with June 30 supporting the exact end."""
+    dates = [datetime(2000, 6, day, tzinfo=UTC) for day in (26, 27, 28, 29, 30)]
+    dut1_s = [float(phase_a._skyfield_time(ts, day).dut1) for day in dates]
+    table = iers.IERS(
+        {
+            "MJD": [float(phase_a._astropy_time(day).mjd) for day in dates] * u.day,
+            "UT1_UTC": dut1_s * u.s,
+            "PM_x": [0.0] * len(dates) * u.arcsec,
+            "PM_y": [0.0] * len(dates) * u.arcsec,
+        }
+    )
+    with iers.conf.set_temp("auto_download", False), iers.earth_orientation_table.set(table):
+        yield {day.isoformat(): dut1 for day, dut1 in zip(dates, dut1_s, strict=True)}
 
 
 def _preflight() -> tuple[str, str, str]:
@@ -386,7 +406,7 @@ def main() -> None:
     station = GroundStation(**CASE["station"])
     site = wgs84.latlon(station.latitude_deg, station.longitude_deg, elevation_m=station.height_m)
 
-    with phase_a._matched_eop(ts) as dut1_by_day:
+    with _matched_holdout_eop(ts) as dut1_by_day:
         check_times = (start, start + timedelta(hours=12, minutes=34, seconds=56.789), end)
         dut1_checks = [
             {

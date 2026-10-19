@@ -22,8 +22,9 @@ portfolio engineering project, not operational mission software.
   implemented and checked against analytic roots plus one internal archived
   orbit smoke case. Skyfield Phase A compares two development access cases
   under matched EOP as downstream cross-implementation characterization with
-  a shared SGP4 kernel. Phase B hold-out acceptance criteria are frozen, but
-  the hold-out has not been executed. Temporal coverage, versioned outputs,
+  a shared SGP4 kernel. The predeclared Phase B Skyfield hold-out passes its
+  downstream numerical agreement criteria; see the [first-observed validation
+  record](docs/validation.md). Temporal coverage, versioned product outputs,
   and independent propagation validation have not started.
 
 The planned baseline is one spacecraft per analysis, archived TLEs, fixed
@@ -92,8 +93,8 @@ software**. TLE predictions depend on the SGP4 model and TLE age. The current
 reference-vector check confirms integration with the same/reference model
 family; the matched frame comparison checks the M1b transformation at one
 controlled case. Station and look-angle tests check local numerical geometry.
-The access tests establish numerical event behaviour and internal composition
-only. Phase A adds a matched-input Skyfield comparison of downstream access
-geometry and events; both use the same SGP4 package. It does not establish
-physical orbit truth or independently validate propagation. See
+The access tests establish numerical event behaviour and internal composition.
+Phase A and the frozen Phase B hold-out compare downstream access geometry and
+events with Skyfield; both use the same SGP4 package. Passing Phase B does not
+establish physical orbit truth or independently validate propagation. See
 [validation](docs/validation.md) for the evidence still needed.

@@ -1,0 +1,2534 @@
+{
+  "acceptance": {
+    "max_pointwise_elevation_diff_deg": 1e-09,
+    "max_refined_event_time_diff_s": 0.02,
+    "ordinary_culmination_min_deg": 15.0,
+    "pointwise_sampling": "300 s grid including bounds; Skyfield bisected genuine rise/set at -30, 0, +30 s inside interval; deduplicate",
+    "raw_find_events_timing": "diagnostic only"
+  },
+  "conventions": {
+    "astropy_iers": "scoped offline table with Skyfield daily DUT1",
+    "polar_motion_arcsec": {
+      "xp": 0.0,
+      "yp": 0.0
+    },
+    "production_coarse_step_s": 5.0,
+    "production_root_tolerance_s": 0.01,
+    "refraction": false,
+    "shared_sgp4_kernel": true,
+    "skyfield_bisection_width_s": 0.001,
+    "skyfield_timescale": "bundled builtin"
+  },
+  "corresponding_accesses": [
+    {
+      "production_access_index": 0,
+      "skyfield_access_index": 0
+    },
+    {
+      "production_access_index": 1,
+      "skyfield_access_index": 1
+    },
+    {
+      "production_access_index": 2,
+      "skyfield_access_index": 2
+    },
+    {
+      "production_access_index": 3,
+      "skyfield_access_index": 3
+    },
+    {
+      "production_access_index": 4,
+      "skyfield_access_index": 4
+    }
+  ],
+  "decision_0002_sha256": "e03788cb756d76b33ebc828c57f79de1a558cfc3b85d4f63236b1125d02cd603",
+  "eop": {
+    "daily_dut1_s": {
+      "2000-06-26T00:00:00+00:00": 0.20572409999999763,
+      "2000-06-27T00:00:00+00:00": 0.20528859999999582,
+      "2000-06-28T00:00:00+00:00": 0.20485180000000014,
+      "2000-06-29T00:00:00+00:00": 0.20448189999999755,
+      "2000-06-30T00:00:00+00:00": 0.20424069999999972
+    },
+    "dut1_checks": [
+      {
+        "astropy_minus_skyfield_s": 0.0,
+        "time_utc": "2000-06-28T00:00:00+00:00"
+      },
+      {
+        "astropy_minus_skyfield_s": -4.4825254619240695e-14,
+        "time_utc": "2000-06-28T12:34:56.789000+00:00"
+      },
+      {
+        "astropy_minus_skyfield_s": 0.0,
+        "time_utc": "2000-06-29T00:00:00+00:00"
+      }
+    ],
+    "matching_limit_s": 1e-11,
+    "max_abs_dut1_mismatch_s": 4.4825254619240695e-14
+  },
+  "evaluation": {
+    "event_sequence": {
+      "all_genuine_crossings_correspond": true,
+      "production_rises": 5,
+      "production_sets": 5,
+      "same_chronological_order": true,
+      "skyfield_rises": 5,
+      "skyfield_sets": 5,
+      "status": "PASS"
+    },
+    "ordinary_refined_timing": {
+      "event_count": 8,
+      "limit_s": 0.02,
+      "max_abs_diff_s": 0.0019212008016467053,
+      "rms_diff_s": 0.0008326029522864762,
+      "status": "PASS"
+    },
+    "overall_disposition": "PASS",
+    "pointwise_elevation": {
+      "limit_deg": 1e-09,
+      "max_abs_delta_el_deg": 1.1084466677857563e-12,
+      "max_time_utc": "2000-06-28T09:50:00+00:00",
+      "rms_delta_el_deg": 2.812810257044293e-13,
+      "sample_count": 319,
+      "status": "PASS"
+    }
+  },
+  "execution_finished_utc": "2026-10-16T15:35:59.708412+00:00",
+  "execution_started_utc": "2026-10-16T15:34:36.488222+00:00",
+  "execution_status": "COMPLETE",
+  "fixture": {
+    "end_utc": "2000-06-29T00:00:00+00:00",
+    "mask_deg": 10.0,
+    "start_utc": "2000-06-28T00:00:00+00:00",
+    "station": {
+      "height_m": 100.0,
+      "latitude_deg": -33.5,
+      "longitude_deg": 151.2,
+      "name": "Synthetic WGS84 southern hold-out station"
+    },
+    "tle_line1": "1 00005U 58002B   00179.78495062  .00000023  00000-0  28098-4 0  4753",
+    "tle_line2": "2 00005  34.2682 348.7242 1859667 331.7664  19.3264 10.82419157413667",
+    "tle_provenance": "Vallado / python-sgp4 2.27 verification case 00005; see tests/fixtures/sgp4/README.md"
+  },
+  "fixture_sha256": "40382ec8a43d7f5e410de127103d1faed9fd35d5e0d4ad0a496ab799bde087bb",
+  "near_threshold_diagnostics": [
+    {
+      "culmination_deg": 14.373091122335625,
+      "paired_event_indices": [
+        8,
+        9
+      ],
+      "production_detected": true,
+      "skyfield_access_index": 4,
+      "skyfield_detected": true,
+      "uniquely_paired": true
+    }
+  ],
+  "paired_events": [
+    {
+      "classification": "ordinary",
+      "culmination_deg": 34.59514098805472,
+      "production_access_index": 0,
+      "production_elevation_minus_mask_at_bisected_deg": -6.9258772796843004e-06,
+      "production_minus_bisected_s": -0.0002699304827658011,
+      "production_minus_raw_s": -0.028040930483186344,
+      "production_utc": "2000-06-28T07:03:02.834000+00:00",
+      "skyfield_access_index": 0,
+      "skyfield_bisected_utc": "2000-06-28T07:03:02.834270+00:00",
+      "skyfield_elevation_minus_mask_at_production_deg": -1.4057436692027636e-05,
+      "skyfield_event_index": 0,
+      "skyfield_raw_utc": "2000-06-28T07:03:02.862041+00:00",
+      "type": "rise"
+    },
+    {
+      "classification": "ordinary",
+      "culmination_deg": 34.59514098805472,
+      "production_access_index": 0,
+      "production_elevation_minus_mask_at_bisected_deg": -3.607410601347283e-07,
+      "production_minus_bisected_s": 0.00040099999480958104,
+      "production_minus_raw_s": -0.0017350000044658032,
+      "production_utc": "2000-06-28T07:33:25.005000+00:00",
+      "skyfield_access_index": 0,
+      "skyfield_bisected_utc": "2000-06-28T07:33:25.004599+00:00",
+      "skyfield_elevation_minus_mask_at_production_deg": -2.0675165075090263e-05,
+      "skyfield_event_index": 2,
+      "skyfield_raw_utc": "2000-06-28T07:33:25.006735+00:00",
+      "type": "set"
+    },
+    {
+      "classification": "ordinary",
+      "culmination_deg": 66.93237314461122,
+      "production_access_index": 1,
+      "production_elevation_minus_mask_at_bisected_deg": -8.542062328587008e-07,
+      "production_minus_bisected_s": -0.00045371220060985706,
+      "production_minus_raw_s": -0.013575712202396062,
+      "production_utc": "2000-06-28T09:27:25.327410+00:00",
+      "skyfield_access_index": 1,
+      "skyfield_bisected_utc": "2000-06-28T09:27:25.327864+00:00",
+      "skyfield_elevation_minus_mask_at_production_deg": -1.531963884993104e-05,
+      "skyfield_event_index": 3,
+      "skyfield_raw_utc": "2000-06-28T09:27:25.340986+00:00",
+      "type": "rise"
+    },
+    {
+      "classification": "ordinary",
+      "culmination_deg": 66.93237314461122,
+      "production_access_index": 1,
+      "production_elevation_minus_mask_at_bisected_deg": 1.1737391140798081e-05,
+      "production_minus_bisected_s": 0.00015820831045232353,
+      "production_minus_raw_s": -0.01479479168935427,
+      "production_utc": "2000-06-28T09:55:22.445801+00:00",
+      "skyfield_access_index": 1,
+      "skyfield_bisected_utc": "2000-06-28T09:55:22.445643+00:00",
+      "skyfield_elevation_minus_mask_at_production_deg": -7.680395750497837e-07,
+      "skyfield_event_index": 5,
+      "skyfield_raw_utc": "2000-06-28T09:55:22.460596+00:00",
+      "type": "set"
+    },
+    {
+      "classification": "ordinary",
+      "culmination_deg": 86.07400721977857,
+      "production_access_index": 2,
+      "production_elevation_minus_mask_at_bisected_deg": -3.2437836203769166e-06,
+      "production_minus_bisected_s": 0.0019212008016467053,
+      "production_minus_raw_s": -0.015472799193894105,
+      "production_utc": "2000-06-28T11:55:26.770802+00:00",
+      "skyfield_access_index": 2,
+      "skyfield_bisected_utc": "2000-06-28T11:55:26.768881+00:00",
+      "skyfield_elevation_minus_mask_at_production_deg": 6.881350916465578e-05,
+      "skyfield_event_index": 6,
+      "skyfield_raw_utc": "2000-06-28T11:55:26.786275+00:00",
+      "type": "rise"
+    },
+    {
+      "classification": "ordinary",
+      "culmination_deg": 86.07400721977857,
+      "production_access_index": 2,
+      "production_elevation_minus_mask_at_bisected_deg": -1.822060956335747e-05,
+      "production_minus_bisected_s": -0.00019096108054839078,
+      "production_minus_raw_s": -0.014533961077844992,
+      "production_utc": "2000-06-28T12:15:22.848013+00:00",
+      "skyfield_access_index": 2,
+      "skyfield_bisected_utc": "2000-06-28T12:15:22.848204+00:00",
+      "skyfield_elevation_minus_mask_at_production_deg": 1.2496833790009987e-08,
+      "skyfield_event_index": 8,
+      "skyfield_raw_utc": "2000-06-28T12:15:22.862547+00:00",
+      "type": "set"
+    },
+    {
+      "classification": "ordinary",
+      "culmination_deg": 70.58412875697738,
+      "production_access_index": 3,
+      "production_elevation_minus_mask_at_bisected_deg": 8.362791858118612e-06,
+      "production_minus_bisected_s": 0.0011625906093826188,
+      "production_minus_raw_s": 0.0008575906033314595,
+      "production_utc": "2000-06-28T14:21:50.860670+00:00",
+      "skyfield_access_index": 3,
+      "skyfield_bisected_utc": "2000-06-28T14:21:50.859507+00:00",
+      "skyfield_elevation_minus_mask_at_production_deg": 6.69274990094948e-05,
+      "skyfield_event_index": 9,
+      "skyfield_raw_utc": "2000-06-28T14:21:50.859812+00:00",
+      "type": "rise"
+    },
+    {
+      "classification": "ordinary",
+      "culmination_deg": 70.58412875697738,
+      "production_access_index": 3,
+      "production_elevation_minus_mask_at_bisected_deg": 4.805720552170101e-06,
+      "production_minus_bisected_s": 4.6666238873172006e-05,
+      "production_minus_raw_s": -0.0033103337511164455,
+      "production_utc": "2000-06-28T14:34:54.310752+00:00",
+      "skyfield_access_index": 3,
+      "skyfield_bisected_utc": "2000-06-28T14:34:54.310705+00:00",
+      "skyfield_elevation_minus_mask_at_production_deg": -2.7630134624700986e-08,
+      "skyfield_event_index": 11,
+      "skyfield_raw_utc": "2000-06-28T14:34:54.314062+00:00",
+      "type": "set"
+    },
+    {
+      "classification": "near_threshold",
+      "culmination_deg": 14.373091122335625,
+      "production_access_index": 4,
+      "production_elevation_minus_mask_at_bisected_deg": -1.1817653289725172e-05,
+      "production_minus_bisected_s": 0.001616865006681678,
+      "production_minus_raw_s": -0.011505134995104527,
+      "production_utc": "2000-06-28T16:46:45.368639+00:00",
+      "skyfield_access_index": 4,
+      "skyfield_bisected_utc": "2000-06-28T16:46:45.367022+00:00",
+      "skyfield_elevation_minus_mask_at_production_deg": 5.614592271108165e-05,
+      "skyfield_event_index": 12,
+      "skyfield_raw_utc": "2000-06-28T16:46:45.380144+00:00",
+      "type": "rise"
+    },
+    {
+      "classification": "near_threshold",
+      "culmination_deg": 14.373091122335625,
+      "production_access_index": 4,
+      "production_elevation_minus_mask_at_bisected_deg": 1.3637676767430662e-05,
+      "production_minus_bisected_s": 0.00024782332985751054,
+      "production_minus_raw_s": -0.10625817667673232,
+      "production_utc": "2000-06-28T16:51:57.781666+00:00",
+      "skyfield_access_index": 4,
+      "skyfield_bisected_utc": "2000-06-28T16:51:57.781418+00:00",
+      "skyfield_elevation_minus_mask_at_production_deg": 1.1943901974120763e-06,
+      "skyfield_event_index": 14,
+      "skyfield_raw_utc": "2000-06-28T16:51:57.887924+00:00",
+      "type": "set"
+    }
+  ],
+  "phase_a_results_sha256": "7472063e8ae304dc10948a712cabdebdf2d570753f08c09884cf5b35914fb3a4",
+  "pointwise_samples": [
+    {
+      "delta_el_deg": 3.161915174132446e-13,
+      "production_el_deg": -23.023983256233265,
+      "skyfield_el_deg": -23.02398325623358,
+      "time_utc": "2000-06-28T00:00:00+00:00"
+    },
+    {
+      "delta_el_deg": 2.3092638912203256e-13,
+      "production_el_deg": -24.507065279149455,
+      "skyfield_el_deg": -24.507065279149685,
+      "time_utc": "2000-06-28T00:05:00+00:00"
+    },
+    {
+      "delta_el_deg": 2.7711166694643907e-13,
+      "production_el_deg": -26.164655135658126,
+      "skyfield_el_deg": -26.164655135658403,
+      "time_utc": "2000-06-28T00:10:00+00:00"
+    },
+    {
+      "delta_el_deg": 1.6697754290362354e-13,
+      "production_el_deg": -27.97727615482944,
+      "skyfield_el_deg": -27.977276154829607,
+      "time_utc": "2000-06-28T00:15:00+00:00"
+    },
+    {
+      "delta_el_deg": 3.446132268436486e-13,
+      "production_el_deg": -29.937944474928873,
+      "skyfield_el_deg": -29.937944474929218,
+      "time_utc": "2000-06-28T00:20:00+00:00"
+    },
+    {
+      "delta_el_deg": 1.7053025658242404e-13,
+      "production_el_deg": -32.04696406619809,
+      "skyfield_el_deg": -32.046964066198264,
+      "time_utc": "2000-06-28T00:25:00+00:00"
+    },
+    {
+      "delta_el_deg": 2.7711166694643907e-13,
+      "production_el_deg": -34.307389657150026,
+      "skyfield_el_deg": -34.3073896571503,
+      "time_utc": "2000-06-28T00:30:00+00:00"
+    },
+    {
+      "delta_el_deg": 9.947598300641403e-14,
+      "production_el_deg": -36.72029741901119,
+      "skyfield_el_deg": -36.72029741901129,
+      "time_utc": "2000-06-28T00:35:00+00:00"
+    },
+    {
+      "delta_el_deg": 1.7053025658242404e-13,
+      "production_el_deg": -39.2789077729646,
+      "skyfield_el_deg": -39.27890777296477,
+      "time_utc": "2000-06-28T00:40:00+00:00"
+    },
+    {
+      "delta_el_deg": 1.2789769243681803e-13,
+      "production_el_deg": -41.96040869395527,
+      "skyfield_el_deg": -41.9604086939554,
+      "time_utc": "2000-06-28T00:45:00+00:00"
+    },
+    {
+      "delta_el_deg": 2.1316282072803006e-14,
+      "production_el_deg": -44.7141061148067,
+      "skyfield_el_deg": -44.71410611480672,
+      "time_utc": "2000-06-28T00:50:00+00:00"
+    },
+    {
+      "delta_el_deg": 1.9895196601282805e-13,
+      "production_el_deg": -47.44466451896921,
+      "skyfield_el_deg": -47.44466451896941,
+      "time_utc": "2000-06-28T00:55:00+00:00"
+    },
+    {
+      "delta_el_deg": 1.0658141036401503e-13,
+      "production_el_deg": -49.99090669009819,
+      "skyfield_el_deg": -49.9909066900983,
+      "time_utc": "2000-06-28T01:00:00+00:00"
+    },
+    {
+      "delta_el_deg": 3.339550858072471e-13,
+      "production_el_deg": -52.106724954864035,
+      "skyfield_el_deg": -52.10672495486437,
+      "time_utc": "2000-06-28T01:05:00+00:00"
+    },
+    {
+      "delta_el_deg": 3.268496584496461e-13,
+      "production_el_deg": -53.46431011099471,
+      "skyfield_el_deg": -53.46431011099504,
+      "time_utc": "2000-06-28T01:10:00+00:00"
+    },
+    {
+      "delta_el_deg": 3.836930773104541e-13,
+      "production_el_deg": -53.713834446986496,
+      "skyfield_el_deg": -53.71383444698688,
+      "time_utc": "2000-06-28T01:15:00+00:00"
+    },
+    {
+      "delta_el_deg": 3.694822225952521e-13,
+      "production_el_deg": -52.61159098904343,
+      "skyfield_el_deg": -52.6115909890438,
+      "time_utc": "2000-06-28T01:20:00+00:00"
+    },
+    {
+      "delta_el_deg": 2.7000623958883807e-13,
+      "production_el_deg": -50.14518616789575,
+      "skyfield_el_deg": -50.14518616789602,
+      "time_utc": "2000-06-28T01:25:00+00:00"
+    },
+    {
+      "delta_el_deg": 1.0658141036401503e-13,
+      "production_el_deg": -46.5430527588549,
+      "skyfield_el_deg": -46.543052758855005,
+      "time_utc": "2000-06-28T01:30:00+00:00"
+    },
+    {
+      "delta_el_deg": 1.9895196601282805e-13,
+      "production_el_deg": -42.165978327447796,
+      "skyfield_el_deg": -42.165978327447995,
+      "time_utc": "2000-06-28T01:35:00+00:00"
+    },
+    {
+      "delta_el_deg": -2.1316282072803006e-14,
+      "production_el_deg": -37.386266566821746,
+      "skyfield_el_deg": -37.386266566821725,
+      "time_utc": "2000-06-28T01:40:00+00:00"
+    },
+    {
+      "delta_el_deg": 3.694822225952521e-13,
+      "production_el_deg": -32.52238035517417,
+      "skyfield_el_deg": -32.52238035517454,
+      "time_utc": "2000-06-28T01:45:00+00:00"
+    },
+    {
+      "delta_el_deg": -1.1723955140041653e-13,
+      "production_el_deg": -27.82209427393006,
+      "skyfield_el_deg": -27.82209427392994,
+      "time_utc": "2000-06-28T01:50:00+00:00"
+    },
+    {
+      "delta_el_deg": 2.5579538487363607e-13,
+      "production_el_deg": -23.46736512745167,
+      "skyfield_el_deg": -23.467365127451927,
+      "time_utc": "2000-06-28T01:55:00+00:00"
+    },
+    {
+      "delta_el_deg": 1.5987211554602254e-13,
+      "production_el_deg": -19.58568179983251,
+      "skyfield_el_deg": -19.58568179983267,
+      "time_utc": "2000-06-28T02:00:00+00:00"
+    },
+    {
+      "delta_el_deg": 2.7355895326763857e-13,
+      "production_el_deg": -16.26291181248106,
+      "skyfield_el_deg": -16.262911812481335,
+      "time_utc": "2000-06-28T02:05:00+00:00"
+    },
+    {
+      "delta_el_deg": 2.6645352591003757e-13,
+      "production_el_deg": -13.555946505509631,
+      "skyfield_el_deg": -13.555946505509898,
+      "time_utc": "2000-06-28T02:10:00+00:00"
+    },
+    {
+      "delta_el_deg": 1.7053025658242404e-13,
+      "production_el_deg": -11.503854356222824,
+      "skyfield_el_deg": -11.503854356222995,
+      "time_utc": "2000-06-28T02:15:00+00:00"
+    },
+    {
+      "delta_el_deg": 2.913225216616411e-13,
+      "production_el_deg": -10.136477549265118,
+      "skyfield_el_deg": -10.13647754926541,
+      "time_utc": "2000-06-28T02:20:00+00:00"
+    },
+    {
+      "delta_el_deg": 2.7000623958883807e-13,
+      "production_el_deg": -9.47989504487445,
+      "skyfield_el_deg": -9.47989504487472,
+      "time_utc": "2000-06-28T02:25:00+00:00"
+    },
+    {
+      "delta_el_deg": 2.504663143554353e-13,
+      "production_el_deg": -9.55866450253355,
+      "skyfield_el_deg": -9.5586645025338,
+      "time_utc": "2000-06-28T02:30:00+00:00"
+    },
+    {
+      "delta_el_deg": 3.446132268436486e-13,
+      "production_el_deg": -10.395094152717165,
+      "skyfield_el_deg": -10.39509415271751,
+      "time_utc": "2000-06-28T02:35:00+00:00"
+    },
+    {
+      "delta_el_deg": 2.0605739337042905e-13,
+      "production_el_deg": -12.006025474216152,
+      "skyfield_el_deg": -12.006025474216358,
+      "time_utc": "2000-06-28T02:40:00+00:00"
+    },
+    {
+      "delta_el_deg": 2.5934809855243657e-13,
+      "production_el_deg": -14.39782220974018,
+      "skyfield_el_deg": -14.39782220974044,
+      "time_utc": "2000-06-28T02:45:00+00:00"
+    },
+    {
+      "delta_el_deg": 7.460698725481052e-14,
+      "production_el_deg": -17.560485782393393,
+      "skyfield_el_deg": -17.560485782393467,
+      "time_utc": "2000-06-28T02:50:00+00:00"
+    },
+    {
+      "delta_el_deg": 2.4868995751603507e-14,
+      "production_el_deg": -21.46193919445511,
+      "skyfield_el_deg": -21.461939194455134,
+      "time_utc": "2000-06-28T02:55:00+00:00"
+    },
+    {
+      "delta_el_deg": 8.881784197001252e-14,
+      "production_el_deg": -26.043270446098767,
+      "skyfield_el_deg": -26.043270446098855,
+      "time_utc": "2000-06-28T03:00:00+00:00"
+    },
+    {
+      "delta_el_deg": -9.947598300641403e-14,
+      "production_el_deg": -31.21472459652625,
+      "skyfield_el_deg": -31.21472459652615,
+      "time_utc": "2000-06-28T03:05:00+00:00"
+    },
+    {
+      "delta_el_deg": 2.3447910280083306e-13,
+      "production_el_deg": -36.85014392994201,
+      "skyfield_el_deg": -36.85014392994224,
+      "time_utc": "2000-06-28T03:10:00+00:00"
+    },
+    {
+      "delta_el_deg": 3.481659405224491e-13,
+      "production_el_deg": -42.77429817439247,
+      "skyfield_el_deg": -42.77429817439282,
+      "time_utc": "2000-06-28T03:15:00+00:00"
+    },
+    {
+      "delta_el_deg": 4.050093593832571e-13,
+      "production_el_deg": -48.73369059870655,
+      "skyfield_el_deg": -48.73369059870696,
+      "time_utc": "2000-06-28T03:20:00+00:00"
+    },
+    {
+      "delta_el_deg": 3.410605131648481e-13,
+      "production_el_deg": -54.3401917552661,
+      "skyfield_el_deg": -54.34019175526644,
+      "time_utc": "2000-06-28T03:25:00+00:00"
+    },
+    {
+      "delta_el_deg": 3.694822225952521e-13,
+      "production_el_deg": -58.9937960113635,
+      "skyfield_el_deg": -58.99379601136387,
+      "time_utc": "2000-06-28T03:30:00+00:00"
+    },
+    {
+      "delta_el_deg": 2.5579538487363607e-13,
+      "production_el_deg": -61.87494197838025,
+      "skyfield_el_deg": -61.874941978380505,
+      "time_utc": "2000-06-28T03:35:00+00:00"
+    },
+    {
+      "delta_el_deg": 2.4158453015843406e-13,
+      "production_el_deg": -62.24343792623755,
+      "skyfield_el_deg": -62.24343792623779,
+      "time_utc": "2000-06-28T03:40:00+00:00"
+    },
+    {
+      "delta_el_deg": 1.4210854715202004e-14,
+      "production_el_deg": -60.01320532184073,
+      "skyfield_el_deg": -60.01320532184074,
+      "time_utc": "2000-06-28T03:45:00+00:00"
+    },
+    {
+      "delta_el_deg": 2.3447910280083306e-13,
+      "production_el_deg": -55.821841080821926,
+      "skyfield_el_deg": -55.82184108082216,
+      "time_utc": "2000-06-28T03:50:00+00:00"
+    },
+    {
+      "delta_el_deg": 7.815970093361102e-14,
+      "production_el_deg": -50.467009786359895,
+      "skyfield_el_deg": -50.467009786359974,
+      "time_utc": "2000-06-28T03:55:00+00:00"
+    },
+    {
+      "delta_el_deg": 8.526512829121202e-14,
+      "production_el_deg": -44.530484850242146,
+      "skyfield_el_deg": -44.53048485024223,
+      "time_utc": "2000-06-28T04:00:00+00:00"
+    },
+    {
+      "delta_el_deg": -2.3447910280083306e-13,
+      "production_el_deg": -38.357102005804784,
+      "skyfield_el_deg": -38.35710200580455,
+      "time_utc": "2000-06-28T04:05:00+00:00"
+    },
+    {
+      "delta_el_deg": 2.6290081223123707e-13,
+      "production_el_deg": -32.13765600362047,
+      "skyfield_el_deg": -32.137656003620734,
+      "time_utc": "2000-06-28T04:10:00+00:00"
+    },
+    {
+      "delta_el_deg": 2.7711166694643907e-13,
+      "production_el_deg": -25.978544819975497,
+      "skyfield_el_deg": -25.978544819975774,
+      "time_utc": "2000-06-28T04:15:00+00:00"
+    },
+    {
+      "delta_el_deg": 2.7355895326763857e-13,
+      "production_el_deg": -19.945726852144244,
+      "skyfield_el_deg": -19.945726852144517,
+      "time_utc": "2000-06-28T04:20:00+00:00"
+    },
+    {
+      "delta_el_deg": 1.3322676295501878e-13,
+      "production_el_deg": -14.092950724378543,
+      "skyfield_el_deg": -14.092950724378676,
+      "time_utc": "2000-06-28T04:25:00+00:00"
+    },
+    {
+      "delta_el_deg": 2.7000623958883807e-13,
+      "production_el_deg": -8.483764915889354,
+      "skyfield_el_deg": -8.483764915889624,
+      "time_utc": "2000-06-28T04:30:00+00:00"
+    },
+    {
+      "delta_el_deg": 5.382361223382759e-13,
+      "production_el_deg": -3.214142459045413,
+      "skyfield_el_deg": -3.2141424590459513,
+      "time_utc": "2000-06-28T04:35:00+00:00"
+    },
+    {
+      "delta_el_deg": 5.0182080713057076e-14,
+      "production_el_deg": 1.5596117433651864,
+      "skyfield_el_deg": 1.5596117433651362,
+      "time_utc": "2000-06-28T04:40:00+00:00"
+    },
+    {
+      "delta_el_deg": 1.7141843500212417e-13,
+      "production_el_deg": 5.586946939172232,
+      "skyfield_el_deg": 5.58694693917206,
+      "time_utc": "2000-06-28T04:45:00+00:00"
+    },
+    {
+      "delta_el_deg": 8.348877145181177e-14,
+      "production_el_deg": 8.493557542125815,
+      "skyfield_el_deg": 8.493557542125732,
+      "time_utc": "2000-06-28T04:50:00+00:00"
+    },
+    {
+      "delta_el_deg": 1.900701818158268e-13,
+      "production_el_deg": 9.79055788251265,
+      "skyfield_el_deg": 9.79055788251246,
+      "time_utc": "2000-06-28T04:55:00+00:00"
+    },
+    {
+      "delta_el_deg": 1.3145040611561853e-13,
+      "production_el_deg": 8.97978840268982,
+      "skyfield_el_deg": 8.979788402689689,
+      "time_utc": "2000-06-28T05:00:00+00:00"
+    },
+    {
+      "delta_el_deg": 8.171241461241152e-14,
+      "production_el_deg": 5.77304320114565,
+      "skyfield_el_deg": 5.773043201145568,
+      "time_utc": "2000-06-28T05:05:00+00:00"
+    },
+    {
+      "delta_el_deg": 4.696243394164412e-14,
+      "production_el_deg": 0.2966215396165191,
+      "skyfield_el_deg": 0.29662153961647214,
+      "time_utc": "2000-06-28T05:10:00+00:00"
+    },
+    {
+      "delta_el_deg": 3.6415315207705135e-14,
+      "production_el_deg": -6.928493661206241,
+      "skyfield_el_deg": -6.928493661206278,
+      "time_utc": "2000-06-28T05:15:00+00:00"
+    },
+    {
+      "delta_el_deg": -2.0961010704922955e-13,
+      "production_el_deg": -15.238684367756768,
+      "skyfield_el_deg": -15.238684367756559,
+      "time_utc": "2000-06-28T05:20:00+00:00"
+    },
+    {
+      "delta_el_deg": 3.765876499528531e-13,
+      "production_el_deg": -24.081434382158506,
+      "skyfield_el_deg": -24.081434382158882,
+      "time_utc": "2000-06-28T05:25:00+00:00"
+    },
+    {
+      "delta_el_deg": 1.4921397450962104e-13,
+      "production_el_deg": -33.10334828703687,
+      "skyfield_el_deg": -33.10334828703702,
+      "time_utc": "2000-06-28T05:30:00+00:00"
+    },
+    {
+      "delta_el_deg": 7.673861546209082e-13,
+      "production_el_deg": -42.09615161126936,
+      "skyfield_el_deg": -42.09615161127013,
+      "time_utc": "2000-06-28T05:35:00+00:00"
+    },
+    {
+      "delta_el_deg": 2.8421709430404007e-13,
+      "production_el_deg": -50.884678445783166,
+      "skyfield_el_deg": -50.88467844578345,
+      "time_utc": "2000-06-28T05:40:00+00:00"
+    },
+    {
+      "delta_el_deg": 2.984279490192421e-13,
+      "production_el_deg": -59.19135040939978,
+      "skyfield_el_deg": -59.19135040940008,
+      "time_utc": "2000-06-28T05:45:00+00:00"
+    },
+    {
+      "delta_el_deg": 2.7000623958883807e-13,
+      "production_el_deg": -66.43840580276391,
+      "skyfield_el_deg": -66.43840580276418,
+      "time_utc": "2000-06-28T05:50:00+00:00"
+    },
+    {
+      "delta_el_deg": 1.8474111129762605e-13,
+      "production_el_deg": -71.41979932776394,
+      "skyfield_el_deg": -71.41979932776412,
+      "time_utc": "2000-06-28T05:55:00+00:00"
+    },
+    {
+      "delta_el_deg": 7.105427357601002e-14,
+      "production_el_deg": -72.41311750690863,
+      "skyfield_el_deg": -72.4131175069087,
+      "time_utc": "2000-06-28T06:00:00+00:00"
+    },
+    {
+      "delta_el_deg": 2.5579538487363607e-13,
+      "production_el_deg": -69.23406946243814,
+      "skyfield_el_deg": -69.2340694624384,
+      "time_utc": "2000-06-28T06:05:00+00:00"
+    },
+    {
+      "delta_el_deg": -1.4921397450962104e-13,
+      "production_el_deg": -63.68655804893796,
+      "skyfield_el_deg": -63.68655804893781,
+      "time_utc": "2000-06-28T06:10:00+00:00"
+    },
+    {
+      "delta_el_deg": 5.542233338928781e-13,
+      "production_el_deg": -57.208634147946334,
+      "skyfield_el_deg": -57.20863414794689,
+      "time_utc": "2000-06-28T06:15:00+00:00"
+    },
+    {
+      "delta_el_deg": -2.7000623958883807e-13,
+      "production_el_deg": -50.433338040277114,
+      "skyfield_el_deg": -50.433338040276844,
+      "time_utc": "2000-06-28T06:20:00+00:00"
+    },
+    {
+      "delta_el_deg": 2.2737367544323206e-13,
+      "production_el_deg": -43.6006739539605,
+      "skyfield_el_deg": -43.60067395396073,
+      "time_utc": "2000-06-28T06:25:00+00:00"
+    },
+    {
+      "delta_el_deg": 2.5579538487363607e-13,
+      "production_el_deg": -36.78867056388272,
+      "skyfield_el_deg": -36.788670563882974,
+      "time_utc": "2000-06-28T06:30:00+00:00"
+    },
+    {
+      "delta_el_deg": 6.750155989720952e-13,
+      "production_el_deg": -30.004132302053698,
+      "skyfield_el_deg": -30.004132302054373,
+      "time_utc": "2000-06-28T06:35:00+00:00"
+    },
+    {
+      "delta_el_deg": 2.4158453015843406e-13,
+      "production_el_deg": -23.217789927411893,
+      "skyfield_el_deg": -23.217789927412134,
+      "time_utc": "2000-06-28T06:40:00+00:00"
+    },
+    {
+      "delta_el_deg": -2.3803181647963356e-13,
+      "production_el_deg": -16.377720539152833,
+      "skyfield_el_deg": -16.377720539152595,
+      "time_utc": "2000-06-28T06:45:00+00:00"
+    },
+    {
+      "delta_el_deg": 3.730349362740526e-13,
+      "production_el_deg": -9.413664282834283,
+      "skyfield_el_deg": -9.413664282834656,
+      "time_utc": "2000-06-28T06:50:00+00:00"
+    },
+    {
+      "delta_el_deg": 8.304468224196171e-14,
+      "production_el_deg": -2.238278629596143,
+      "skyfield_el_deg": -2.238278629596226,
+      "time_utc": "2000-06-28T06:55:00+00:00"
+    },
+    {
+      "delta_el_deg": 5.346834086594754e-13,
+      "production_el_deg": 5.2475809692374,
+      "skyfield_el_deg": 5.247580969236865,
+      "time_utc": "2000-06-28T07:00:00+00:00"
+    },
+    {
+      "delta_el_deg": 2.575717417130363e-13,
+      "production_el_deg": 9.20966393879983,
+      "skyfield_el_deg": 9.209663938799572,
+      "time_utc": "2000-06-28T07:02:32.834270+00:00"
+    },
+    {
+      "delta_el_deg": 2.3092638912203256e-13,
+      "production_el_deg": 9.99999307412272,
+      "skyfield_el_deg": 9.99999307412249,
+      "time_utc": "2000-06-28T07:03:02.834270+00:00"
+    },
+    {
+      "delta_el_deg": -4.618527782440651e-14,
+      "production_el_deg": 10.794441338459164,
+      "skyfield_el_deg": 10.79444133845921,
+      "time_utc": "2000-06-28T07:03:32.834270+00:00"
+    },
+    {
+      "delta_el_deg": -5.293543381412746e-13,
+      "production_el_deg": 13.125456264748111,
+      "skyfield_el_deg": 13.12545626474864,
+      "time_utc": "2000-06-28T07:05:00+00:00"
+    },
+    {
+      "delta_el_deg": -5.684341886080802e-14,
+      "production_el_deg": 21.33525728035461,
+      "skyfield_el_deg": 21.335257280354668,
+      "time_utc": "2000-06-28T07:10:00+00:00"
+    },
+    {
+      "delta_el_deg": -2.8066438062523957e-13,
+      "production_el_deg": 29.224214767558372,
+      "skyfield_el_deg": 29.224214767558653,
+      "time_utc": "2000-06-28T07:15:00+00:00"
+    },
+    {
+      "delta_el_deg": 0.0,
+      "production_el_deg": 34.32482860292345,
+      "skyfield_el_deg": 34.32482860292345,
+      "time_utc": "2000-06-28T07:20:00+00:00"
+    },
+    {
+      "delta_el_deg": -4.583000645652646e-13,
+      "production_el_deg": 31.76762016972795,
+      "skyfield_el_deg": 31.76762016972841,
+      "time_utc": "2000-06-28T07:25:00+00:00"
+    },
+    {
+      "delta_el_deg": 4.938272013532696e-13,
+      "production_el_deg": 20.22746774763987,
+      "skyfield_el_deg": 20.227467747639377,
+      "time_utc": "2000-06-28T07:30:00+00:00"
+    },
+    {
+      "delta_el_deg": 5.364597654988756e-13,
+      "production_el_deg": 11.520580147909024,
+      "skyfield_el_deg": 11.520580147908488,
+      "time_utc": "2000-06-28T07:32:55.004599+00:00"
+    },
+    {
+      "delta_el_deg": -1.0373923942097463e-12,
+      "production_el_deg": 9.99999963925894,
+      "skyfield_el_deg": 9.999999639259977,
+      "time_utc": "2000-06-28T07:33:25.004599+00:00"
+    },
+    {
+      "delta_el_deg": 3.765876499528531e-13,
+      "production_el_deg": 8.482106702825094,
+      "skyfield_el_deg": 8.482106702824717,
+      "time_utc": "2000-06-28T07:33:55.004599+00:00"
+    },
+    {
+      "delta_el_deg": 1.0675904604795505e-12,
+      "production_el_deg": 5.216594074378303,
+      "skyfield_el_deg": 5.216594074377236,
+      "time_utc": "2000-06-28T07:35:00+00:00"
+    },
+    {
+      "delta_el_deg": 8.881784197001252e-14,
+      "production_el_deg": -9.032280939736456,
+      "skyfield_el_deg": -9.032280939736545,
+      "time_utc": "2000-06-28T07:40:00+00:00"
+    },
+    {
+      "delta_el_deg": -5.684341886080801e-13,
+      "production_el_deg": -21.716842800801302,
+      "skyfield_el_deg": -21.716842800800734,
+      "time_utc": "2000-06-28T07:45:00+00:00"
+    },
+    {
+      "delta_el_deg": 9.237055564881302e-13,
+      "production_el_deg": -33.20372610796407,
+      "skyfield_el_deg": -33.203726107965,
+      "time_utc": "2000-06-28T07:50:00+00:00"
+    },
+    {
+      "delta_el_deg": 2.4158453015843406e-13,
+      "production_el_deg": -43.90346954946057,
+      "skyfield_el_deg": -43.90346954946081,
+      "time_utc": "2000-06-28T07:55:00+00:00"
+    },
+    {
+      "delta_el_deg": 5.186961971048731e-13,
+      "production_el_deg": -54.035526567991845,
+      "skyfield_el_deg": -54.03552656799236,
+      "time_utc": "2000-06-28T08:00:00+00:00"
+    },
+    {
+      "delta_el_deg": -9.237055564881302e-14,
+      "production_el_deg": -63.61831866313091,
+      "skyfield_el_deg": -63.618318663130815,
+      "time_utc": "2000-06-28T08:05:00+00:00"
+    },
+    {
+      "delta_el_deg": -1.7053025658242404e-13,
+      "production_el_deg": -72.43695457697582,
+      "skyfield_el_deg": -72.43695457697565,
+      "time_utc": "2000-06-28T08:10:00+00:00"
+    },
+    {
+      "delta_el_deg": 1.9895196601282805e-13,
+      "production_el_deg": -79.61085365593294,
+      "skyfield_el_deg": -79.61085365593314,
+      "time_utc": "2000-06-28T08:15:00+00:00"
+    },
+    {
+      "delta_el_deg": -4.263256414560601e-14,
+      "production_el_deg": -81.61315232401397,
+      "skyfield_el_deg": -81.61315232401392,
+      "time_utc": "2000-06-28T08:20:00+00:00"
+    },
+    {
+      "delta_el_deg": -1.1368683772161603e-13,
+      "production_el_deg": -76.87937423303302,
+      "skyfield_el_deg": -76.8793742330329,
+      "time_utc": "2000-06-28T08:25:00+00:00"
+    },
+    {
+      "delta_el_deg": 3.410605131648481e-13,
+      "production_el_deg": -70.18490267869646,
+      "skyfield_el_deg": -70.1849026786968,
+      "time_utc": "2000-06-28T08:30:00+00:00"
+    },
+    {
+      "delta_el_deg": -1.9184653865522705e-13,
+      "production_el_deg": -63.258002199374175,
+      "skyfield_el_deg": -63.25800219937398,
+      "time_utc": "2000-06-28T08:35:00+00:00"
+    },
+    {
+      "delta_el_deg": 2.4868995751603507e-13,
+      "production_el_deg": -56.423907530579,
+      "skyfield_el_deg": -56.42390753057925,
+      "time_utc": "2000-06-28T08:40:00+00:00"
+    },
+    {
+      "delta_el_deg": -1.6342482922482304e-13,
+      "production_el_deg": -49.73553377678443,
+      "skyfield_el_deg": -49.735533776784266,
+      "time_utc": "2000-06-28T08:45:00+00:00"
+    },
+    {
+      "delta_el_deg": 4.334310688136611e-13,
+      "production_el_deg": -43.174129079378375,
+      "skyfield_el_deg": -43.17412907937881,
+      "time_utc": "2000-06-28T08:50:00+00:00"
+    },
+    {
+      "delta_el_deg": 6.110667527536862e-13,
+      "production_el_deg": -36.6944015114923,
+      "skyfield_el_deg": -36.69440151149291,
+      "time_utc": "2000-06-28T08:55:00+00:00"
+    },
+    {
+      "delta_el_deg": 1.3145040611561853e-13,
+      "production_el_deg": -30.235786213433038,
+      "skyfield_el_deg": -30.23578621343317,
+      "time_utc": "2000-06-28T09:00:00+00:00"
+    },
+    {
+      "delta_el_deg": 4.263256414560601e-14,
+      "production_el_deg": -23.722619689103436,
+      "skyfield_el_deg": -23.722619689103478,
+      "time_utc": "2000-06-28T09:05:00+00:00"
+    },
+    {
+      "delta_el_deg": -4.440892098500626e-13,
+      "production_el_deg": -17.0577429722132,
+      "skyfield_el_deg": -17.057742972212758,
+      "time_utc": "2000-06-28T09:10:00+00:00"
+    },
+    {
+      "delta_el_deg": 1.4210854715202004e-14,
+      "production_el_deg": -10.10819694576766,
+      "skyfield_el_deg": -10.108196945767673,
+      "time_utc": "2000-06-28T09:15:00+00:00"
+    },
+    {
+      "delta_el_deg": -5.369038547087257e-13,
+      "production_el_deg": -2.6763457109273063,
+      "skyfield_el_deg": -2.6763457109267694,
+      "time_utc": "2000-06-28T09:20:00+00:00"
+    },
+    {
+      "delta_el_deg": -1.7763568394002505e-13,
+      "production_el_deg": 5.561266131826516,
+      "skyfield_el_deg": 5.561266131826693,
+      "time_utc": "2000-06-28T09:25:00+00:00"
+    },
+    {
+      "delta_el_deg": -2.2737367544323206e-13,
+      "production_el_deg": 9.052934773130193,
+      "skyfield_el_deg": 9.05293477313042,
+      "time_utc": "2000-06-28T09:26:55.327864+00:00"
+    },
+    {
+      "delta_el_deg": 4.0678571622265736e-13,
+      "production_el_deg": 9.999999145793767,
+      "skyfield_el_deg": 9.99999914579336,
+      "time_utc": "2000-06-28T09:27:25.327864+00:00"
+    },
+    {
+      "delta_el_deg": -2.5224267119483557e-13,
+      "production_el_deg": 10.965031400274098,
+      "skyfield_el_deg": 10.96503140027435,
+      "time_utc": "2000-06-28T09:27:55.327864+00:00"
+    },
+    {
+      "delta_el_deg": -6.270539643082884e-13,
+      "production_el_deg": 15.194590464452972,
+      "skyfield_el_deg": 15.194590464453599,
+      "time_utc": "2000-06-28T09:30:00+00:00"
+    },
+    {
+      "delta_el_deg": -1.4210854715202004e-13,
+      "production_el_deg": 27.42774640910948,
+      "skyfield_el_deg": 27.427746409109623,
+      "time_utc": "2000-06-28T09:35:00+00:00"
+    },
+    {
+      "delta_el_deg": 5.684341886080801e-13,
+      "production_el_deg": 44.803494440176785,
+      "skyfield_el_deg": 44.803494440176216,
+      "time_utc": "2000-06-28T09:40:00+00:00"
+    },
+    {
+      "delta_el_deg": 1.1368683772161603e-13,
+      "production_el_deg": 66.23053394498872,
+      "skyfield_el_deg": 66.23053394498861,
+      "time_utc": "2000-06-28T09:45:00+00:00"
+    },
+    {
+      "delta_el_deg": 1.1084466677857563e-12,
+      "production_el_deg": 43.35239240690989,
+      "skyfield_el_deg": 43.352392406908784,
+      "time_utc": "2000-06-28T09:50:00+00:00"
+    },
+    {
+      "delta_el_deg": 3.375077994860476e-14,
+      "production_el_deg": 12.433299247443056,
+      "skyfield_el_deg": 12.433299247443022,
+      "time_utc": "2000-06-28T09:54:52.445643+00:00"
+    },
+    {
+      "delta_el_deg": 9.769962616701378e-14,
+      "production_el_deg": 11.809276477851538,
+      "skyfield_el_deg": 11.80927647785144,
+      "time_utc": "2000-06-28T09:55:00+00:00"
+    },
+    {
+      "delta_el_deg": -6.643574579356937e-13,
+      "production_el_deg": 10.00001173739114,
+      "skyfield_el_deg": 10.000011737391805,
+      "time_utc": "2000-06-28T09:55:22.445643+00:00"
+    },
+    {
+      "delta_el_deg": 1.0480505352461478e-13,
+      "production_el_deg": 7.681477141851252,
+      "skyfield_el_deg": 7.681477141851147,
+      "time_utc": "2000-06-28T09:55:52.445643+00:00"
+    },
+    {
+      "delta_el_deg": -3.090860900556436e-13,
+      "production_el_deg": -8.103926353970193,
+      "skyfield_el_deg": -8.103926353969884,
+      "time_utc": "2000-06-28T10:00:00+00:00"
+    },
+    {
+      "delta_el_deg": 6.004086117172847e-13,
+      "production_el_deg": -22.478016394176706,
+      "skyfield_el_deg": -22.478016394177306,
+      "time_utc": "2000-06-28T10:05:00+00:00"
+    },
+    {
+      "delta_el_deg": 2.1316282072803006e-13,
+      "production_el_deg": -34.43184218804138,
+      "skyfield_el_deg": -34.43184218804159,
+      "time_utc": "2000-06-28T10:10:00+00:00"
+    },
+    {
+      "delta_el_deg": 4.618527782440651e-13,
+      "production_el_deg": -45.16439197159002,
+      "skyfield_el_deg": -45.16439197159048,
+      "time_utc": "2000-06-28T10:15:00+00:00"
+    },
+    {
+      "delta_el_deg": 1.4210854715202004e-14,
+      "production_el_deg": -55.1214451599462,
+      "skyfield_el_deg": -55.12144515994621,
+      "time_utc": "2000-06-28T10:20:00+00:00"
+    },
+    {
+      "delta_el_deg": -3.268496584496461e-13,
+      "production_el_deg": -64.45083275215114,
+      "skyfield_el_deg": -64.45083275215082,
+      "time_utc": "2000-06-28T10:25:00+00:00"
+    },
+    {
+      "delta_el_deg": 1.8474111129762605e-13,
+      "production_el_deg": -73.19473824210226,
+      "skyfield_el_deg": -73.19473824210245,
+      "time_utc": "2000-06-28T10:30:00+00:00"
+    },
+    {
+      "delta_el_deg": 1.4210854715202004e-14,
+      "production_el_deg": -81.35487668312285,
+      "skyfield_el_deg": -81.35487668312287,
+      "time_utc": "2000-06-28T10:35:00+00:00"
+    },
+    {
+      "delta_el_deg": -5.684341886080802e-14,
+      "production_el_deg": -88.30408909495478,
+      "skyfield_el_deg": -88.30408909495472,
+      "time_utc": "2000-06-28T10:40:00+00:00"
+    },
+    {
+      "delta_el_deg": 6.679101716144942e-13,
+      "production_el_deg": -83.3432124892065,
+      "skyfield_el_deg": -83.34321248920716,
+      "time_utc": "2000-06-28T10:45:00+00:00"
+    },
+    {
+      "delta_el_deg": 4.263256414560601e-14,
+      "production_el_deg": -76.54106040746817,
+      "skyfield_el_deg": -76.54106040746821,
+      "time_utc": "2000-06-28T10:50:00+00:00"
+    },
+    {
+      "delta_el_deg": 2.4158453015843406e-13,
+      "production_el_deg": -70.00366463836389,
+      "skyfield_el_deg": -70.00366463836413,
+      "time_utc": "2000-06-28T10:55:00+00:00"
+    },
+    {
+      "delta_el_deg": -1.8474111129762605e-13,
+      "production_el_deg": -63.71616681719309,
+      "skyfield_el_deg": -63.71616681719291,
+      "time_utc": "2000-06-28T11:00:00+00:00"
+    },
+    {
+      "delta_el_deg": 5.186961971048731e-13,
+      "production_el_deg": -57.62857594897169,
+      "skyfield_el_deg": -57.628575948972205,
+      "time_utc": "2000-06-28T11:05:00+00:00"
+    },
+    {
+      "delta_el_deg": 2.913225216616411e-13,
+      "production_el_deg": -51.68675560608326,
+      "skyfield_el_deg": -51.68675560608355,
+      "time_utc": "2000-06-28T11:10:00+00:00"
+    },
+    {
+      "delta_el_deg": -9.237055564881302e-14,
+      "production_el_deg": -45.83517855755093,
+      "skyfield_el_deg": -45.83517855755084,
+      "time_utc": "2000-06-28T11:15:00+00:00"
+    },
+    {
+      "delta_el_deg": 4.973799150320701e-14,
+      "production_el_deg": -40.015647715617305,
+      "skyfield_el_deg": -40.015647715617355,
+      "time_utc": "2000-06-28T11:20:00+00:00"
+    },
+    {
+      "delta_el_deg": -1.4210854715202004e-14,
+      "production_el_deg": -34.164221976246324,
+      "skyfield_el_deg": -34.16422197624631,
+      "time_utc": "2000-06-28T11:25:00+00:00"
+    },
+    {
+      "delta_el_deg": 3.197442310920451e-13,
+      "production_el_deg": -28.20604894013132,
+      "skyfield_el_deg": -28.20604894013164,
+      "time_utc": "2000-06-28T11:30:00+00:00"
+    },
+    {
+      "delta_el_deg": -3.907985046680551e-13,
+      "production_el_deg": -22.046430459147334,
+      "skyfield_el_deg": -22.046430459146944,
+      "time_utc": "2000-06-28T11:35:00+00:00"
+    },
+    {
+      "delta_el_deg": -2.2026824808563106e-13,
+      "production_el_deg": -15.553919507306942,
+      "skyfield_el_deg": -15.553919507306722,
+      "time_utc": "2000-06-28T11:40:00+00:00"
+    },
+    {
+      "delta_el_deg": -7.034373084024992e-13,
+      "production_el_deg": -8.524513519699047,
+      "skyfield_el_deg": -8.524513519698344,
+      "time_utc": "2000-06-28T11:45:00+00:00"
+    },
+    {
+      "delta_el_deg": -1.9506618542664e-13,
+      "production_el_deg": -0.5946876845641497,
+      "skyfield_el_deg": -0.5946876845639546,
+      "time_utc": "2000-06-28T11:50:00+00:00"
+    },
+    {
+      "delta_el_deg": 1.509903313490213e-13,
+      "production_el_deg": 8.892813614380639,
+      "skyfield_el_deg": 8.892813614380488,
+      "time_utc": "2000-06-28T11:54:56.768881+00:00"
+    },
+    {
+      "delta_el_deg": 1.9184653865522705e-13,
+      "production_el_deg": 9.010366317132226,
+      "skyfield_el_deg": 9.010366317132034,
+      "time_utc": "2000-06-28T11:55:00+00:00"
+    },
+    {
+      "delta_el_deg": 5.364597654988756e-13,
+      "production_el_deg": 9.99999675621638,
+      "skyfield_el_deg": 9.999996756215843,
+      "time_utc": "2000-06-28T11:55:26.768881+00:00"
+    },
+    {
+      "delta_el_deg": 1.474376176702208e-13,
+      "production_el_deg": 11.144581545468583,
+      "skyfield_el_deg": 11.144581545468435,
+      "time_utc": "2000-06-28T11:55:56.768881+00:00"
+    },
+    {
+      "delta_el_deg": -1.7053025658242404e-13,
+      "production_el_deg": 22.40537645582818,
+      "skyfield_el_deg": 22.40537645582835,
+      "time_utc": "2000-06-28T12:00:00+00:00"
+    },
+    {
+      "delta_el_deg": -4.263256414560601e-14,
+      "production_el_deg": 47.7791622777614,
+      "skyfield_el_deg": 47.77916227776144,
+      "time_utc": "2000-06-28T12:05:00+00:00"
+    },
+    {
+      "delta_el_deg": -2.4158453015843406e-13,
+      "production_el_deg": 65.75068101762501,
+      "skyfield_el_deg": 65.75068101762525,
+      "time_utc": "2000-06-28T12:10:00+00:00"
+    },
+    {
+      "delta_el_deg": 2.149391775674303e-13,
+      "production_el_deg": 12.995698889619668,
+      "skyfield_el_deg": 12.995698889619453,
+      "time_utc": "2000-06-28T12:14:52.848204+00:00"
+    },
+    {
+      "delta_el_deg": 2.0961010704922955e-13,
+      "production_el_deg": 12.256616371645922,
+      "skyfield_el_deg": 12.256616371645713,
+      "time_utc": "2000-06-28T12:15:00+00:00"
+    },
+    {
+      "delta_el_deg": 1.829647544582258e-13,
+      "production_el_deg": 9.999981779390437,
+      "skyfield_el_deg": 9.999981779390254,
+      "time_utc": "2000-06-28T12:15:22.848204+00:00"
+    },
+    {
+      "delta_el_deg": 2.3803181647963356e-13,
+      "production_el_deg": 7.254846281779132,
+      "skyfield_el_deg": 7.254846281778894,
+      "time_utc": "2000-06-28T12:15:52.848204+00:00"
+    },
+    {
+      "delta_el_deg": 2.327027459614328e-13,
+      "production_el_deg": -9.423258270166706,
+      "skyfield_el_deg": -9.423258270166938,
+      "time_utc": "2000-06-28T12:20:00+00:00"
+    },
+    {
+      "delta_el_deg": 1.2434497875801753e-13,
+      "production_el_deg": -23.1397628524416,
+      "skyfield_el_deg": -23.139762852441724,
+      "time_utc": "2000-06-28T12:25:00+00:00"
+    },
+    {
+      "delta_el_deg": 0.0,
+      "production_el_deg": -34.24252456170383,
+      "skyfield_el_deg": -34.24252456170383,
+      "time_utc": "2000-06-28T12:30:00+00:00"
+    },
+    {
+      "delta_el_deg": -4.973799150320701e-14,
+      "production_el_deg": -44.09598417572287,
+      "skyfield_el_deg": -44.09598417572282,
+      "time_utc": "2000-06-28T12:35:00+00:00"
+    },
+    {
+      "delta_el_deg": -1.4921397450962104e-13,
+      "production_el_deg": -53.12392106496584,
+      "skyfield_el_deg": -53.12392106496569,
+      "time_utc": "2000-06-28T12:40:00+00:00"
+    },
+    {
+      "delta_el_deg": -1.9184653865522705e-13,
+      "production_el_deg": -61.48326622664008,
+      "skyfield_el_deg": -61.48326622663989,
+      "time_utc": "2000-06-28T12:45:00+00:00"
+    },
+    {
+      "delta_el_deg": -2.5579538487363607e-13,
+      "production_el_deg": -69.25917506119336,
+      "skyfield_el_deg": -69.2591750611931,
+      "time_utc": "2000-06-28T12:50:00+00:00"
+    },
+    {
+      "delta_el_deg": -2.2737367544323206e-13,
+      "production_el_deg": -76.5224773291718,
+      "skyfield_el_deg": -76.52247732917158,
+      "time_utc": "2000-06-28T12:55:00+00:00"
+    },
+    {
+      "delta_el_deg": -2.1316282072803006e-13,
+      "production_el_deg": -83.34180543084808,
+      "skyfield_el_deg": -83.34180543084787,
+      "time_utc": "2000-06-28T13:00:00+00:00"
+    },
+    {
+      "delta_el_deg": -1.4210854715202004e-14,
+      "production_el_deg": -89.69812668396544,
+      "skyfield_el_deg": -89.69812668396543,
+      "time_utc": "2000-06-28T13:05:00+00:00"
+    },
+    {
+      "delta_el_deg": 1.9895196601282805e-13,
+      "production_el_deg": -84.06755050515744,
+      "skyfield_el_deg": -84.06755050515764,
+      "time_utc": "2000-06-28T13:10:00+00:00"
+    },
+    {
+      "delta_el_deg": 9.947598300641403e-14,
+      "production_el_deg": -78.18234374337699,
+      "skyfield_el_deg": -78.18234374337709,
+      "time_utc": "2000-06-28T13:15:00+00:00"
+    },
+    {
+      "delta_el_deg": 8.526512829121202e-14,
+      "production_el_deg": -72.48884874518241,
+      "skyfield_el_deg": -72.4888487451825,
+      "time_utc": "2000-06-28T13:20:00+00:00"
+    },
+    {
+      "delta_el_deg": 4.263256414560601e-14,
+      "production_el_deg": -66.93525899742426,
+      "skyfield_el_deg": -66.9352589974243,
+      "time_utc": "2000-06-28T13:25:00+00:00"
+    },
+    {
+      "delta_el_deg": -1.4210854715202004e-14,
+      "production_el_deg": -61.471204514454115,
+      "skyfield_el_deg": -61.4712045144541,
+      "time_utc": "2000-06-28T13:30:00+00:00"
+    },
+    {
+      "delta_el_deg": -1.1368683772161603e-13,
+      "production_el_deg": -56.04692034803318,
+      "skyfield_el_deg": -56.04692034803307,
+      "time_utc": "2000-06-28T13:35:00+00:00"
+    },
+    {
+      "delta_el_deg": -1.4921397450962104e-13,
+      "production_el_deg": -50.61148889626948,
+      "skyfield_el_deg": -50.61148889626933,
+      "time_utc": "2000-06-28T13:40:00+00:00"
+    },
+    {
+      "delta_el_deg": -1.5631940186722204e-13,
+      "production_el_deg": -45.110496382268394,
+      "skyfield_el_deg": -45.11049638226824,
+      "time_utc": "2000-06-28T13:45:00+00:00"
+    },
+    {
+      "delta_el_deg": -2.1316282072803006e-13,
+      "production_el_deg": -39.4827375710249,
+      "skyfield_el_deg": -39.482737571024686,
+      "time_utc": "2000-06-28T13:50:00+00:00"
+    },
+    {
+      "delta_el_deg": -1.9184653865522705e-13,
+      "production_el_deg": -33.655064814026574,
+      "skyfield_el_deg": -33.65506481402638,
+      "time_utc": "2000-06-28T13:55:00+00:00"
+    },
+    {
+      "delta_el_deg": -2.2382096176443156e-13,
+      "production_el_deg": -27.5332672694144,
+      "skyfield_el_deg": -27.533267269414175,
+      "time_utc": "2000-06-28T14:00:00+00:00"
+    },
+    {
+      "delta_el_deg": -2.0961010704922955e-13,
+      "production_el_deg": -20.98351324051231,
+      "skyfield_el_deg": -20.9835132405121,
+      "time_utc": "2000-06-28T14:05:00+00:00"
+    },
+    {
+      "delta_el_deg": -1.7053025658242404e-13,
+      "production_el_deg": -13.788104415687563,
+      "skyfield_el_deg": -13.788104415687393,
+      "time_utc": "2000-06-28T14:10:00+00:00"
+    },
+    {
+      "delta_el_deg": -1.3589129821411916e-13,
+      "production_el_deg": -5.517443378486649,
+      "skyfield_el_deg": -5.517443378486513,
+      "time_utc": "2000-06-28T14:15:00+00:00"
+    },
+    {
+      "delta_el_deg": -1.2434497875801753e-14,
+      "production_el_deg": 4.9533895154320025,
+      "skyfield_el_deg": 4.953389515432015,
+      "time_utc": "2000-06-28T14:20:00+00:00"
+    },
+    {
+      "delta_el_deg": -5.329070518200751e-15,
+      "production_el_deg": 8.533695990870134,
+      "skyfield_el_deg": 8.53369599087014,
+      "time_utc": "2000-06-28T14:21:20.859507+00:00"
+    },
+    {
+      "delta_el_deg": 5.5067062021407764e-14,
+      "production_el_deg": 10.000008362791858,
+      "skyfield_el_deg": 10.000008362791803,
+      "time_utc": "2000-06-28T14:21:50.859507+00:00"
+    },
+    {
+      "delta_el_deg": -4.618527782440651e-14,
+      "production_el_deg": 11.559882574336028,
+      "skyfield_el_deg": 11.559882574336074,
+      "time_utc": "2000-06-28T14:22:20.859507+00:00"
+    },
+    {
+      "delta_el_deg": 1.6697754290362354e-13,
+      "production_el_deg": 22.260433898128582,
+      "skyfield_el_deg": 22.260433898128415,
+      "time_utc": "2000-06-28T14:25:00+00:00"
+    },
+    {
+      "delta_el_deg": 3.552713678800501e-13,
+      "production_el_deg": 70.52773276588611,
+      "skyfield_el_deg": 70.52773276588576,
+      "time_utc": "2000-06-28T14:30:00+00:00"
+    },
+    {
+      "delta_el_deg": 1.7763568394002505e-13,
+      "production_el_deg": 13.297457830622589,
+      "skyfield_el_deg": 13.297457830622411,
+      "time_utc": "2000-06-28T14:34:24.310705+00:00"
+    },
+    {
+      "delta_el_deg": 1.7053025658242404e-13,
+      "production_el_deg": 10.000004805720552,
+      "skyfield_el_deg": 10.000004805720382,
+      "time_utc": "2000-06-28T14:34:54.310705+00:00"
+    },
+    {
+      "delta_el_deg": 5.3290705182007514e-14,
+      "production_el_deg": 9.421876819105886,
+      "skyfield_el_deg": 9.421876819105833,
+      "time_utc": "2000-06-28T14:35:00+00:00"
+    },
+    {
+      "delta_el_deg": 7.904787935331115e-14,
+      "production_el_deg": 7.096517086453011,
+      "skyfield_el_deg": 7.096517086452932,
+      "time_utc": "2000-06-28T14:35:24.310705+00:00"
+    },
+    {
+      "delta_el_deg": -1.7763568394002505e-15,
+      "production_el_deg": -10.350759274036195,
+      "skyfield_el_deg": -10.350759274036193,
+      "time_utc": "2000-06-28T14:40:00+00:00"
+    },
+    {
+      "delta_el_deg": -1.3145040611561853e-13,
+      "production_el_deg": -22.457995312347972,
+      "skyfield_el_deg": -22.45799531234784,
+      "time_utc": "2000-06-28T14:45:00+00:00"
+    },
+    {
+      "delta_el_deg": -2.1316282072803006e-13,
+      "production_el_deg": -32.36146852660029,
+      "skyfield_el_deg": -32.36146852660008,
+      "time_utc": "2000-06-28T14:50:00+00:00"
+    },
+    {
+      "delta_el_deg": -2.2737367544323206e-13,
+      "production_el_deg": -41.15982606694001,
+      "skyfield_el_deg": -41.159826066939786,
+      "time_utc": "2000-06-28T14:55:00+00:00"
+    },
+    {
+      "delta_el_deg": -2.7000623958883807e-13,
+      "production_el_deg": -49.18878101690411,
+      "skyfield_el_deg": -49.18878101690384,
+      "time_utc": "2000-06-28T15:00:00+00:00"
+    },
+    {
+      "delta_el_deg": -2.5579538487363607e-13,
+      "production_el_deg": -56.59605116298378,
+      "skyfield_el_deg": -56.59605116298352,
+      "time_utc": "2000-06-28T15:05:00+00:00"
+    },
+    {
+      "delta_el_deg": -2.2737367544323206e-13,
+      "production_el_deg": -63.47301385796983,
+      "skyfield_el_deg": -63.473013857969605,
+      "time_utc": "2000-06-28T15:10:00+00:00"
+    },
+    {
+      "delta_el_deg": -1.8474111129762605e-13,
+      "production_el_deg": -69.88240005643898,
+      "skyfield_el_deg": -69.8824000564388,
+      "time_utc": "2000-06-28T15:15:00+00:00"
+    },
+    {
+      "delta_el_deg": -1.7053025658242404e-13,
+      "production_el_deg": -75.8454115790516,
+      "skyfield_el_deg": -75.84541157905143,
+      "time_utc": "2000-06-28T15:20:00+00:00"
+    },
+    {
+      "delta_el_deg": -1.1368683772161603e-13,
+      "production_el_deg": -81.24781824376257,
+      "skyfield_el_deg": -81.24781824376245,
+      "time_utc": "2000-06-28T15:25:00+00:00"
+    },
+    {
+      "delta_el_deg": -8.526512829121202e-14,
+      "production_el_deg": -85.18466351487248,
+      "skyfield_el_deg": -85.1846635148724,
+      "time_utc": "2000-06-28T15:30:00+00:00"
+    },
+    {
+      "delta_el_deg": -1.1368683772161603e-13,
+      "production_el_deg": -84.26725268614112,
+      "skyfield_el_deg": -84.267252686141,
+      "time_utc": "2000-06-28T15:35:00+00:00"
+    },
+    {
+      "delta_el_deg": -1.5631940186722204e-13,
+      "production_el_deg": -79.95478664901563,
+      "skyfield_el_deg": -79.95478664901547,
+      "time_utc": "2000-06-28T15:40:00+00:00"
+    },
+    {
+      "delta_el_deg": -1.4210854715202004e-13,
+      "production_el_deg": -75.0077337739443,
+      "skyfield_el_deg": -75.00773377394415,
+      "time_utc": "2000-06-28T15:45:00+00:00"
+    },
+    {
+      "delta_el_deg": -1.8474111129762605e-13,
+      "production_el_deg": -69.90306385364464,
+      "skyfield_el_deg": -69.90306385364445,
+      "time_utc": "2000-06-28T15:50:00+00:00"
+    },
+    {
+      "delta_el_deg": -2.1316282072803006e-13,
+      "production_el_deg": -64.70926665446719,
+      "skyfield_el_deg": -64.70926665446697,
+      "time_utc": "2000-06-28T15:55:00+00:00"
+    },
+    {
+      "delta_el_deg": -2.3447910280083306e-13,
+      "production_el_deg": -59.41688774097829,
+      "skyfield_el_deg": -59.416887740978055,
+      "time_utc": "2000-06-28T16:00:00+00:00"
+    },
+    {
+      "delta_el_deg": -2.2026824808563106e-13,
+      "production_el_deg": -53.99188087896217,
+      "skyfield_el_deg": -53.99188087896195,
+      "time_utc": "2000-06-28T16:05:00+00:00"
+    },
+    {
+      "delta_el_deg": -2.4158453015843406e-13,
+      "production_el_deg": -48.38725993745619,
+      "skyfield_el_deg": -48.38725993745595,
+      "time_utc": "2000-06-28T16:10:00+00:00"
+    },
+    {
+      "delta_el_deg": -2.0605739337042905e-13,
+      "production_el_deg": -42.54483993543074,
+      "skyfield_el_deg": -42.54483993543053,
+      "time_utc": "2000-06-28T16:15:00+00:00"
+    },
+    {
+      "delta_el_deg": -2.0605739337042905e-13,
+      "production_el_deg": -36.392800531653556,
+      "skyfield_el_deg": -36.39280053165335,
+      "time_utc": "2000-06-28T16:20:00+00:00"
+    },
+    {
+      "delta_el_deg": -1.5987211554602254e-13,
+      "production_el_deg": -29.838735913263644,
+      "skyfield_el_deg": -29.838735913263484,
+      "time_utc": "2000-06-28T16:25:00+00:00"
+    },
+    {
+      "delta_el_deg": -1.0658141036401503e-13,
+      "production_el_deg": -22.75243915200308,
+      "skyfield_el_deg": -22.752439152002975,
+      "time_utc": "2000-06-28T16:30:00+00:00"
+    },
+    {
+      "delta_el_deg": 1.2434497875801753e-14,
+      "production_el_deg": -14.9174207612479,
+      "skyfield_el_deg": -14.917420761247913,
+      "time_utc": "2000-06-28T16:35:00+00:00"
+    },
+    {
+      "delta_el_deg": 4.1744385725905886e-14,
+      "production_el_deg": -5.875799917596559,
+      "skyfield_el_deg": -5.875799917596601,
+      "time_utc": "2000-06-28T16:40:00+00:00"
+    },
+    {
+      "delta_el_deg": 3.161915174132446e-13,
+      "production_el_deg": 5.449753544299108,
+      "skyfield_el_deg": 5.449753544298792,
+      "time_utc": "2000-06-28T16:45:00+00:00"
+    },
+    {
+      "delta_el_deg": 1.971756091734278e-13,
+      "production_el_deg": 8.717140646111579,
+      "skyfield_el_deg": 8.717140646111382,
+      "time_utc": "2000-06-28T16:46:15.367022+00:00"
+    },
+    {
+      "delta_el_deg": 2.3447910280083306e-13,
+      "production_el_deg": 9.99998818234671,
+      "skyfield_el_deg": 9.999988182346476,
+      "time_utc": "2000-06-28T16:46:45.367022+00:00"
+    },
+    {
+      "delta_el_deg": 2.0605739337042905e-13,
+      "production_el_deg": 11.224495257273524,
+      "skyfield_el_deg": 11.224495257273318,
+      "time_utc": "2000-06-28T16:47:15.367022+00:00"
+    },
+    {
+      "delta_el_deg": 2.6290081223123707e-13,
+      "production_el_deg": 14.158062376849482,
+      "skyfield_el_deg": 14.15806237684922,
+      "time_utc": "2000-06-28T16:50:00+00:00"
+    },
+    {
+      "delta_el_deg": 1.1368683772161603e-13,
+      "production_el_deg": 11.431998053873174,
+      "skyfield_el_deg": 11.43199805387306,
+      "time_utc": "2000-06-28T16:51:27.781418+00:00"
+    },
+    {
+      "delta_el_deg": 9.237055564881302e-14,
+      "production_el_deg": 10.000013637676767,
+      "skyfield_el_deg": 10.000013637676675,
+      "time_utc": "2000-06-28T16:51:57.781418+00:00"
+    },
+    {
+      "delta_el_deg": -9.50350909079134e-13,
+      "production_el_deg": 8.446359188818727,
+      "skyfield_el_deg": 8.446359188819677,
+      "time_utc": "2000-06-28T16:52:27.781418+00:00"
+    },
+    {
+      "delta_el_deg": -5.540012892879531e-14,
+      "production_el_deg": 0.46079953523329575,
+      "skyfield_el_deg": 0.46079953523335115,
+      "time_utc": "2000-06-28T16:55:00+00:00"
+    },
+    {
+      "delta_el_deg": -1.865174681370263e-13,
+      "production_el_deg": -11.93051344846779,
+      "skyfield_el_deg": -11.930513448467604,
+      "time_utc": "2000-06-28T17:00:00+00:00"
+    },
+    {
+      "delta_el_deg": -2.7355895326763857e-13,
+      "production_el_deg": -21.573429228994353,
+      "skyfield_el_deg": -21.57342922899408,
+      "time_utc": "2000-06-28T17:05:00+00:00"
+    },
+    {
+      "delta_el_deg": -2.8421709430404007e-13,
+      "production_el_deg": -29.917868594767143,
+      "skyfield_el_deg": -29.91786859476686,
+      "time_utc": "2000-06-28T17:10:00+00:00"
+    },
+    {
+      "delta_el_deg": -2.4868995751603507e-13,
+      "production_el_deg": -37.422139595958896,
+      "skyfield_el_deg": -37.42213959595865,
+      "time_utc": "2000-06-28T17:15:00+00:00"
+    },
+    {
+      "delta_el_deg": -1.9895196601282805e-13,
+      "production_el_deg": -44.26649193523436,
+      "skyfield_el_deg": -44.266491935234164,
+      "time_utc": "2000-06-28T17:20:00+00:00"
+    },
+    {
+      "delta_el_deg": -1.7763568394002505e-13,
+      "production_el_deg": -50.54476430735315,
+      "skyfield_el_deg": -50.54476430735297,
+      "time_utc": "2000-06-28T17:25:00+00:00"
+    },
+    {
+      "delta_el_deg": -1.2789769243681803e-13,
+      "production_el_deg": -56.309612965050945,
+      "skyfield_el_deg": -56.30961296505082,
+      "time_utc": "2000-06-28T17:30:00+00:00"
+    },
+    {
+      "delta_el_deg": -4.973799150320701e-14,
+      "production_el_deg": -61.57673476328059,
+      "skyfield_el_deg": -61.57673476328054,
+      "time_utc": "2000-06-28T17:35:00+00:00"
+    },
+    {
+      "delta_el_deg": -2.842170943040401e-14,
+      "production_el_deg": -66.31061188886476,
+      "skyfield_el_deg": -66.31061188886473,
+      "time_utc": "2000-06-28T17:40:00+00:00"
+    },
+    {
+      "delta_el_deg": 0.0,
+      "production_el_deg": -70.39137637148909,
+      "skyfield_el_deg": -70.39137637148909,
+      "time_utc": "2000-06-28T17:45:00+00:00"
+    },
+    {
+      "delta_el_deg": 4.263256414560601e-14,
+      "production_el_deg": -73.56134992380723,
+      "skyfield_el_deg": -73.56134992380727,
+      "time_utc": "2000-06-28T17:50:00+00:00"
+    },
+    {
+      "delta_el_deg": 0.0,
+      "production_el_deg": -75.40009976325416,
+      "skyfield_el_deg": -75.40009976325416,
+      "time_utc": "2000-06-28T17:55:00+00:00"
+    },
+    {
+      "delta_el_deg": -9.947598300641403e-14,
+      "production_el_deg": -75.5062060573997,
+      "skyfield_el_deg": -75.5062060573996,
+      "time_utc": "2000-06-28T18:00:00+00:00"
+    },
+    {
+      "delta_el_deg": -2.7000623958883807e-13,
+      "production_el_deg": -73.88945299177226,
+      "skyfield_el_deg": -73.88945299177199,
+      "time_utc": "2000-06-28T18:05:00+00:00"
+    },
+    {
+      "delta_el_deg": -1.7053025658242404e-13,
+      "production_el_deg": -70.9772264621852,
+      "skyfield_el_deg": -70.97722646218503,
+      "time_utc": "2000-06-28T18:10:00+00:00"
+    },
+    {
+      "delta_el_deg": -2.1316282072803006e-13,
+      "production_el_deg": -67.21904268350859,
+      "skyfield_el_deg": -67.21904268350838,
+      "time_utc": "2000-06-28T18:15:00+00:00"
+    },
+    {
+      "delta_el_deg": -2.1316282072803006e-13,
+      "production_el_deg": -62.89667351538221,
+      "skyfield_el_deg": -62.896673515382,
+      "time_utc": "2000-06-28T18:20:00+00:00"
+    },
+    {
+      "delta_el_deg": -1.4921397450962104e-13,
+      "production_el_deg": -58.15076314274143,
+      "skyfield_el_deg": -58.15076314274128,
+      "time_utc": "2000-06-28T18:25:00+00:00"
+    },
+    {
+      "delta_el_deg": -1.4210854715202004e-13,
+      "production_el_deg": -53.03899380938393,
+      "skyfield_el_deg": -53.03899380938379,
+      "time_utc": "2000-06-28T18:30:00+00:00"
+    },
+    {
+      "delta_el_deg": -1.2079226507921703e-13,
+      "production_el_deg": -47.574359870105305,
+      "skyfield_el_deg": -47.574359870105184,
+      "time_utc": "2000-06-28T18:35:00+00:00"
+    },
+    {
+      "delta_el_deg": -4.263256414560601e-14,
+      "production_el_deg": -41.747887030369604,
+      "skyfield_el_deg": -41.74788703036956,
+      "time_utc": "2000-06-28T18:40:00+00:00"
+    },
+    {
+      "delta_el_deg": 2.842170943040401e-14,
+      "production_el_deg": -35.545620444358875,
+      "skyfield_el_deg": -35.5456204443589,
+      "time_utc": "2000-06-28T18:45:00+00:00"
+    },
+    {
+      "delta_el_deg": -3.694822225952521e-13,
+      "production_el_deg": -28.96875160334428,
+      "skyfield_el_deg": -28.96875160334391,
+      "time_utc": "2000-06-28T18:50:00+00:00"
+    },
+    {
+      "delta_el_deg": 1.8118839761882555e-13,
+      "production_el_deg": -22.072421092806582,
+      "skyfield_el_deg": -22.072421092806763,
+      "time_utc": "2000-06-28T18:55:00+00:00"
+    },
+    {
+      "delta_el_deg": 2.362554596402333e-13,
+      "production_el_deg": -15.088697648883198,
+      "skyfield_el_deg": -15.088697648883434,
+      "time_utc": "2000-06-28T19:00:00+00:00"
+    },
+    {
+      "delta_el_deg": 2.007283228522283e-13,
+      "production_el_deg": -8.962480263182867,
+      "skyfield_el_deg": -8.962480263183068,
+      "time_utc": "2000-06-28T19:05:00+00:00"
+    },
+    {
+      "delta_el_deg": 1.0036416142611415e-13,
+      "production_el_deg": -6.556040194293616,
+      "skyfield_el_deg": -6.5560401942937165,
+      "time_utc": "2000-06-28T19:10:00+00:00"
+    },
+    {
+      "delta_el_deg": -6.572520305780927e-14,
+      "production_el_deg": -9.628690395997296,
+      "skyfield_el_deg": -9.62869039599723,
+      "time_utc": "2000-06-28T19:15:00+00:00"
+    },
+    {
+      "delta_el_deg": -1.4921397450962104e-13,
+      "production_el_deg": -15.31067347050752,
+      "skyfield_el_deg": -15.310673470507371,
+      "time_utc": "2000-06-28T19:20:00+00:00"
+    },
+    {
+      "delta_el_deg": -1.5631940186722204e-13,
+      "production_el_deg": -21.44495486170877,
+      "skyfield_el_deg": -21.444954861708613,
+      "time_utc": "2000-06-28T19:25:00+00:00"
+    },
+    {
+      "delta_el_deg": -1.3500311979441904e-13,
+      "production_el_deg": -27.375754266270107,
+      "skyfield_el_deg": -27.375754266269972,
+      "time_utc": "2000-06-28T19:30:00+00:00"
+    },
+    {
+      "delta_el_deg": 6.323830348264892e-13,
+      "production_el_deg": -32.92875670955605,
+      "skyfield_el_deg": -32.92875670955668,
+      "time_utc": "2000-06-28T19:35:00+00:00"
+    },
+    {
+      "delta_el_deg": -4.263256414560601e-14,
+      "production_el_deg": -38.06343138265289,
+      "skyfield_el_deg": -38.063431382652844,
+      "time_utc": "2000-06-28T19:40:00+00:00"
+    },
+    {
+      "delta_el_deg": 7.105427357601002e-15,
+      "production_el_deg": -42.77790593834956,
+      "skyfield_el_deg": -42.77790593834957,
+      "time_utc": "2000-06-28T19:45:00+00:00"
+    },
+    {
+      "delta_el_deg": 1.4210854715202004e-14,
+      "production_el_deg": -47.07700575452384,
+      "skyfield_el_deg": -47.07700575452385,
+      "time_utc": "2000-06-28T19:50:00+00:00"
+    },
+    {
+      "delta_el_deg": 1.4210854715202004e-13,
+      "production_el_deg": -50.958483269256355,
+      "skyfield_el_deg": -50.9584832692565,
+      "time_utc": "2000-06-28T19:55:00+00:00"
+    },
+    {
+      "delta_el_deg": 1.2079226507921703e-13,
+      "production_el_deg": -54.40548456052805,
+      "skyfield_el_deg": -54.40548456052817,
+      "time_utc": "2000-06-28T20:00:00+00:00"
+    },
+    {
+      "delta_el_deg": 1.2789769243681803e-13,
+      "production_el_deg": -57.3817225877673,
+      "skyfield_el_deg": -57.38172258776743,
+      "time_utc": "2000-06-28T20:05:00+00:00"
+    },
+    {
+      "delta_el_deg": 1.4210854715202004e-13,
+      "production_el_deg": -59.8291421176622,
+      "skyfield_el_deg": -59.82914211766234,
+      "time_utc": "2000-06-28T20:10:00+00:00"
+    },
+    {
+      "delta_el_deg": 9.237055564881302e-14,
+      "production_el_deg": -61.67012695690785,
+      "skyfield_el_deg": -61.67012695690794,
+      "time_utc": "2000-06-28T20:15:00+00:00"
+    },
+    {
+      "delta_el_deg": 6.394884621840902e-14,
+      "production_el_deg": -62.81758415437873,
+      "skyfield_el_deg": -62.81758415437879,
+      "time_utc": "2000-06-28T20:20:00+00:00"
+    },
+    {
+      "delta_el_deg": 1.4210854715202004e-14,
+      "production_el_deg": -63.19428631222045,
+      "skyfield_el_deg": -63.19428631222046,
+      "time_utc": "2000-06-28T20:25:00+00:00"
+    },
+    {
+      "delta_el_deg": 0.0,
+      "production_el_deg": -62.75578901627389,
+      "skyfield_el_deg": -62.75578901627389,
+      "time_utc": "2000-06-28T20:30:00+00:00"
+    },
+    {
+      "delta_el_deg": -4.263256414560601e-14,
+      "production_el_deg": -61.504052897303374,
+      "skyfield_el_deg": -61.50405289730333,
+      "time_utc": "2000-06-28T20:35:00+00:00"
+    },
+    {
+      "delta_el_deg": -3.552713678800501e-14,
+      "production_el_deg": -59.48250474897081,
+      "skyfield_el_deg": -59.482504748970776,
+      "time_utc": "2000-06-28T20:40:00+00:00"
+    },
+    {
+      "delta_el_deg": 0.0,
+      "production_el_deg": -56.757396100577814,
+      "skyfield_el_deg": -56.757396100577814,
+      "time_utc": "2000-06-28T20:45:00+00:00"
+    },
+    {
+      "delta_el_deg": 5.684341886080802e-14,
+      "production_el_deg": -53.399258335967495,
+      "skyfield_el_deg": -53.39925833596755,
+      "time_utc": "2000-06-28T20:50:00+00:00"
+    },
+    {
+      "delta_el_deg": 9.947598300641403e-14,
+      "production_el_deg": -49.47458659546969,
+      "skyfield_el_deg": -49.47458659546979,
+      "time_utc": "2000-06-28T20:55:00+00:00"
+    },
+    {
+      "delta_el_deg": 1.5631940186722204e-13,
+      "production_el_deg": -45.050367975261594,
+      "skyfield_el_deg": -45.05036797526175,
+      "time_utc": "2000-06-28T21:00:00+00:00"
+    },
+    {
+      "delta_el_deg": -7.105427357601002e-14,
+      "production_el_deg": -40.21044742318253,
+      "skyfield_el_deg": -40.21044742318246,
+      "time_utc": "2000-06-28T21:05:00+00:00"
+    },
+    {
+      "delta_el_deg": 2.913225216616411e-13,
+      "production_el_deg": -35.082452010189655,
+      "skyfield_el_deg": -35.08245201018995,
+      "time_utc": "2000-06-28T21:10:00+00:00"
+    },
+    {
+      "delta_el_deg": 3.304023721284466e-13,
+      "production_el_deg": -29.875682517139534,
+      "skyfield_el_deg": -29.875682517139865,
+      "time_utc": "2000-06-28T21:15:00+00:00"
+    },
+    {
+      "delta_el_deg": 2.5934809855243657e-13,
+      "production_el_deg": -24.939490886433376,
+      "skyfield_el_deg": -24.939490886433635,
+      "time_utc": "2000-06-28T21:20:00+00:00"
+    },
+    {
+      "delta_el_deg": 6.892264536872972e-13,
+      "production_el_deg": -20.84987252114784,
+      "skyfield_el_deg": -20.84987252114853,
+      "time_utc": "2000-06-28T21:25:00+00:00"
+    },
+    {
+      "delta_el_deg": 9.592326932761353e-14,
+      "production_el_deg": -18.358168950405236,
+      "skyfield_el_deg": -18.358168950405332,
+      "time_utc": "2000-06-28T21:30:00+00:00"
+    },
+    {
+      "delta_el_deg": 2.842170943040401e-14,
+      "production_el_deg": -17.876721348375884,
+      "skyfield_el_deg": -17.876721348375913,
+      "time_utc": "2000-06-28T21:35:00+00:00"
+    },
+    {
+      "delta_el_deg": 3.197442310920451e-14,
+      "production_el_deg": -19.081502588939326,
+      "skyfield_el_deg": -19.081502588939358,
+      "time_utc": "2000-06-28T21:40:00+00:00"
+    },
+    {
+      "delta_el_deg": 3.197442310920451e-14,
+      "production_el_deg": -21.31412434895125,
+      "skyfield_el_deg": -21.31412434895128,
+      "time_utc": "2000-06-28T21:45:00+00:00"
+    },
+    {
+      "delta_el_deg": 6.039613253960852e-14,
+      "production_el_deg": -24.039742842450085,
+      "skyfield_el_deg": -24.039742842450146,
+      "time_utc": "2000-06-28T21:50:00+00:00"
+    },
+    {
+      "delta_el_deg": 1.1368683772161603e-13,
+      "production_el_deg": -26.936763666500635,
+      "skyfield_el_deg": -26.93676366650075,
+      "time_utc": "2000-06-28T21:55:00+00:00"
+    },
+    {
+      "delta_el_deg": 1.4921397450962104e-13,
+      "production_el_deg": -29.833972502330536,
+      "skyfield_el_deg": -29.833972502330685,
+      "time_utc": "2000-06-28T22:00:00+00:00"
+    },
+    {
+      "delta_el_deg": 1.3500311979441904e-13,
+      "production_el_deg": -32.64567528070396,
+      "skyfield_el_deg": -32.6456752807041,
+      "time_utc": "2000-06-28T22:05:00+00:00"
+    },
+    {
+      "delta_el_deg": -1.4210854715202004e-14,
+      "production_el_deg": -35.331359829752785,
+      "skyfield_el_deg": -35.33135982975277,
+      "time_utc": "2000-06-28T22:10:00+00:00"
+    },
+    {
+      "delta_el_deg": 2.2737367544323206e-13,
+      "production_el_deg": -37.87336796462054,
+      "skyfield_el_deg": -37.87336796462077,
+      "time_utc": "2000-06-28T22:15:00+00:00"
+    },
+    {
+      "delta_el_deg": 1.9895196601282805e-13,
+      "production_el_deg": -40.26467272379863,
+      "skyfield_el_deg": -40.26467272379883,
+      "time_utc": "2000-06-28T22:20:00+00:00"
+    },
+    {
+      "delta_el_deg": 1.5631940186722204e-13,
+      "production_el_deg": -42.50186912607665,
+      "skyfield_el_deg": -42.501869126076805,
+      "time_utc": "2000-06-28T22:25:00+00:00"
+    },
+    {
+      "delta_el_deg": 2.2026824808563106e-13,
+      "production_el_deg": -44.58069922931634,
+      "skyfield_el_deg": -44.58069922931656,
+      "time_utc": "2000-06-28T22:30:00+00:00"
+    },
+    {
+      "delta_el_deg": 2.913225216616411e-13,
+      "production_el_deg": -46.492656769425196,
+      "skyfield_el_deg": -46.49265676942549,
+      "time_utc": "2000-06-28T22:35:00+00:00"
+    },
+    {
+      "delta_el_deg": 2.1316282072803006e-13,
+      "production_el_deg": -48.22186467027902,
+      "skyfield_el_deg": -48.22186467027923,
+      "time_utc": "2000-06-28T22:40:00+00:00"
+    },
+    {
+      "delta_el_deg": 4.973799150320701e-14,
+      "production_el_deg": -49.741807070343235,
+      "skyfield_el_deg": -49.741807070343285,
+      "time_utc": "2000-06-28T22:45:00+00:00"
+    },
+    {
+      "delta_el_deg": 6.394884621840902e-14,
+      "production_el_deg": -51.01184387831132,
+      "skyfield_el_deg": -51.01184387831138,
+      "time_utc": "2000-06-28T22:50:00+00:00"
+    },
+    {
+      "delta_el_deg": 9.947598300641403e-14,
+      "production_el_deg": -51.97391696867876,
+      "skyfield_el_deg": -51.97391696867886,
+      "time_utc": "2000-06-28T22:55:00+00:00"
+    },
+    {
+      "delta_el_deg": 7.815970093361102e-14,
+      "production_el_deg": -52.55060846184639,
+      "skyfield_el_deg": -52.550608461846466,
+      "time_utc": "2000-06-28T23:00:00+00:00"
+    },
+    {
+      "delta_el_deg": 1.4921397450962104e-13,
+      "production_el_deg": -52.64670336131443,
+      "skyfield_el_deg": -52.64670336131458,
+      "time_utc": "2000-06-28T23:05:00+00:00"
+    },
+    {
+      "delta_el_deg": 2.2026824808563106e-13,
+      "production_el_deg": -52.1571762894664,
+      "skyfield_el_deg": -52.15717628946662,
+      "time_utc": "2000-06-28T23:10:00+00:00"
+    },
+    {
+      "delta_el_deg": 2.913225216616411e-13,
+      "production_el_deg": -50.98398689914263,
+      "skyfield_el_deg": -50.98398689914292,
+      "time_utc": "2000-06-28T23:15:00+00:00"
+    },
+    {
+      "delta_el_deg": 3.410605131648481e-13,
+      "production_el_deg": -49.061097375701245,
+      "skyfield_el_deg": -49.061097375701586,
+      "time_utc": "2000-06-28T23:20:00+00:00"
+    },
+    {
+      "delta_el_deg": 3.552713678800501e-13,
+      "production_el_deg": -46.38212517300316,
+      "skyfield_el_deg": -46.382125173003516,
+      "time_utc": "2000-06-28T23:25:00+00:00"
+    },
+    {
+      "delta_el_deg": 3.481659405224491e-13,
+      "production_el_deg": -43.021285816967705,
+      "skyfield_el_deg": -43.02128581696805,
+      "time_utc": "2000-06-28T23:30:00+00:00"
+    },
+    {
+      "delta_el_deg": 2.984279490192421e-13,
+      "production_el_deg": -39.1407105477312,
+      "skyfield_el_deg": -39.1407105477315,
+      "time_utc": "2000-06-28T23:35:00+00:00"
+    },
+    {
+      "delta_el_deg": 4.547473508864641e-13,
+      "production_el_deg": -34.985679510193734,
+      "skyfield_el_deg": -34.98567951019419,
+      "time_utc": "2000-06-28T23:40:00+00:00"
+    },
+    {
+      "delta_el_deg": 1.8474111129762605e-13,
+      "production_el_deg": -30.868584018141394,
+      "skyfield_el_deg": -30.86858401814158,
+      "time_utc": "2000-06-28T23:45:00+00:00"
+    },
+    {
+      "delta_el_deg": 1.3145040611561853e-13,
+      "production_el_deg": -27.124102781980337,
+      "skyfield_el_deg": -27.12410278198047,
+      "time_utc": "2000-06-28T23:50:00+00:00"
+    },
+    {
+      "delta_el_deg": 1.3855583347321954e-13,
+      "production_el_deg": -24.026781360439855,
+      "skyfield_el_deg": -24.026781360439994,
+      "time_utc": "2000-06-28T23:55:00+00:00"
+    },
+    {
+      "delta_el_deg": 1.8474111129762605e-13,
+      "production_el_deg": -21.71830965644835,
+      "skyfield_el_deg": -21.718309656448536,
+      "time_utc": "2000-06-29T00:00:00+00:00"
+    }
+  ],
+  "production_accesses": [
+    {
+      "duration_s": 1822.1709999304783,
+      "end_clipped": false,
+      "end_utc": "2000-06-28T07:33:25.005000+00:00",
+      "index": 0,
+      "start_clipped": false,
+      "start_utc": "2000-06-28T07:03:02.834000+00:00"
+    },
+    {
+      "duration_s": 1677.1183909205088,
+      "end_clipped": false,
+      "end_utc": "2000-06-28T09:55:22.445801+00:00",
+      "index": 1,
+      "start_clipped": false,
+      "start_utc": "2000-06-28T09:27:25.327410+00:00"
+    },
+    {
+      "duration_s": 1196.0772108381134,
+      "end_clipped": false,
+      "end_utc": "2000-06-28T12:15:22.848013+00:00",
+      "index": 2,
+      "start_clipped": false,
+      "start_utc": "2000-06-28T11:55:26.770802+00:00"
+    },
+    {
+      "duration_s": 783.4500820756357,
+      "end_clipped": false,
+      "end_utc": "2000-06-28T14:34:54.310752+00:00",
+      "index": 3,
+      "start_clipped": false,
+      "start_utc": "2000-06-28T14:21:50.860670+00:00"
+    },
+    {
+      "duration_s": 312.4130269583187,
+      "end_clipped": false,
+      "end_utc": "2000-06-28T16:51:57.781666+00:00",
+      "index": 4,
+      "start_clipped": false,
+      "start_utc": "2000-06-28T16:46:45.368639+00:00"
+    }
+  ],
+  "production_genuine_crossings": [
+    {
+      "access_index": 0,
+      "time_utc": "2000-06-28T07:03:02.834000+00:00",
+      "type": "rise"
+    },
+    {
+      "access_index": 0,
+      "time_utc": "2000-06-28T07:33:25.005000+00:00",
+      "type": "set"
+    },
+    {
+      "access_index": 1,
+      "time_utc": "2000-06-28T09:27:25.327410+00:00",
+      "type": "rise"
+    },
+    {
+      "access_index": 1,
+      "time_utc": "2000-06-28T09:55:22.445801+00:00",
+      "type": "set"
+    },
+    {
+      "access_index": 2,
+      "time_utc": "2000-06-28T11:55:26.770802+00:00",
+      "type": "rise"
+    },
+    {
+      "access_index": 2,
+      "time_utc": "2000-06-28T12:15:22.848013+00:00",
+      "type": "set"
+    },
+    {
+      "access_index": 3,
+      "time_utc": "2000-06-28T14:21:50.860670+00:00",
+      "type": "rise"
+    },
+    {
+      "access_index": 3,
+      "time_utc": "2000-06-28T14:34:54.310752+00:00",
+      "type": "set"
+    },
+    {
+      "access_index": 4,
+      "time_utc": "2000-06-28T16:46:45.368639+00:00",
+      "type": "rise"
+    },
+    {
+      "access_index": 4,
+      "time_utc": "2000-06-28T16:51:57.781666+00:00",
+      "type": "set"
+    }
+  ],
+  "schema": "skyfield-phase-b-first-observed-v1",
+  "skyfield_accesses": [
+    {
+      "classification": "ordinary",
+      "culmination_deg": 34.59514098805472,
+      "end_clipped": false,
+      "end_utc": "2000-06-28T07:33:25.004599+00:00",
+      "index": 0,
+      "rise_event_index": 0,
+      "set_event_index": 2,
+      "start_clipped": false,
+      "start_utc": "2000-06-28T07:03:02.834270+00:00"
+    },
+    {
+      "classification": "ordinary",
+      "culmination_deg": 66.93237314461122,
+      "end_clipped": false,
+      "end_utc": "2000-06-28T09:55:22.445643+00:00",
+      "index": 1,
+      "rise_event_index": 3,
+      "set_event_index": 5,
+      "start_clipped": false,
+      "start_utc": "2000-06-28T09:27:25.327864+00:00"
+    },
+    {
+      "classification": "ordinary",
+      "culmination_deg": 86.07400721977857,
+      "end_clipped": false,
+      "end_utc": "2000-06-28T12:15:22.848204+00:00",
+      "index": 2,
+      "rise_event_index": 6,
+      "set_event_index": 8,
+      "start_clipped": false,
+      "start_utc": "2000-06-28T11:55:26.768881+00:00"
+    },
+    {
+      "classification": "ordinary",
+      "culmination_deg": 70.58412875697738,
+      "end_clipped": false,
+      "end_utc": "2000-06-28T14:34:54.310705+00:00",
+      "index": 3,
+      "rise_event_index": 9,
+      "set_event_index": 11,
+      "start_clipped": false,
+      "start_utc": "2000-06-28T14:21:50.859507+00:00"
+    },
+    {
+      "classification": "near_threshold",
+      "culmination_deg": 14.373091122335625,
+      "end_clipped": false,
+      "end_utc": "2000-06-28T16:51:57.781418+00:00",
+      "index": 4,
+      "rise_event_index": 12,
+      "set_event_index": 14,
+      "start_clipped": false,
+      "start_utc": "2000-06-28T16:46:45.367022+00:00"
+    }
+  ],
+  "skyfield_events": [
+    {
+      "bisected_utc": "2000-06-28T07:03:02.834270+00:00",
+      "bisection_mask_residual_deg": -6.9258775106106896e-06,
+      "bisection_width_s": 0.00061,
+      "code": 0,
+      "index": 0,
+      "initial_bracket_half_width_s": 5,
+      "raw_utc": "2000-06-28T07:03:02.862041+00:00"
+    },
+    {
+      "code": 1,
+      "culmination_elevation_deg": 34.59514098805472,
+      "index": 1,
+      "raw_utc": "2000-06-28T07:21:14.127456+00:00"
+    },
+    {
+      "bisected_utc": "2000-06-28T07:33:25.004599+00:00",
+      "bisection_mask_residual_deg": -3.607400227423341e-07,
+      "bisection_width_s": 0.00061,
+      "code": 2,
+      "index": 2,
+      "initial_bracket_half_width_s": 5,
+      "raw_utc": "2000-06-28T07:33:25.006735+00:00"
+    },
+    {
+      "bisected_utc": "2000-06-28T09:27:25.327864+00:00",
+      "bisection_mask_residual_deg": -8.54206639644417e-07,
+      "bisection_width_s": 0.00061,
+      "code": 0,
+      "index": 3,
+      "initial_bracket_half_width_s": 5,
+      "raw_utc": "2000-06-28T09:27:25.340986+00:00"
+    },
+    {
+      "code": 1,
+      "culmination_elevation_deg": 66.93237314461122,
+      "index": 4,
+      "raw_utc": "2000-06-28T09:45:39.137669+00:00"
+    },
+    {
+      "bisected_utc": "2000-06-28T09:55:22.445643+00:00",
+      "bisection_mask_residual_deg": 1.173739180515554e-05,
+      "bisection_width_s": 0.000611,
+      "code": 2,
+      "index": 5,
+      "initial_bracket_half_width_s": 5,
+      "raw_utc": "2000-06-28T09:55:22.460596+00:00"
+    },
+    {
+      "bisected_utc": "2000-06-28T11:55:26.768881+00:00",
+      "bisection_mask_residual_deg": -3.243784156836682e-06,
+      "bisection_width_s": 0.000611,
+      "code": 0,
+      "index": 6,
+      "initial_bracket_half_width_s": 5,
+      "raw_utc": "2000-06-28T11:55:26.786275+00:00"
+    },
+    {
+      "code": 1,
+      "culmination_elevation_deg": 86.07400721977857,
+      "index": 7,
+      "raw_utc": "2000-06-28T12:08:32.736629+00:00"
+    },
+    {
+      "bisected_utc": "2000-06-28T12:15:22.848204+00:00",
+      "bisection_mask_residual_deg": -1.8220609746322225e-05,
+      "bisection_width_s": 0.00061,
+      "code": 2,
+      "index": 8,
+      "initial_bracket_half_width_s": 5,
+      "raw_utc": "2000-06-28T12:15:22.862547+00:00"
+    },
+    {
+      "bisected_utc": "2000-06-28T14:21:50.859507+00:00",
+      "bisection_mask_residual_deg": 8.36279180305155e-06,
+      "bisection_width_s": 0.000611,
+      "code": 0,
+      "index": 9,
+      "initial_bracket_half_width_s": 5,
+      "raw_utc": "2000-06-28T14:21:50.859812+00:00"
+    },
+    {
+      "code": 1,
+      "culmination_elevation_deg": 70.58412875697738,
+      "index": 10,
+      "raw_utc": "2000-06-28T14:29:56.413083+00:00"
+    },
+    {
+      "bisected_utc": "2000-06-28T14:34:54.310705+00:00",
+      "bisection_mask_residual_deg": 4.805720381639844e-06,
+      "bisection_width_s": 0.00061,
+      "code": 2,
+      "index": 11,
+      "initial_bracket_half_width_s": 5,
+      "raw_utc": "2000-06-28T14:34:54.314062+00:00"
+    },
+    {
+      "bisected_utc": "2000-06-28T16:46:45.367022+00:00",
+      "bisection_mask_residual_deg": -1.1817653524204275e-05,
+      "bisection_width_s": 0.00061,
+      "code": 0,
+      "index": 12,
+      "initial_bracket_half_width_s": 5,
+      "raw_utc": "2000-06-28T16:46:45.380144+00:00"
+    },
+    {
+      "code": 1,
+      "culmination_elevation_deg": 14.373091122335625,
+      "index": 13,
+      "raw_utc": "2000-06-28T16:49:29.026491+00:00"
+    },
+    {
+      "bisected_utc": "2000-06-28T16:51:57.781418+00:00",
+      "bisection_mask_residual_deg": 1.3637676675060106e-05,
+      "bisection_width_s": 0.000611,
+      "code": 2,
+      "index": 14,
+      "initial_bracket_half_width_s": 5,
+      "raw_utc": "2000-06-28T16:51:57.887924+00:00"
+    }
+  ],
+  "skyfield_genuine_crossings": [
+    {
+      "event_index": 0,
+      "time_utc": "2000-06-28T07:03:02.834270+00:00",
+      "type": "rise"
+    },
+    {
+      "event_index": 2,
+      "time_utc": "2000-06-28T07:33:25.004599+00:00",
+      "type": "set"
+    },
+    {
+      "event_index": 3,
+      "time_utc": "2000-06-28T09:27:25.327864+00:00",
+      "type": "rise"
+    },
+    {
+      "event_index": 5,
+      "time_utc": "2000-06-28T09:55:22.445643+00:00",
+      "type": "set"
+    },
+    {
+      "event_index": 6,
+      "time_utc": "2000-06-28T11:55:26.768881+00:00",
+      "type": "rise"
+    },
+    {
+      "event_index": 8,
+      "time_utc": "2000-06-28T12:15:22.848204+00:00",
+      "type": "set"
+    },
+    {
+      "event_index": 9,
+      "time_utc": "2000-06-28T14:21:50.859507+00:00",
+      "type": "rise"
+    },
+    {
+      "event_index": 11,
+      "time_utc": "2000-06-28T14:34:54.310705+00:00",
+      "type": "set"
+    },
+    {
+      "event_index": 12,
+      "time_utc": "2000-06-28T16:46:45.367022+00:00",
+      "type": "rise"
+    },
+    {
+      "event_index": 14,
+      "time_utc": "2000-06-28T16:51:57.781418+00:00",
+      "type": "set"
+    }
+  ],
+  "skyfield_sequence_anomalies": [],
+  "source_branch": "feat/skyfield-holdout",
+  "source_commit": "fdaa2002b733dbc937312aa558d74bfaeec11000",
+  "stage": "evaluation_saved",
+  "versions": {
+    "astropy": "7.2.1",
+    "python": "3.11.9",
+    "scipy": "1.17.1",
+    "sgp4": "2.27",
+    "skyfield": "1.55"
+  }
+}

@@ -1,60 +1,42 @@
 # Spacecraft Mission Analysis Tool
 
-A reproducible spacecraft mission-analysis demonstrator for archived TLE
-propagation, coordinate-frame handling, ground-station visibility, access
-windows, and temporal station coverage. **The TLE → SGP4 → TEME → ITRS chain
-fixed-station geometric azimuth/elevation/range and numerical access windows
-exist today.** This is a
-portfolio engineering project, not operational mission software.
+A portfolio mission-analysis demonstrator for archived-TLE propagation and
+fixed-station geometric access. It traces a spacecraft state through coordinate
+frames to station viewing geometry and threshold-crossing windows. It is not
+operational or flight-qualified mission software.
 
-## Status and scope
+## Current scope and status
 
-- M0: the orbit-kernel design and verification case are agreed; acceptance
-  criteria for later geometry and events remain to be defined.
-- M1a: archived TLE → WGS72 SGP4 → typed TEME state is implemented and verified.
-- M1b: TEME → ITRS is implemented and passes a matched split-UT1 independent
-  reference at the original 10 mm position and 0.1 mm/s velocity limits. The
-  printed Appendix C position retains a documented 3.17 mm limit overrun
-  because its reproducible single-JD path has a different numerical UT1 instant.
-- Fixed WGS84 station → ITRS position → station-relative ITRS → ENU is
-  implemented and numerically verified. Geometric azimuth/elevation/range is
-  implemented and analytically verified. Threshold access events are
-  implemented and checked against analytic roots plus one internal archived
-  orbit smoke case. Skyfield Phase A compares two development access cases
-  under matched EOP as downstream cross-implementation characterization with
-  a shared SGP4 kernel. The predeclared Phase B Skyfield hold-out passes its
-  downstream numerical agreement criteria; see the [first-observed validation
-  record](docs/validation.md). Temporal coverage, versioned product outputs,
-  and independent propagation validation have not started.
+The implemented path is:
 
-The planned baseline is one spacecraft per analysis, archived TLEs, fixed
-ground stations, geometric visibility, and temporal station coverage. Eclipse,
-geographic sensor coverage, live TLE fetching, and operational scheduling are
-outside the current baseline. See [requirements](docs/requirements.md) and
-[architecture](docs/architecture.md) for status by component.
+```text
+archived TLE → WGS72 SGP4 → TEME → ITRS → station-relative ITRS
+             → ENU → geometric azimuth/elevation/range
+             → elevation threshold → access entry/exit and duration
+```
 
-## Current orbit-kernel contract
+The orbit, frame, station, look-angle and access boundaries have component
+verification. The frozen Skyfield Phase B hold-out **passed its downstream
+numerical agreement criteria** under matched Earth orientation, with a shared
+SGP4 kernel. This does not independently validate propagation or establish
+physical pass-time accuracy. See the [live requirements](docs/requirements.md)
+for the disposition of each MA requirement.
 
-`TleRecord.from_lines(line1, line2, source=...)` preserves exact checksum-bearing
-69-character lines, validates their structure, and records the catalogue ID
-and UTC epoch. `Sgp4Propagator(tle).propagate(time)` requires a scalar UTC
-Astropy `Time`, explicitly selects WGS72, and passes `time.jd1` and `time.jd2`
-separately to SGP4. It returns a `TemeState` with TEME position in **km** and
-velocity in **km/s**. A nonzero SGP4 status raises `PropagationError` with its
-code and message; it cannot return a valid-looking state after failure.
+The planned scope is one spacecraft per analysis, archived TLEs, fixed WGS84
+stations, geometric visibility and eventual temporal station coverage.
+Maximum elevation, versioned product CSV/JSON, TLE-age and unsupported-interval
+warnings, independent propagation/GMAT comparison, and temporal coverage remain
+open or not started. Live TLE fetching, eclipse, geographic sensor coverage
+and operational scheduling are outside the baseline.
 
-TLEs contain SGP4-compatible mean elements, not ordinary osculating Keplerian
-elements. The [python-sgp4 documentation](https://github.com/brandon-rhodes/python-sgp4)
-describes the model and output convention; the
-[Astropy satellite guide](https://docs.astropy.org/en/stable/coordinates/satellites.html)
-shows the split-Julian-date call.
+## Run and verify
 
-## Install and verify
+Python 3.11 or newer is required. Dependencies and developer tools are pinned
+in [pyproject.toml](pyproject.toml). There is no CLI or product-output layer yet;
+the [Python API](src/spacecraft_mission_analysis/__init__.py) is exercised by
+the local [tests](tests/) and [validation code](tests/validation/).
 
-Python **3.11 or newer** is required. Direct dependencies and developer tools
-are pinned in `pyproject.toml`, including SciPy 1.17.1 for bracketed root
-refinement. Skyfield 1.55 is optional for validation and CI. On Windows
-PowerShell:
+On Windows PowerShell:
 
 ```powershell
 python -m venv .venv
@@ -66,35 +48,37 @@ python -m venv .venv
 .\.venv\Scripts\python.exe -m pytest -q
 ```
 
-After installation, the tests use archived local data and require no network
-access. The Vanguard 1 / catalogue 00005 **+360 minute** reference case
-reproduces the full printed vector from `python-sgp4==2.27` with maximum
-component residuals of `4.293e-9 km` and `3.737e-10 km/s` against fixed limits
-of `2e-7 km` and `2e-9 km/s`. See [verification](docs/verification.md) and
-[fixture provenance](tests/fixtures/sgp4/README.md). This is same-model
-software verification, not evidence of physical orbit accuracy.
+The tests use archived local data and require no network access. The reference
+case is Vanguard 1, catalogue 00005, propagated **+360 minutes** from its
+archived TLE epoch. The fixed `python-sgp4==2.27` fixture gives TEME position
+`(-7154.03120202, -3783.17682504, -3536.19412294) km` and velocity
+`(4.741887409, -4.151817765, -2.093935425) km/s`. The adapter uses scalar
+UTC Astropy `Time`, split `jd1`/`jd2`, and explicit SGP4 errors. See the
+[fixture provenance](tests/fixtures/sgp4/README.md) and
+[verification record](docs/verification.md) for fixed limits and residuals.
 
-## Repository guide
+## Evidence and authority
 
-- `src/spacecraft_mission_analysis/`: orbit kernel, frame conversion, and
-  fixed-station viewing geometry through azimuth/elevation/range, plus the
-  separate elevation composition and numerical access-event modules.
-- `tests/`: contract, failure-path, and reference-vector tests; `fixtures/`
-  holds the minimal archived verification case.
-- `docs/`: requirements, assumptions, architecture, verification, validation
-  status, issue log, and decision-record convention.
-- `examples/`: intended home for reviewed worked cases; none exist yet.
-- `.github/workflows/ci.yml`: checks the package on push and pull request.
+The external portfolio plan `01-spacecraft-mission-analysis.md` remains the
+scope and intent baseline. **This repository is the source of truth for current
+implementation state.** Its records have separate jobs:
 
-## Engineering limits
+- [Requirements](docs/requirements.md): live MA-01–MA-08 status and traceability.
+- [Assumptions](docs/assumptions.md): modelling conventions and boundaries.
+- [Architecture](docs/architecture.md): implemented interfaces and data path.
+- [Verification](docs/verification.md): specified software behaviour, fixtures,
+  criteria and results.
+- [Validation](docs/validation.md): cross-implementation evidence, frozen
+  hold-out, independence limits and disposition.
+- [Issues](docs/issues.md): concise discrepancy and limitation register.
+- [Decisions](docs/decisions/README.md): approved engineering baseline choices.
+- [Learning/fault log](docs/engineering-learning-and-fault-log.md): educational
+  and historical companion, subordinate to the records above.
+- [Changelog](CHANGELOG.md): chronological repository changes.
 
-The software is **not flight-qualified** and **not operational mission
-software**. TLE predictions depend on the SGP4 model and TLE age. The current
-reference-vector check confirms integration with the same/reference model
-family; the matched frame comparison checks the M1b transformation at one
-controlled case. Station and look-angle tests check local numerical geometry.
-The access tests establish numerical event behaviour and internal composition.
-Phase A and the frozen Phase B hold-out compare downstream access geometry and
-events with Skyfield; both use the same SGP4 package. Passing Phase B does not
-establish physical orbit truth or independently validate propagation. See
-[validation](docs/validation.md) for the evidence still needed.
+The direct Vallado Appendix C printed-vector x-position comparison retains a
+documented **3.17 mm overrun** of its frozen position limit. Decision 0001
+established a matched split-UT1 reference for active frame acceptance without
+loosening that limit. The 5 s access sampling grid can miss narrow near-grazing
+intervals; Skyfield shares the installed SGP4 kernel. These limits and their
+dispositions remain visible in the [issue register](docs/issues.md).

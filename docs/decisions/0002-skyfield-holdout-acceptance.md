@@ -1,8 +1,12 @@
 # 0002 — Skyfield Phase B hold-out acceptance criteria
 
-Date: 2026-10-16. Status: criteria frozen before hold-out execution; Phase B
-result and engineering disposition pending. Affected requirements: MA-04 and
-MA-07. Scope: downstream Skyfield access comparison with a shared SGP4 kernel.
+Date: 2026-10-16. Status at criteria freeze: Phase B result and engineering
+disposition pending. Affected requirements: MA-04 and MA-07. Scope: downstream
+Skyfield access comparison with a shared SGP4 kernel.
+
+Current execution status: the frozen Phase B hold-out subsequently **passed**;
+see the [first-observed validation record](../validation.md#phase-b-first-observed-hold-out-result--pass).
+The pre-execution wording below is retained as historical decision evidence.
 
 ## Decision question and previous proposal
 

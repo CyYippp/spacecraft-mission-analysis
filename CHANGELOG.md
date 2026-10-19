@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+- Aligned the reviewer README and live MA requirement dispositions with the
+  implemented evidence; established a concise issue register and a historical
+  learning-log entry for the verified zero-range look-angle guard. Removed the
+  empty examples placeholder. No engineering model or acceptance rule changed.
 - Executed the predeclared Phase B Skyfield hold-out once and preserved its
   first-observed JSON with a SHA-256 digest. Five rise/set pairs correspond;
   eight ordinary events pass the 20 ms refined-time limit, 319 pointwise

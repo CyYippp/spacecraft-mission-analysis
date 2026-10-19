@@ -56,6 +56,15 @@
   is inferred. Endpoint times denote threshold crossings or clipped bounds;
   access itself is strict `elevation > mask`, so equality endpoints need not
   be members of the positive set. Duration is the endpoint time difference.
+- Peak elevation is evaluated over each reported closed endpoint interval,
+  including clipped boundaries. Bounded scalar refinement uses seconds from
+  the local window start with `xatol=0.002 s`; this is a numerical setting, not
+  physical time accuracy. The solver compares both boundaries, all existing
+  detection-grid samples, a full-window candidate, and locally refined sampled
+  peaks. Exact equal-elevation ties retain the earliest candidate time.
+  Flat or nearly flat peaks can have weakly identifiable timestamps. As with
+  access detection, finite sampling cannot certify a hidden narrow peak or an
+  arbitrary multimodal function's global maximum.
 - The internal orbit smoke fixture uses a synthetic fixed equator/Greenwich
   WGS84 station and a test-only zero-valued EOP table at MJD 51722–51723. It
   demonstrates software integration only, not realistic EOP or independent

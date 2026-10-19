@@ -58,8 +58,9 @@ the maximum, and all near-crossing residuals are in the JSON report.
 
 Skyfield [`find_events(..., altitude_degrees=10.0)`](https://rhodesmill.org/skyfield/api-satellites.html)
 supplies raw rise (0),
-culmination (1), and set (2) events. Culminations are diagnostics only; no
-production maximum elevation exists. A **validation-only** plain bisection
+culmination (1), and set (2) events. Culminations were diagnostics only in the
+frozen Phase A/B comparisons; production maximum elevation was added later and
+those saved artifacts do not validate it. A **validation-only** plain bisection
 on Skyfield geometric elevation brackets each rise/set at ±5 s, expanding
 through ±10, ±20, ±40, ±80 s when needed, then reaches interval width
 ≤`0.001 s`. It calls neither production `brentq` nor the production access

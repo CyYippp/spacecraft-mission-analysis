@@ -74,3 +74,19 @@ does not imply physical accuracy.
   pointwise elevation, and genuine crossing order/count before Phase B exposure.
   The first-observed Phase B artifact passed these criteria; see
   [validation](validation.md#phase-b-first-observed-hold-out-result--pass).
+
+## ISS-006 — peak-search globality boundary
+
+- **Kind/status:** Accepted numerical limitation; independent peak validation
+  remains open under MA-04.
+- **Trigger/expectation/actual:** Bounded optimization and comparison of both
+  endpoints, sampled values and grid-visible local peaks recover the analytic
+  fixtures, including a two-peak window. A finite 5 s grid cannot certify an
+  arbitrarily narrow unsampled higher peak within an otherwise detected window.
+- **Consequence/cause:** Reported peak elevation/time could miss such a feature;
+  scalar bounded search alone has no global guarantee for arbitrary multimodal
+  callbacks.
+- **Disposition/retest:** Scope the result to smooth, resolved access passes.
+  Keep the [analytic and archived integration evidence](verification.md#maximum-elevation-within-detected-access-windows)
+  and disclose the limit. No hidden-peak completeness or physical peak-time
+  claim is made; broader adaptive/global search needs separate scope/evidence.

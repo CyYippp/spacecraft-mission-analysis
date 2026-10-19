@@ -1,6 +1,7 @@
 """Archived-orbit access smoke case with test-only deterministic EOP inputs."""
 
 import json
+from math import isfinite
 from pathlib import Path
 
 import astropy.units as u
@@ -25,6 +26,7 @@ FIXTURE = json.loads(
 # Refined crossing at 0.01 s gives a much smaller mask residual for this pass;
 # 0.01 deg is a predeclared numerical integration check, not physical accuracy.
 MASK_RESIDUAL_LIMIT_DEG = 0.01
+PEAK_NEIGHBOR_SLACK_DEG = 1e-8  # Numerical comparison, not angular accuracy.
 
 
 def _setup():
@@ -67,12 +69,23 @@ def test_archived_tle_to_access_smoke() -> None:
             assert start < window.start < window.end < end
             assert not window.start_clipped and not window.end_clipped
             assert window.duration_s > 0
+            assert window.max_elevation_time.scale == "utc"
+            assert window.start <= window.max_elevation_time <= window.end
+            assert isfinite(window.max_elevation_deg)
             assert abs(satellite_elevation_deg(propagator, station, window.start) - 10) <= (
                 MASK_RESIDUAL_LIMIT_DEG
             )
             assert abs(satellite_elevation_deg(propagator, station, window.end) - 10) <= (
                 MASK_RESIDUAL_LIMIT_DEG
             )
+            peak = satellite_elevation_deg(propagator, station, window.max_elevation_time)
+            assert abs(peak - window.max_elevation_deg) <= 1e-10
+            for offset_s in (-5.0, -1.0, 1.0, 5.0):
+                nearby = window.max_elevation_time + offset_s * u.s
+                if window.start <= nearby <= window.end:
+                    assert peak >= satellite_elevation_deg(propagator, station, nearby) - (
+                        PEAK_NEIGHBOR_SLACK_DEG
+                    )
 
 
 def test_propagation_failure_cannot_become_no_access() -> None:

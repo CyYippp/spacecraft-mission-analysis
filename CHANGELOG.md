@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+- Added immutable maximum elevation and UTC peak time to detected access
+  windows, with bounded second-offset refinement, endpoint comparison, analytic
+  peak tests and an archived-orbit integration check. Phase A/B artifacts and
+  event-time acceptance criteria remain unchanged.
 - Aligned the reviewer README and live MA requirement dispositions with the
   implemented evidence; established a concise issue register and a historical
   learning-log entry for the verified zero-range look-angle guard. Removed the

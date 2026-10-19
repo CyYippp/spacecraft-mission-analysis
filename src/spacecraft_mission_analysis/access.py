@@ -7,7 +7,9 @@ from numbers import Real
 
 import astropy.units as u
 from astropy.time import Time
-from scipy.optimize import brentq
+from scipy.optimize import brentq, minimize_scalar
+
+PEAK_XATOL_S = 0.002  # Numerical refinement width, not pass-time accuracy.
 
 
 @dataclass(frozen=True, slots=True)
@@ -18,12 +20,18 @@ class AccessWindow:
     _start_jd2: float
     _end_jd1: float
     _end_jd2: float
+    _max_jd1: float
+    _max_jd2: float
+    max_elevation_deg: float
     start_clipped: bool = False
     end_clipped: bool = False
 
     def __post_init__(self) -> None:
         if self.end < self.start:
             raise ValueError("access end must not precede start")
+        if not self.start <= self.max_elevation_time <= self.end:
+            raise ValueError("maximum elevation time must lie within the access window")
+        _finite_number(self.max_elevation_deg, "max_elevation_deg")
 
     @property
     def start(self) -> Time:
@@ -32,6 +40,10 @@ class AccessWindow:
     @property
     def end(self) -> Time:
         return Time(self._end_jd1, self._end_jd2, format="jd", scale="utc")
+
+    @property
+    def max_elevation_time(self) -> Time:
+        return Time(self._max_jd1, self._max_jd2, format="jd", scale="utc")
 
     @property
     def duration_s(self) -> float:
@@ -77,9 +89,11 @@ def find_access_windows(
     step = _finite_number(coarse_step_s, "coarse_step_s", positive=True)
     tolerance = _finite_number(root_tolerance_s, "root_tolerance_s", positive=True)
 
+    def elevation(time: Time) -> float:
+        return _finite_number(elevation_deg_at(time), "evaluated elevation")
+
     def residual(time: Time) -> float:
-        elevation = _finite_number(elevation_deg_at(time), "evaluated elevation")
-        return elevation - threshold
+        return elevation(time) - threshold
 
     offsets = [i * step for i in range(int(duration_s / step) + 1) if i * step < duration_s]
     offsets.append(duration_s)
@@ -105,7 +119,52 @@ def find_access_windows(
         return left_time + offset_s * u.s
 
     def window(first: Time, last: Time, first_clipped: bool, last_clipped: bool) -> AccessWindow:
-        return AccessWindow(first.jd1, first.jd2, last.jd1, last.jd2, first_clipped, last_clipped)
+        # Retain detection-grid samples so grid-visible secondary peaks are not
+        # discarded by a single bounded search over a possibly multimodal window.
+        candidates = [(first, elevation(first))]
+        candidates.extend(
+            (time, value + threshold) for time, value in zip(times, values) if first < time < last
+        )
+        candidates.append((last, elevation(last)))
+
+        def refine(left: Time, right: Time) -> None:
+            width_s = float((right - left).to_value(u.s))
+            result = minimize_scalar(
+                lambda elapsed_s: -elevation(left + elapsed_s * u.s),
+                bounds=(0.0, width_s),
+                method="bounded",
+                options={"xatol": PEAK_XATOL_S},
+            )
+            if not result.success or not isfinite(result.x) or not 0 <= result.x <= width_s:
+                raise RuntimeError("maximum elevation optimization failed")
+            peak_time = left + result.x * u.s
+            candidates.append((peak_time, elevation(peak_time)))
+
+        refine(first, last)
+        sampled = candidates[:-1]  # Exclude the full-window optimizer candidate.
+        for index in range(1, len(sampled) - 1):
+            if (
+                sampled[index][1] >= sampled[index - 1][1]
+                and sampled[index][1] >= sampled[index + 1][1]
+            ):
+                if sampled[index][1] > min(sampled[index - 1][1], sampled[index + 1][1]):
+                    refine(sampled[index - 1][0], sampled[index + 1][0])
+
+        peak_time, peak_elevation = max(
+            candidates,
+            key=lambda item: (item[1], -float((item[0] - first).to_value(u.s))),
+        )
+        return AccessWindow(
+            first.jd1,
+            first.jd2,
+            last.jd1,
+            last.jd2,
+            peak_time.jd1,
+            peak_time.jd2,
+            peak_elevation,
+            first_clipped,
+            last_clipped,
+        )
 
     windows = []
     entry: Time | None = None

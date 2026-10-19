@@ -373,3 +373,69 @@ chain and are **not** independent expected event times or physical validation.
 The later [Skyfield Phase A record](validation.md) characterizes downstream
 cross-implementation agreement using a shared SGP4 package. It does not
 replace these analytic verification or internal integration tests.
+
+## Maximum elevation within detected access windows
+
+`find_access_windows()` now uses SciPy's bounded scalar minimization of
+`-El(t)` on seconds from each window start. The numerical `xatol=0.002 s` is
+one fifth of the existing root-refinement setting, leaving margin for the
+**predeclared synthetic peak-time criterion of `0.02 s`**; neither setting
+states physical pass-time accuracy. The separate **synthetic elevation limit is
+`1e-5 deg`**. Both limits were placed in `tests/test_access.py` before the
+archived-orbit peak was evaluated. Both endpoints and all existing coarse-grid
+samples are compared with the full-window optimizer candidate; grid-visible
+local peaks receive bounded refinement in their neighbouring sample bracket.
+The production elevation callback is unchanged. A finite grid cannot certify
+an unsampled narrow peak or the global maximum of an arbitrary multimodal
+function; see [ISS-006](issues.md#iss-006--peak-search-globality-boundary).
+
+Observed synthetic results below use seconds from the stated UTC analysis
+start. Residuals are observed minus analytic, except for the flat case where
+peak time is non-unique. The six required cases and an additional grid-visible
+two-peak case pass their stated criteria.
+
+Fixtures are: A `20−0.5(t−10)²`; B
+`20−0.3(t−8)²[1+0.04(t−8)]` (the bracket stays positive on `[0,20]`, so its
+unique maximum is at 8 s); C `15−0.1t`; D `11+0.1t`; E
+`20−0.5(t−0.0005)²` on `[0,0.001] s`; F constant `20` and nearly flat
+`20−1e-12(t−10)²`; G `30−min(0.2(t−5)²,1+0.2(t−15)²)` with resolved peaks
+at 5 and 15 s. All elevations are degrees.
+
+| Case | Analytic peak `(s, deg)` | Observed peak `(s, deg)` | Time residual `s` | Elevation residual `deg` | Disposition |
+| --- | --- | --- | --- | --- | --- |
+| A symmetric quadratic | `(10, 20)` | `(9.999999999998, 20)` | `−1.63e-12` | `0` | PASS |
+| B asymmetric smooth cubic factor | `(8, 20)` | `(8.000058385443, 19.999999998977)` | `+5.84e-5` | `−1.02e-9` | PASS |
+| C decreasing, start maximum | `(0, 15)` | `(0, 15)` | `0` | `0` | PASS; exact start boundary |
+| D increasing, end maximum | `(20, 13)` | `(20.000000000002, 13.000000000000)` | `+1.53e-12` | `+1.53e-13` | PASS; exact end boundary |
+| E 1 ms window | `(0.0005, 20)` | `(0.000381966012, 19.999999993034)` | `−1.18e-4` | `−6.97e-9` | PASS; peak remains inside interval |
+| F constant 20° | non-unique time, `20` | `(0, 20)` | not meaningful | `0` | PASS; earliest exact tie |
+| F nearly flat | `(10, 20)` | `(9.999999999998, 20)` | reported, not an accuracy claim | `0` | PASS; no tight time criterion |
+| G two grid-visible peaks | `(5, 30)` | `(4.999999999999, 30)` | `−8.17e-13` | `0` | PASS; higher peak selected |
+
+Start/end maxima remain exactly on their clipped boundaries. The existing
+strict `El > mask` tangent fixture creates no window and hence no peak result.
+The solver rejects equal/reversed analysis intervals; direct `AccessWindow`
+construction still permits zero duration when peak time equals that instant,
+but the event solver emits only positive-duration windows. Invalid peak
+metadata and non-finite elevation during optimization raise errors. Peak
+time exposure is a fresh scalar UTC `Time`; the result remains immutable.
+Analytic 5 s versus 1 s detection-grid comparisons also pass the predeclared
+`0.02 s` peak-time and `1e-5 deg` elevation-difference checks when both grids
+detect the same window.
+
+The existing [archived internal access fixture](../tests/fixtures/access/vanguard_greenwich.json)
+uses Vanguard 1 catalogue 00005, a synthetic equator/Greenwich WGS84 station,
+test-only zero EOP, a 10° mask and 5 s event grid. Its unclipped window rises
+at `2000-06-27T20:11:00.831787810Z`, sets at
+`2000-06-27T20:31:30.099808909Z`, and lasts `1229.268021099570 s`.
+The reported peak is `2000-06-27T20:22:58.282534089Z` at
+`20.193865604694°`. Re-evaluation at that UTC instant agrees with the stored
+elevation to displayed precision. Evaluations at `−5, −1, +1, +5 s` differ
+from the peak by `−8.671840234e-4`, `−3.476606537e-5`,
+`−3.483241210e-5`, and `−8.727623800e-4 deg`, respectively; all pass the
+predeclared `1e-8 deg` nearby-point slack. This is deterministic internal
+integration evidence, not an independent peak or physical-orbit validation.
+The frozen Phase A/B artifacts were neither regenerated nor used as peak
+acceptance oracles. Phase A's equator/Greenwich case uses Skyfield-matched DUT1,
+whereas this internal smoke case uses synthetic zero EOP, so its saved
+culmination is not a matched peak reference.

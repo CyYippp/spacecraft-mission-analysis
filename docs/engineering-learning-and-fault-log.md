@@ -10,8 +10,10 @@ document conflicts with those records, the authoritative repository record
 takes precedence.
 
 No earlier learning/fault log was present in the repository or checked project
-files at this alignment. This entry records only the F-015 question supplied
-for this review; it does not reconstruct an unavailable historical log.
+files at the repository-alignment increment. The F-015 entry below records only
+the question supplied for that review; it does not reconstruct an unavailable
+historical log. Later entries are added when new interview-relevant learning
+arises from implementation.
 
 ## F-015 — zero-range look-angle geometry
 
@@ -27,3 +29,15 @@ includes `(0.0, 0.0, 0.0)` and asserts that `ValueError` is raised. The
 [verification record](verification.md#enu-to-geometric-azimuth-elevation-and-range)
 also records the failure-path behaviour. No production correction or open
 engineering issue is required.
+
+## Maximum elevation — numerical interpretation
+
+This increment records no observed peak defect. Bounded scalar optimization
+refines a smooth peak efficiently, but its interior result must be compared
+with both ends of a clipped access window. A flat elevation plateau has no
+unique peak time: the implementation returns the earliest exactly tied
+candidate, while nearly flat timestamps deserve no precision claim. Existing
+coarse samples expose multiple resolved peaks for separate local refinement;
+they cannot prove a global maximum for an arbitrary hidden narrow feature.
+The live limitation and evidence are in [ISS-006](issues.md#iss-006--peak-search-globality-boundary)
+and [verification](verification.md#maximum-elevation-within-detected-access-windows).

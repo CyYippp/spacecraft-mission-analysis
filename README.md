@@ -12,7 +12,7 @@ The implemented path is:
 ```text
 archived TLE → WGS72 SGP4 → TEME → ITRS → station-relative ITRS
              → ENU → geometric azimuth/elevation/range
-             → elevation threshold → access entry/exit and duration
+             → elevation threshold → access entry/exit, duration and peak
 ```
 
 The orbit, frame, station, look-angle and access boundaries have component
@@ -24,10 +24,12 @@ for the disposition of each MA requirement.
 
 The planned scope is one spacecraft per analysis, archived TLEs, fixed WGS84
 stations, geometric visibility and eventual temporal station coverage.
-Maximum elevation, versioned product CSV/JSON, TLE-age and unsupported-interval
-warnings, independent propagation/GMAT comparison, and temporal coverage remain
-open or not started. Live TLE fetching, eclipse, geographic sensor coverage
-and operational scheduling are outside the baseline.
+Versioned product CSV/JSON, TLE-age and unsupported-interval warnings,
+independent propagation/GMAT comparison, and temporal coverage remain open or
+not started. Peak elevation is analytically verified and checked on an internal
+archived-orbit case; it has no separate independent comparison. Live TLE
+fetching, eclipse, geographic sensor coverage and operational scheduling are
+outside the baseline.
 
 ## Run and verify
 
@@ -80,5 +82,6 @@ The direct Vallado Appendix C printed-vector x-position comparison retains a
 documented **3.17 mm overrun** of its frozen position limit. Decision 0001
 established a matched split-UT1 reference for active frame acceptance without
 loosening that limit. The 5 s access sampling grid can miss narrow near-grazing
-intervals; Skyfield shares the installed SGP4 kernel. These limits and their
+intervals, and a peak hidden between samples cannot be certified as the global
+maximum; Skyfield shares the installed SGP4 kernel. These limits and their
 dispositions remain visible in the [issue register](docs/issues.md).

@@ -9,7 +9,7 @@ archived input / TLE
     → WGS84 station ITRS → station-relative ITRS → ENU [implemented]
     → geometric azimuth/elevation/range [implemented]
     → elevation evaluator → coarse event search → bracketed root refinement
-      → AccessWindow [implemented, internally verified]
+      → AccessWindow with peak time/elevation [implemented, internally verified]
     → temporal metrics and versioned outputs [future]
 ```
 
@@ -60,6 +60,10 @@ callback, UTC start/end times, a configurable mask and sampling/refinement
 settings; it does not import a TLE, propagator, frame, or station model. It
 samples both analysis boundaries, finds positive-elevation intervals, and uses
 SciPy `brentq` on elapsed seconds within each sign-changing bracket. An exact
-sampled zero is used once as an endpoint. `AccessWindow` stores immutable split
-UTC endpoints and derives duration in seconds. Clipped flags distinguish an
-analysis bound from a threshold crossing. Upstream failures propagate.
+sampled zero is used once as an endpoint. For each detected window, bounded
+scalar optimization evaluates the existing elevation callback using seconds
+relative to the window start, with explicit endpoint and detection-grid peak
+candidate checks. `AccessWindow` stores immutable split UTC endpoints and peak
+time, maximum elevation in degrees, and derived duration in seconds. Clipped
+flags distinguish an analysis bound from a threshold crossing. Upstream
+failures propagate.

@@ -1,69 +1,22 @@
-# Requirements and current disposition
+# Live requirements status
 
-Source baseline: `01-spacecraft-mission-analysis.md` in the portfolio plans.
-M1a covers the archived-TLE/SGP4 boundary, and M1b adds the frame boundary. Later
-acceptance thresholds must be declared before their verification runs.
+The external `01-spacecraft-mission-analysis.md` portfolio plan sets scope and
+intent. This repository records current implementation and evidence. Status here
+is current as of the Phase B hold-out; detailed criteria and residuals remain in
+[verification](verification.md) and [validation](validation.md). `IN PROGRESS`
+means some required behaviour or evidence is still missing. `PARTIALLY VALIDATED`
+means bounded comparison evidence exists but the full requirement remains open.
 
-- **MA-01 — Archived TLE input.** Preserve original lines, epoch, catalogue ID,
-  and available source metadata; reject malformed or inconsistent lines.
-  **M1a partial:** exact lines, UTC epoch, catalogue ID, optional source,
-  checksum/format/identity checks are implemented in `TleRecord`. A run-level
-  input manifest is future work. Evidence: `tests/test_orbit.py` TLE tests.
-- **MA-02 — SGP4 propagation.** Use a pinned SGP4 implementation, explicit
-  gravity constants, and report failures and time since epoch. **M1a partial:**
-  WGS72 propagation, typed TEME state, reference-vector verification, and
-  explicit SGP4 errors exist. Run-level elapsed-time reporting is future work.
-  Evidence: `tests/test_orbit.py` vector and error tests.
-- **MA-03 — Frames and topocentric geometry.** Convert TEME to an Earth-fixed
-  frame and station azimuth/elevation/range with declared conventions.
-  **M1b partial:** TEME→ITRS position and velocity conversion is implemented.
-  Both pass the frozen limits against an independent matched split-UT1 Vallado
-  calculation. The printed Appendix C x position remains 3.17 mm over the
-  10 mm limit when compared directly with production; its numerical reference
-  path is separately reproduced. **Station/ENU partial:** fixed WGS84 station
-  ITRS position, station-to-satellite ITRS displacement, and local ENU components
-  are implemented and numerically checked. **Look-angle increment:** geometric
-  azimuth, elevation, and range are implemented and analytically checked, with
-  undefined vertical azimuth represented explicitly. MA-03's component chain
-  is implemented; satellite-access validation remains future work. Evidence:
-  `tests/test_frames.py`, `tests/test_station_enu.py`, `tests/test_look_angles.py`,
-  and their verification records.
-- **MA-04 — Access events.** Detect and refine threshold crossings, pass
-  duration, and maximum elevation. **Partial:** the configurable scalar
-  elevation-threshold solver detects sampled entry/exit brackets, refines them
-  with local-second Brent roots, and returns typed windows with derived
-  duration and clipped-boundary flags. Analytic and internal archived-orbit
-  tests pass. Phase A has characterized two development cases against
-  Skyfield's downstream implementation with a shared SGP4 kernel. Maximum
-  elevation remains future work. The predeclared Phase B Skyfield hold-out
-  passes genuine crossing sequence, ordinary refined timing, and pointwise
-  geometric elevation criteria; one near-threshold pass is reported
-  separately. This is downstream numerical agreement, not physical pass-time
-  accuracy. Evidence:
-  `tests/test_access.py`, `tests/test_access_integration.py`, and
-  `docs/validation.md`.
-- **MA-05 — Versioned outputs and provenance.** Produce machine-readable
-  results with units, UTC timestamps, configuration, and source history.
-  **Not started.** The M1a fixture records test provenance only.
-- **MA-06 — Warnings and failures.** Make invalid propagation and later stale
-  TLE, unsupported interval, or unavailable Earth-orientation conditions
-  explicit. **M1a partial:** propagation failure is explicit and blocks state
-  return. **M1b partial:** unavailable EOP raises `FrameTransformError`; predicted
-  EOP warns. Other warnings are future work.
-- **MA-07 — Independent comparison.** Compare agreed cases with an independent
-  implementation and later GMAT under matched modelling assumptions.
-  **Partial evidence:** M1b passes an independent matched split-UT1 Vallado
-  equation reference, and the printed vector is separately reproduced by the
-  historical single-JD path. The direct printed-vector x discrepancy remains
-  recorded. Phase A compares downstream access geometry and events with
-  Skyfield on two development cases; both paths share `sgp4==2.27`, so this
-  does not independently validate propagation. The subsequently executed
-  frozen Skyfield hold-out passes its downstream event and geometry criteria,
-  still with shared `sgp4==2.27`; GMAT and independent propagation comparison
-  remain future work. The M1a package fixture is same-model verification.
-- **MA-08 — Temporal station coverage.** Calculate coverage and no-access gaps
-  from validated access intervals. **Not started.** No verification claim.
+| ID | Status | Implementation / evidence | Remaining disposition |
+| --- | --- | --- | --- |
+| MA-01 — archived TLE input and provenance | IN PROGRESS | [TleRecord](../src/spacecraft_mission_analysis/orbit.py) preserves exact lines, UTC epoch, catalogue ID and optional source; [orbit tests](../tests/test_orbit.py) cover parsing and rejection. | Run-level input manifest and source history are not implemented. |
+| MA-02 — SGP4 propagation | IN PROGRESS | [Sgp4Propagator and typed TEME state](../src/spacecraft_mission_analysis/orbit.py) use WGS72 and explicit errors; the [reference-vector verification](verification.md#reference-vector) passes. | Run-level time-since-epoch reporting is not implemented; same-model verification does not establish orbit truth. |
+| MA-03 — frames and topocentric geometry | PARTIALLY VALIDATED | [Frame](../src/spacecraft_mission_analysis/frames.py), [station](../src/spacecraft_mission_analysis/stations.py), and [geometry](../src/spacecraft_mission_analysis/geometry.py) modules implement TEME→ITRS→station-relative ITRS→ENU→azimuth/elevation/range. Component [verification](verification.md) passes, including the matched split-UT1 frame reference; downstream geometry passed the [Skyfield Phase B comparison](validation.md#phase-b-first-observed-hold-out-result--pass). | The printed Appendix C discrepancy remains recorded under [ISS-001](issues.md#iss-001--vallado-printed-vector-versus-split-ut1); the shared SGP4 comparison is bounded, not physical geometry accuracy. |
+| MA-04 — access events, duration, maximum elevation | IN PROGRESS | [Access solver](../src/spacecraft_mission_analysis/access.py) returns refined entry/exit windows and duration; [analytic tests](../tests/test_access.py), [integration test](../tests/test_access_integration.py), and the [Phase B hold-out](validation.md#phase-b-first-observed-hold-out-result--pass) support the implemented boundary. | Maximum elevation is not implemented; finite sampling can miss narrow near-grazing access ([ISS-002](issues.md#iss-002--finite-coarse-step-detection)). |
+| MA-05 — versioned outputs and provenance | NOT STARTED | Test fixtures and validation JSON are evidence artifacts, not product outputs. | Define and implement versioned CSV/JSON with units, UTC, configuration, warnings and provenance. |
+| MA-06 — warnings and failures | IN PROGRESS | [Propagation errors](../src/spacecraft_mission_analysis/orbit.py) prevent state return; [frame service](../src/spacecraft_mission_analysis/frames.py) rejects unavailable EOP and warns on predicted EOP, with [tests](../tests/test_frames.py). | Stale-TLE and unsupported-interval policies/warnings remain undefined and unimplemented. |
+| MA-07 — independent comparison | PARTIALLY VALIDATED | Independent matched split-UT1 frame equations pass [verification](verification.md#active-matched-split-ut1-production-acceptance); Skyfield Phase A and frozen Phase B pass bounded downstream [validation](validation.md). | Skyfield shares `sgp4==2.27` ([ISS-003](issues.md#iss-003--shared-sgp4-validation-boundary)); independent propagation and GMAT comparisons remain future work. |
+| MA-08 — temporal station coverage | NOT STARTED | No coverage or no-access-gap implementation or verification claim. | Develop only after access-interval evidence supports it. |
 
-The [verification record](verification.md) identifies current evidence. The
-[validation record](validation.md) separates current integration evidence from
-future mission-analysis validation.
+The [assumptions](assumptions.md), [issue register](issues.md), and
+[decisions](decisions/README.md) govern the stated limitations and dispositions.

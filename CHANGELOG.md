@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+- Added immutable run configuration/result types, structured validity notices,
+  fail-closed EOP/SGP4 handling, and deterministic schema 1.0 JSON/six-file CSV
+  exports. Saved an archived two-station run with exact input, output hashes and
+  byte-identical rerun tests. No physics model or dependency changed.
 - Added MA-08 temporal station coverage from clipped, merged access intervals:
   union duration, fraction, merged-window count and longest no-access gap.
   Hand-calculated A–K cases and an archived two-station integration check pass;

@@ -14,6 +14,7 @@ archived TLE → WGS72 SGP4 → TEME → ITRS → station-relative ITRS
              → ENU → geometric azimuth/elevation/range
              → elevation threshold → access entry/exit, duration and peak
              → temporal station coverage union, fraction and no-access gap
+             → versioned run result → JSON / CSV bundle
 ```
 
 The orbit, frame, station, look-angle and access boundaries have component
@@ -25,9 +26,9 @@ for the disposition of each MA requirement.
 
 The planned scope is one spacecraft per analysis, archived TLEs, fixed WGS84
 stations, geometric visibility and temporal station coverage.
-Versioned product CSV/JSON, TLE-age and unsupported-interval warnings,
-independent propagation/GMAT comparison remain open or
-not started. Peak elevation is analytically verified and checked on an internal
+Versioned JSON/CSV results and structured validity warnings are implemented;
+independent propagation/GMAT comparison remains open. Peak elevation is
+analytically verified and checked on an internal
 archived-orbit case; it has no separate independent comparison. Live TLE
 fetching, eclipse, geographic sensor coverage and operational scheduling are
 outside the baseline.
@@ -35,9 +36,25 @@ outside the baseline.
 ## Run and verify
 
 Python 3.11 or newer is required. Dependencies and developer tools are pinned
-in [pyproject.toml](pyproject.toml). There is no CLI or product-output layer yet;
+in [pyproject.toml](pyproject.toml). There is no CLI;
 the [Python API](src/spacecraft_mission_analysis/__init__.py) is exercised by
-the local [tests](tests/) and [validation code](tests/validation/).
+the local [tests](tests/) and [validation code](tests/validation/). The
+[run/output contract](docs/run-schema-v1.md) wraps those kernels. A minimal
+Python call after constructing an `AnalysisConfig` from archived input is:
+
+```python
+from spacecraft_mission_analysis import run_analysis, write_csv_bundle, write_json
+
+result = run_analysis(config)
+write_json(result, "run.json")
+write_csv_bundle(result, "csv")
+```
+
+The complete [Vanguard run example](examples/vanguard_run/) contains its exact
+input configuration, explicit test-only EOP fixture, canonical JSON, six CSV
+files and hashes. Its [test](tests/test_run.py) demonstrates constructing
+`AnalysisConfig` and a deterministic rerun. Regular runs use Astropy's
+configured IERS data; the test-only zero EOP is not a production default.
 
 On Windows PowerShell:
 
@@ -69,6 +86,8 @@ implementation state.** Its records have separate jobs:
 - [Requirements](docs/requirements.md): live MA-01–MA-08 status and traceability.
 - [Assumptions](docs/assumptions.md): modelling conventions and boundaries.
 - [Architecture](docs/architecture.md): implemented interfaces and data path.
+- [Run schema 1.0](docs/run-schema-v1.md): statuses, JSON fields, CSV bundle,
+  and failure semantics.
 - [Verification](docs/verification.md): specified software behaviour, fixtures,
   criteria and results.
 - [Validation](docs/validation.md): cross-implementation evidence, frozen

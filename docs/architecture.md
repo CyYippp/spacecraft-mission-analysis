@@ -3,7 +3,7 @@
 Planned pipeline:
 
 ```text
-archived input / TLE
+AnalysisConfig: archived TLE, UTC interval, stations, numerical settings
     → SGP4 orbit adapter [implemented M1a]
     → Astropy TEME-to-ITRS frame service [implemented and matched-case verified M1b]
     → WGS84 station ITRS → station-relative ITRS → ENU [implemented]
@@ -11,7 +11,8 @@ archived input / TLE
     → elevation evaluator → coarse event search → bracketed root refinement
       → AccessWindow with peak time/elevation [implemented, internally verified]
     → temporal station coverage metrics [implemented, analytically verified]
-    → versioned outputs [future]
+    → AnalysisResult [implemented, contract verified]
+    → versioned JSON / CSV bundle [implemented, contract verified]
 ```
 
 `src/spacecraft_mission_analysis/orbit.py` contains the M1a orbit module:
@@ -75,4 +76,13 @@ positive-duration intervals independently of orbital geometry, then returns an
 immutable `TemporalCoverage` with the union, accessible seconds, coverage
 fraction, merged interval count and longest no-access gap. Source windows can
 remain grouped by station at the caller; the metrics layer needs only their
-timestamps. No scheduling or output schema is present.
+timestamps. No scheduling logic is present.
+
+`run.py` validates a single archived TLE, scalar UTC interval, ordered fixed
+stations and the existing event settings. `run_analysis()` composes the current
+access solver for each station and the existing coverage union once. It creates
+explicit `SUCCESS`, `SUCCESS_WITH_WARNINGS` or `FAILED` results. An SGP4 or
+required-EOP failure discards any partial station windows and leaves access and
+coverage unavailable. `output.py` serializes the result as schema 1.0 JSON or
+a six-file CSV bundle, without changing the physical calculations. See the
+[run schema](run-schema-v1.md) for field and failed-run semantics.

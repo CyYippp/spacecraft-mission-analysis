@@ -1,0 +1,22 @@
+{
+  "fixture_role": "Deterministic internal run/output integration; not independent physical validation",
+  "tle_line1": "1 00005U 58002B   00179.78495062  .00000023  00000-0  28098-4 0  4753",
+  "tle_line2": "2 00005  34.2682 348.7242 1859667 331.7664  19.3264 10.82419157413667",
+  "tle_source": "Vallado / python-sgp4 2.27 verification case 00005; tests/fixtures/sgp4/README.md",
+  "analysis_start_utc": "2000-06-27T20:00:00",
+  "analysis_end_utc": "2000-06-27T20:40:00",
+  "stations": [
+    {"name": "Equator Greenwich synthetic fixed WGS84 station", "latitude_deg": 0.0, "longitude_deg": 0.0, "height_m": 0.0},
+    {"name": "Synthetic 1N 1E WGS84 station", "latitude_deg": 1.0, "longitude_deg": 1.0, "height_m": 0.0}
+  ],
+  "minimum_elevation_deg": 10.0,
+  "coarse_step_s": 5.0,
+  "root_tolerance_s": 0.01,
+  "earth_orientation_source": "test-only synthetic zero UT1-UTC/xp/yp IERS table at MJD 51722-51723",
+  "test_only_eop": {
+    "mjd": [51722, 51723],
+    "ut1_minus_utc_s": [0.0, 0.0],
+    "xp_arcsec": [0.0, 0.0],
+    "yp_arcsec": [0.0, 0.0]
+  }
+}

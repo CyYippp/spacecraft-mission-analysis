@@ -440,6 +440,53 @@ acceptance oracles. Phase A's equator/Greenwich case uses Skyfield-matched DUT1,
 whereas this internal smoke case uses synthetic zero EOP, so its saved
 culmination is not a matched peak reference.
 
+## MA-05/06 reproducible run and validity contract
+
+[`run.py`](../src/spacecraft_mission_analysis/run.py) composes the existing
+event and coverage kernels. [`output.py`](../src/spacecraft_mission_analysis/output.py)
+implements [schema 1.0](run-schema-v1.md) without scientific calculations.
+The saved [Vanguard example](../examples/vanguard_run/) records exact archived
+input, synthetic station/EOP configuration, canonical JSON, six CSV files and
+their SHA-256 digests. On the same pinned dependencies, two independent runs
+produced byte-identical JSON and CSV, each matching the saved files. The
+complete JSON SHA-256 is
+`420b112c399b4be1474a450214537309241e8584ae8293088d2011b4ebd5766a`.
+Schema tests check version, raw TLE/source, ordered stations and windows,
+UTC `Z` timestamps, explicit units, warnings, provenance, CSV rows and fixed
+bundle membership. The clean example is `SUCCESS`, no notices, window counts
+`[1,1]`, accessible duration `1229.2680210995704 s`, fraction
+`0.5121950087914875`, merged count `1` and longest gap
+`660.8317878096642 s`. This is output-contract and integration evidence, not
+new physical validation.
+
+The 7-day maximum absolute offset from TLE epoch is a frozen workflow-warning
+heuristic. A 24-hour interval is the longest duration exercised by saved Phase
+A/B comparison cases; longer runs receive an evidence-envelope warning, not a
+physical or numerical rejection. The [run tests](../tests/test_run.py) verify:
+
+| Case | Expected | Observed | Disposition |
+| --- | --- | --- | --- |
+| TLE >7 days | `SUCCESS_WITH_WARNINGS`, `TLE_AGE_WARNING`, results available | `SUCCESS_WITH_WARNINGS`; maximum absolute age `8.055327157777779 days` versus `7.0`; results available | PASS; no orbit-accuracy claim |
+| 25-hour interval | `SUCCESS_WITH_WARNINGS`, `ANALYSIS_SPAN_OUTSIDE_VALIDATED_ENVELOPE`, results available | `SUCCESS_WITH_WARNINGS`; `25.0` versus `24.0 h`; results available | PASS; 1-hour coarse grid tests policy only |
+| Missing required EOP | `FAILED`, `EOP_UNAVAILABLE`, no access/coverage | `FAILED`; unavailable 2001 table for 2000 case; JSON `null` outputs and header-only result CSV | PASS |
+| EOP acquisition error | `FAILED`, `EOP_UNAVAILABLE`, no access/coverage | `FAILED`; scoped `OSError` converted at frame boundary | PASS |
+| SGP4 error code 6 | `FAILED`, `SGP4_PROPAGATION_ERROR`, no access/coverage | `FAILED`; real adapter raises on injected nonzero status, code `6` retained | PASS |
+| Second-station SGP4 error | `FAILED`, no partial first-station result | `FAILED`; first completed station discarded, access/coverage unavailable | PASS |
+| Successful no-pass | `SUCCESS`, empty windows, zero coverage, full-span gap | `SUCCESS`; `[0,0]` windows, `0 s`, fraction `0`, `2400 s` gap | PASS |
+
+Failed EOP and SGP4 records themselves serialize deterministically with
+configuration, station definitions and structured error notices. They never
+contain fabricated pass or coverage rows. Equal/reversed analysis intervals,
+naive datetime input and vector times fail input validation before producing
+a result. The pre-existing frame service now converts an EOP table acquisition
+`OSError`/`ValueError` into `FrameTransformError`, allowing the run boundary to
+report it as `EOP_UNAVAILABLE`. No zero-valued EOP substitution occurs in
+production; synthetic zeros appear only in explicitly scoped tests.
+
+MA-05 and MA-06 are **VERIFIED** for the defined software/output contract.
+Neither the warning heuristics nor this archived integration case establish
+physical-orbit accuracy or widen the earlier access-validation claims.
+
 ## MA-08 temporal station coverage
 
 `compute_temporal_coverage()` measures the union of supplied intervals over a

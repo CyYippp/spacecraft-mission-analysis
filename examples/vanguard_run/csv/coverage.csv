@@ -1,0 +1,2 @@
+analysis_start_utc,analysis_end_utc,total_access_duration_s,coverage_fraction,merged_access_interval_count,longest_no_access_gap_s,longest_gap_start_utc,longest_gap_end_utc
+2000-06-27T20:00:00.000000000Z,2000-06-27T20:40:00.000000000Z,1229.2680210995704,0.5121950087914875,1,660.8317878096642,2000-06-27T20:00:00.000000000Z,2000-06-27T20:11:00.831787810Z

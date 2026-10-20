@@ -32,9 +32,14 @@ class FrameTransformError(RuntimeError):
 
 
 def _check_earth_orientation(time: Time) -> None:
-    table = iers.earth_orientation_table.get()
-    ut1_utc, ut1_status = table.ut1_utc(time, return_status=True)
-    xp, yp, polar_status = table.pm_xy(time, return_status=True)
+    try:
+        table = iers.earth_orientation_table.get()
+        ut1_utc, ut1_status = table.ut1_utc(time, return_status=True)
+        xp, yp, polar_status = table.pm_xy(time, return_status=True)
+    except (OSError, ValueError) as exc:
+        raise FrameTransformError(
+            f"Earth-orientation data unavailable at {time.utc.isot} UTC"
+        ) from exc
     if (
         ut1_status < 0
         or polar_status < 0

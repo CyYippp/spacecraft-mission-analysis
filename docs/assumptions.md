@@ -80,5 +80,17 @@
   prediction accuracy. Atmospheric refraction, terrain masks, link margin,
   eclipse, and geographic sensor footprint require separate scope and evidence.
 - TLE prediction quality can degrade with age. Staleness warnings and a
-  supported analysis interval are not implemented in M1a and must be defined
-  before downstream analysis is presented as usable.
+  supported analysis interval were not defined in M1a. The run layer now emits
+  `TLE_AGE_WARNING` when the maximum absolute analysis-bound offset from TLE
+  epoch exceeds **7 days**. This is a conservative workflow heuristic, not a
+  calibrated uncertainty or guaranteed physical accuracy boundary. Younger
+  TLEs are not certified accurate; orbit and environment matter. A run may
+  complete with this warning if its calculations succeed.
+- A run longer than **24 hours** emits
+  `ANALYSIS_SPAN_OUTSIDE_VALIDATED_ENVELOPE`: current comparison evidence
+  exercised 24-hour cases, so a longer span exceeds that duration envelope.
+  The threshold is neither a physical SGP4 accuracy limit nor a computational
+  rejection rule. Both warnings and their numerical thresholds are preserved
+  in the run output. Required EOP or SGP4 failure instead marks the run
+  `FAILED` and suppresses all access and coverage results. Genuine no-pass
+  output is a successful run with zero coverage.

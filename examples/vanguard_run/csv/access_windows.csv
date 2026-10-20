@@ -1,0 +1,3 @@
+station_name,start_utc,end_utc,duration_s,max_elevation_deg,max_elevation_time_utc,start_clipped,end_clipped
+Equator Greenwich synthetic fixed WGS84 station,2000-06-27T20:11:00.831787810Z,2000-06-27T20:31:30.099808909Z,1229.2680210995704,20.19386560469357,2000-06-27T20:22:58.282534089Z,False,False
+Synthetic 1N 1E WGS84 station,2000-06-27T20:12:13.258505293Z,2000-06-27T20:30:57.478295163Z,1124.2197898697889,18.142573700059817,2000-06-27T20:23:00.722397661Z,False,False

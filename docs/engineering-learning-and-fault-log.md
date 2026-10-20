@@ -41,3 +41,26 @@ coarse samples expose multiple resolved peaks for separate local refinement;
 they cannot prove a global maximum for an arbitrary hidden narrow feature.
 The live limitation and evidence are in [ISS-006](issues.md#iss-006--peak-search-globality-boundary)
 and [verification](verification.md#maximum-elevation-within-detected-access-windows).
+
+## Run status — no pass versus failed computation
+
+This increment found no new physical-model fault. A zero-window list is a
+scientific result only after every required propagation and frame evaluation
+completed. The run boundary therefore carries explicit status: successful
+no-pass retains empty per-station windows and zero coverage, while failed EOP
+or SGP4 processing has unavailable access/coverage fields and a structured
+error. Even a first station's completed windows are discarded if a later
+station fails. The archived input and frozen output schema make that distinction
+reviewable without treating a 7-day warning heuristic as orbit uncertainty.
+See the [run schema](run-schema-v1.md) and [fault tests](../tests/test_run.py).
+
+## EOP acquisition — classify failure before output
+
+The frame code checked missing EOP *after* obtaining a table; a table-acquisition
+`OSError` could escape the project-specific error path. This is recorded as
+[ISS-007](issues.md#iss-007--eop-acquisition-error-escaped-the-frame-boundary).
+The narrow correction converts acquisition/query `OSError` or `ValueError` to
+`FrameTransformError`, which the run layer maps to a structured
+`EOP_UNAVAILABLE` failure. A scoped monkeypatch checks the path without
+changing the user's IERS cache. The correction improves failure reporting; it
+does not add synthetic EOP data or validate the resulting physical geometry.

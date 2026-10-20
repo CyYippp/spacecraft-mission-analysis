@@ -1,0 +1,95 @@
+{
+  "configuration": {
+    "analysis_end_utc": "2000-06-27T20:40:00.000000000Z",
+    "analysis_start_utc": "2000-06-27T20:00:00.000000000Z",
+    "coarse_step_s": 5.0,
+    "earth_orientation_source": "test-only synthetic zero UT1-UTC/xp/yp IERS table at MJD 51722-51723",
+    "minimum_elevation_deg": 10.0,
+    "peak_refinement_xatol_s": 0.002,
+    "root_tolerance_s": 0.01,
+    "source_revision": null,
+    "stations": [
+      {
+        "ellipsoidal_height_m": 0.0,
+        "latitude_deg": 0.0,
+        "longitude_deg_east": 0.0,
+        "name": "Equator Greenwich synthetic fixed WGS84 station"
+      },
+      {
+        "ellipsoidal_height_m": 0.0,
+        "latitude_deg": 1.0,
+        "longitude_deg_east": 1.0,
+        "name": "Synthetic 1N 1E WGS84 station"
+      }
+    ],
+    "tle": {
+      "catalog_id": 5,
+      "epoch_utc": "2000-06-27T18:50:19.733568000Z",
+      "line1": "1 00005U 58002B   00179.78495062  .00000023  00000-0  28098-4 0  4753",
+      "line2": "2 00005  34.2682 348.7242 1859667 331.7664  19.3264 10.82419157413667",
+      "source": "Vallado / python-sgp4 2.27 verification case 00005; tests/fixtures/sgp4/README.md"
+    },
+    "tle_age_warning_days": 7.0,
+    "validated_analysis_span_max_hours": 24.0
+  },
+  "coverage": {
+    "analysis_end_utc": "2000-06-27T20:40:00.000000000Z",
+    "analysis_start_utc": "2000-06-27T20:00:00.000000000Z",
+    "coverage_fraction": 0.5121950087914875,
+    "longest_gap_end_utc": "2000-06-27T20:11:00.831787810Z",
+    "longest_gap_start_utc": "2000-06-27T20:00:00.000000000Z",
+    "longest_no_access_gap_s": 660.8317878096642,
+    "merged_access_interval_count": 1,
+    "total_access_duration_s": 1229.2680210995704,
+    "union_intervals": [
+      {
+        "duration_s": 1229.2680210995704,
+        "end_utc": "2000-06-27T20:31:30.099808909Z",
+        "start_utc": "2000-06-27T20:11:00.831787810Z"
+      }
+    ]
+  },
+  "notices": [],
+  "provenance": {
+    "astropy_version": "7.2.1",
+    "earth_orientation_mode": "Astropy IERS",
+    "project_version": "0.1.0",
+    "scipy_version": "1.17.1",
+    "sgp4_gravity_constants": "WGS72",
+    "sgp4_output_frame": "TEME",
+    "sgp4_version": "2.27",
+    "station_ellipsoid": "WGS84"
+  },
+  "schema_version": "1.0",
+  "station_access": [
+    {
+      "station_name": "Equator Greenwich synthetic fixed WGS84 station",
+      "windows": [
+        {
+          "duration_s": 1229.2680210995704,
+          "end_clipped": false,
+          "end_utc": "2000-06-27T20:31:30.099808909Z",
+          "max_elevation_deg": 20.19386560469357,
+          "max_elevation_time_utc": "2000-06-27T20:22:58.282534089Z",
+          "start_clipped": false,
+          "start_utc": "2000-06-27T20:11:00.831787810Z"
+        }
+      ]
+    },
+    {
+      "station_name": "Synthetic 1N 1E WGS84 station",
+      "windows": [
+        {
+          "duration_s": 1124.2197898697889,
+          "end_clipped": false,
+          "end_utc": "2000-06-27T20:30:57.478295163Z",
+          "max_elevation_deg": 18.142573700059817,
+          "max_elevation_time_utc": "2000-06-27T20:23:00.722397661Z",
+          "start_clipped": false,
+          "start_utc": "2000-06-27T20:12:13.258505293Z"
+        }
+      ]
+    }
+  ],
+  "status": "SUCCESS"
+}

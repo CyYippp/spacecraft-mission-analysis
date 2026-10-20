@@ -90,3 +90,20 @@ does not imply physical accuracy.
   Keep the [analytic and archived integration evidence](verification.md#maximum-elevation-within-detected-access-windows)
   and disclose the limit. No hidden-peak completeness or physical peak-time
   claim is made; broader adaptive/global search needs separate scope/evidence.
+
+## ISS-007 — EOP acquisition error escaped the frame boundary
+
+- **Kind/status:** Observed software failure-path gap; resolved in the
+  MA-05/06 run-contract increment.
+- **Trigger/expectation/actual:** The frame service already raised
+  `FrameTransformError` for an out-of-range IERS table, but an `OSError` while
+  acquiring that table could escape before the availability check. The run
+  contract requires unavailable EOP to become a structured failed result.
+- **Consequence/cause:** Without conversion, a table-acquisition failure could
+  bypass the `EOP_UNAVAILABLE` run record, although it still could not create
+  a valid state or pass.
+- **Disposition/retest:** The frame boundary now converts `OSError` and
+  `ValueError` from table acquisition/query into `FrameTransformError`.
+  [Scoped fault injection](../tests/test_run.py) verifies `FAILED`,
+  `EOP_UNAVAILABLE`, and absent access/coverage. No EOP fallback or model
+  convention changed.

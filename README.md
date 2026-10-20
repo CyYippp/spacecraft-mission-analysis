@@ -13,6 +13,7 @@ The implemented path is:
 archived TLE → WGS72 SGP4 → TEME → ITRS → station-relative ITRS
              → ENU → geometric azimuth/elevation/range
              → elevation threshold → access entry/exit, duration and peak
+             → temporal station coverage union, fraction and no-access gap
 ```
 
 The orbit, frame, station, look-angle and access boundaries have component
@@ -23,9 +24,9 @@ physical pass-time accuracy. See the [live requirements](docs/requirements.md)
 for the disposition of each MA requirement.
 
 The planned scope is one spacecraft per analysis, archived TLEs, fixed WGS84
-stations, geometric visibility and eventual temporal station coverage.
+stations, geometric visibility and temporal station coverage.
 Versioned product CSV/JSON, TLE-age and unsupported-interval warnings,
-independent propagation/GMAT comparison, and temporal coverage remain open or
+independent propagation/GMAT comparison remain open or
 not started. Peak elevation is analytically verified and checked on an internal
 archived-orbit case; it has no separate independent comparison. Live TLE
 fetching, eclipse, geographic sensor coverage and operational scheduling are

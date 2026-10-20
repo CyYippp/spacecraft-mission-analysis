@@ -14,6 +14,7 @@ from spacecraft_mission_analysis import (
     PropagationError,
     Sgp4Propagator,
     TleRecord,
+    compute_temporal_coverage,
     find_satellite_access_windows,
     satellite_elevation_deg,
 )
@@ -98,3 +99,51 @@ def test_propagation_failure_cannot_become_no_access() -> None:
     propagator._satellite = FailedSatrec()
     with pytest.raises(PropagationError, match="SGP4 error 6"):
         find_satellite_access_windows(propagator, station, start, end)
+
+
+def test_two_station_temporal_coverage_integration() -> None:
+    """Archived-orbit wiring check; analytic tests establish metric correctness."""
+    propagator, greenwich, start, end = _setup()
+    second = GroundStation(
+        name="Synthetic 1N 1E WGS84 station",
+        latitude_deg=1.0,
+        longitude_deg=1.0,
+        height_m=0.0,
+    )
+    with iers.conf.set_temp("auto_download", False), iers.earth_orientation_table.set(_eop_table()):
+        by_station = {
+            greenwich.name: find_satellite_access_windows(propagator, greenwich, start, end),
+            second.name: find_satellite_access_windows(propagator, second, start, end),
+        }
+    windows = tuple(window for station_windows in by_station.values() for window in station_windows)
+    result = compute_temporal_coverage(start, end, windows)
+    assert by_station[greenwich.name] and by_station[second.name]
+    assert all(start <= item.start < item.end <= end for item in result.union_intervals)
+    assert 0 < result.total_access_duration_s <= (end - start).to_value(u.s)
+    assert 0 < result.coverage_fraction <= 1
+    assert result.access_window_count == len(result.union_intervals)
+    # The two real solver windows overlap; their raw sum must double-count time.
+    assert sum(window.duration_s for window in windows) > result.total_access_duration_s
+    assert result.longest_no_access_gap_s >= 0
+    print(
+        "\nMA-08 archived integration:",
+        {
+            name: [(w.start.isot, w.end.isot, w.duration_s) for w in items]
+            for name, items in by_station.items()
+        },
+        "union:",
+        [(item.start.isot, item.end.isot, item.duration_s) for item in result.union_intervals],
+        "metrics:",
+        (
+            result.total_access_duration_s,
+            result.coverage_fraction,
+            result.access_window_count,
+            result.longest_no_access_gap_s,
+            None
+            if result.longest_no_access_gap is None
+            else (
+                result.longest_no_access_gap.start.isot,
+                result.longest_no_access_gap.end.isot,
+            ),
+        ),
+    )

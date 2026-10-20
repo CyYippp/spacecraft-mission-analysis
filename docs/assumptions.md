@@ -65,12 +65,20 @@
   Flat or nearly flat peaks can have weakly identifiable timestamps. As with
   access detection, finite sampling cannot certify a hidden narrow peak or an
   arbitrary multimodal function's global maximum.
+- Temporal station coverage is measured over a stated `[start, end]` UTC
+  analysis span. Supplied access intervals are clipped to that span; isolated
+  endpoint instants and zero-duration contacts contribute no elapsed time.
+  Overlapping and exactly touching intervals are merged, since a shared
+  endpoint is no positive-duration outage. `access_window_count` is the number
+  of merged union intervals, not the sum of per-station passes. Equal longest
+  no-access gaps select the earliest. Coverage fraction is accessible duration
+  divided by strictly positive analysis duration. This is temporal availability
+  of at least one station, not geographic sensor coverage.
 - The internal orbit smoke fixture uses a synthetic fixed equator/Greenwich
   WGS84 station and a test-only zero-valued EOP table at MJD 51722–51723. It
   demonstrates software integration only, not realistic EOP or independent
-  prediction accuracy. Atmospheric refraction,
-  terrain masks, link margin, eclipse, and geographic sensor footprint require
-  separate scope and evidence.
+  prediction accuracy. Atmospheric refraction, terrain masks, link margin,
+  eclipse, and geographic sensor footprint require separate scope and evidence.
 - TLE prediction quality can degrade with age. Staleness warnings and a
   supported analysis interval are not implemented in M1a and must be defined
   before downstream analysis is presented as usable.

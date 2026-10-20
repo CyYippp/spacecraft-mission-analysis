@@ -439,3 +439,58 @@ The frozen Phase A/B artifacts were neither regenerated nor used as peak
 acceptance oracles. Phase A's equator/Greenwich case uses Skyfield-matched DUT1,
 whereas this internal smoke case uses synthetic zero EOP, so its saved
 culmination is not a matched peak reference.
+
+## MA-08 temporal station coverage
+
+`compute_temporal_coverage()` measures the union of supplied intervals over a
+strictly positive scalar UTC Astropy `Time` analysis span. The stated span is
+`[start, end]`; half-open arithmetic is equivalent for elapsed duration because
+isolated endpoints have zero measure. Source intervals are clipped, those with
+no positive-duration overlap discarded, then sorted and merged on overlap or
+exact touch. The count is **merged union intervals**, not raw station passes.
+Longest gaps include both analysis boundaries; the earliest gap wins a tie.
+Full access has a 0 s gap and no gap interval; no access has the full span as
+its gap. The fraction is union duration divided by analysis duration, with only
+a one-ULP allowance for a possible floating-point excess above 1.
+
+The independent [A–K test fixture](../tests/test_coverage.py) uses literal,
+hand-calculated expected values for a `0–100 s` analysis span. Entries below
+are `union; duration s; fraction; count; longest gap s`, expected = observed
+at displayed precision. Endpoints in the input and union are seconds relative
+to the analysis start. A tie in D/H selects the first 20 s gap (`20–40`).
+
+| Case | Input intervals (s) | Expected | Observed | Result |
+| --- | --- | --- | --- | --- |
+| A none | `[]` | `[]; 0; 0; 0; 100` | `[]; 0; 0; 0; 100` | PASS |
+| B full | `[-10,110]` | `[0,100]; 100; 1; 1; 0` | `[0,100]; 100; 1; 1; 0` | PASS |
+| C one | `[20,40]` | `[20,40]; 20; .2; 1; 60` | `[20,40]; 20; .2; 1; 60` | PASS |
+| D disjoint | `[10,20], [40,50], [70,90]` | same three; 40; .4; 3; 20 | same three; 40; .4; 3; 20 | PASS |
+| E stations overlap | `[10,40], [30,60]` | `[10,60]; 50; .5; 1; 40` | `[10,60]; 50; .5; 1; 40` | PASS |
+| F nested | `[10,80], [20,30], [50,70]` | `[10,80]; 70; .7; 1; 20` | `[10,80]; 70; .7; 1; 20` | PASS |
+| G touching | `[10,20], [20,30]` | `[10,30]; 20; .2; 1; 70` | `[10,30]; 20; .2; 1; 70` | PASS |
+| H unsorted | `[70,90], [10,20], [40,50]` | D union; 40; .4; 3; 20 | D union; 40; .4; 3; 20 | PASS |
+| I clipped | `[-20,10], [90,120]` | `[0,10], [90,100]; 20; .2; 2; 80` | `[0,10], [90,100]; 20; .2; 2; 80` | PASS |
+| J duplicate | `[10,40], [10,40]` | `[10,40]; 30; .3; 1; 60` | `[10,40]; 30; .3; 1; 60` | PASS |
+| K mixed | `[-10,15], [10,35], [30,50], [60,80], [75,120]` | `[0,50], [60,100]; 90; .9; 2; 10` | `[0,50], [60,100]; 90; .9; 2; 10` | PASS |
+
+Numeric comparison limits were fixed before the integration run: 1 ns for
+integer-second UTC intervals and `1e-12` for fractions. These bounds check
+split-JD arithmetic consistency, not physical event-time accuracy. Tests also
+reject equal/reversed analysis bounds, reversed source intervals, naive Python
+datetimes and strings, non-UTC/vector times, and unsupported interval types;
+zero-duration boundary contacts add no coverage. The result is immutable.
+
+An internal composition check reuses the archived Vanguard 1 catalogue 00005
+TLE and synthetic zero EOP from the earlier access fixture. Analysis is
+`2000-06-27T20:00:00–20:40:00 UTC`, 10° mask, 5 s grid. Fixed WGS84 stations
+are equator/Greenwich `(0°,0°,0 m)` and nearby `(1°N,1°E,0 m)`. The raw UTC
+access intervals are respectively `20:11:00.832–20:31:30.100`
+(`1229.268021100 s`) and `20:12:13.259–20:30:57.478`
+(`1124.219789870 s`). The second lies within the first: raw sum
+`2353.487810969 s` exceeds the union `1229.268021100 s`. The one merged
+interval is `20:11:00.832–20:31:30.100`; fraction `0.512195008791`, count
+`1`, longest no-access gap `660.831787810 s` from analysis start to the first
+access. This checks wiring and double-count avoidance, not independent orbit,
+event-time or physical validation. MA-08 disposition: **VERIFIED** for the
+specified deterministic temporal metrics; inherited access-event limitations
+remain documented separately.

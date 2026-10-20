@@ -33,6 +33,7 @@ FIXTURE = json.loads(
     )
 )
 EXAMPLE = Path(__file__).parent.parent / "examples" / "vanguard_run"
+TEST_EOP = json.loads((EXAMPLE / "test_only_eop.json").read_text(encoding="utf-8"))
 # Existing MA-04 analytic peak criteria, frozen before the archived peak was
 # evaluated. They guard platform-sensitive optimizer outputs in this snapshot.
 PEAK_TIME_LIMIT_S = 0.02
@@ -124,7 +125,7 @@ def eop_table(start: Time, end: Time):
 
 def run_with_eop(run_config: AnalysisConfig):
     if run_config.earth_orientation_source == FIXTURE["earth_orientation_source"]:
-        values = FIXTURE["test_only_eop"]
+        values = TEST_EOP
         table = iers.IERS(
             {
                 "MJD": values["mjd"] * u.day,

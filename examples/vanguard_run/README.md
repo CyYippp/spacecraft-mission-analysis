@@ -1,10 +1,12 @@
 # Archived Vanguard 1 run-output example
 
-[`config.json`](config.json) holds exact 69-character Vallado/python-sgp4 2.27
+[`config.json`](config.json) is [input schema 1.0](../../docs/input-schema-v1.md)
+and holds exact 69-character Vallado/python-sgp4 2.27
 catalogue 00005 TLE lines and source label, the `2000-06-27T20:00:00`–`20:40:00`
 UTC analysis interval, two synthetic fixed WGS84 stations at `(0°,0°,0 m)` and
-`(1°N,1°E,0 m)`, the 10° mask, 5 s event grid, 0.01 s root setting and a
-**test-only** zero UT1−UTC/polar-motion IERS table at MJD 51722–51723. It is an
+`(1°N,1°E,0 m)`, the 10° mask, 5 s event grid and 0.01 s root setting.
+[`test_only_eop.json`](test_only_eop.json) holds the separately scoped zero
+UT1−UTC/polar-motion IERS table at MJD 51722–51723. It is an
 internal integration/output-contract case, not independent physical validation.
 
 The saved [JSON result](run.json) has schema `1.0`, status `SUCCESS`,
@@ -17,7 +19,8 @@ the run code does not query Git or add a clock-based field.
 SHA-256 of the saved Windows-generated UTF-8 files (LF line endings):
 
 ```text
-d9ef6763df578bc12655683684297c17e246220ad22ab4c7e152dc2a0c872360  config.json
+236bb2b426f5475960315548d1bb149639607e804650877c86b34e386236ad77  config.json
+bd3769c7c5f55131e4ca5472e4787daaa9f2674502b01c9bbdbd573a4f77e824  test_only_eop.json
 420b112c399b4be1474a450214537309241e8584ae8293088d2011b4ebd5766a  run.json
 afaeb393c88506ca1a59f06b028fa2bb8842d286a1f4540cdd50c7f634576746  csv/run.csv
 cba1a069805044ffdba6203a42181eca55904d1128c7dcdc90cf08c72d6ea09f  csv/stations.csv

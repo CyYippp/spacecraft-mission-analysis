@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+- Added strict input schema 1.0 and a loader from the archived Vanguard config
+  to `AnalysisConfig`, with raw TLE/epoch/source preservation and invalid-input
+  tests. Corrected non-digit checksum and SGP4 initialization error handling;
+  kept test-only EOP data separate from the production input contract.
 - Added immutable run configuration/result types, structured validity notices,
   fail-closed EOP/SGP4 handling, and deterministic schema 1.0 JSON/six-file CSV
   exports. Saved an archived two-station run with exact input, output hashes and

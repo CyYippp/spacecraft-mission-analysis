@@ -12,6 +12,7 @@ from .geometry import (
     itrs_to_enu,
     station_to_satellite_itrs,
 )
+from .input import InputConfigError, load_analysis_config, parse_analysis_config
 from .orbit import PropagationError, Sgp4Propagator, TemeState, TleRecord
 from .output import csv_bundle, result_dict, serialize_json, write_csv_bundle, write_json
 from .run import AnalysisConfig, AnalysisResult, RunNotice, RunStatus, run_analysis
@@ -28,6 +29,7 @@ __all__ = [
     "GroundStation",
     "ItrsPosition",
     "ItrsState",
+    "InputConfigError",
     "PropagationError",
     "RelativeItrsVector",
     "RunNotice",
@@ -42,6 +44,8 @@ __all__ = [
     "find_access_windows",
     "find_satellite_access_windows",
     "itrs_to_enu",
+    "load_analysis_config",
+    "parse_analysis_config",
     "result_dict",
     "run_analysis",
     "serialize_json",

@@ -129,3 +129,22 @@ does not imply physical accuracy.
   MA-04 `1e-5 deg` and `0.02 s` criteria. The saved artifact, hashes, peak
   algorithm, physical model and numerical acceptance criteria remain unchanged.
   The corrected test must pass both hosted checks before closing this issue.
+
+## ISS-009 — malformed TLE escaped the input boundary
+
+- **Kind/status:** Observed input-validation defect; corrected in the MA-01
+  archived-input increment.
+- **Trigger/expectation/actual:** A 69-character TLE with a non-digit checksum
+  column should be rejected, but `sgp4.io.verify_checksum()` skips that case;
+  the previous `TleRecord` did not check the column itself. A syntactically
+  shaped line 2 with zero mean motion could instead escape initialization as
+  `ZeroDivisionError`, rather than a clear invalid-TLE error.
+- **Consequence/cause:** Malformed archived input could pass the checksum gate
+  or fail outside the project's input-error contract before scientific
+  execution. Neither case is a valid SGP4 propagation result.
+- **Correction/retest:** Require a numeric checksum column before calling the
+  package checksum helper, and convert SGP4 parser/initialization arithmetic
+  failure to `ValueError`. The versioned loader presents both as
+  `InputConfigError`. [Independent corrupt-line fixtures](../tests/test_input.py)
+  exercise both paths. Original lines are neither repaired nor normalized;
+  no orbit model or physical acceptance criterion changed.

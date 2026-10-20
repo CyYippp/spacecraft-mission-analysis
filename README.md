@@ -39,22 +39,30 @@ Python 3.11 or newer is required. Dependencies and developer tools are pinned
 in [pyproject.toml](pyproject.toml). There is no CLI;
 the [Python API](src/spacecraft_mission_analysis/__init__.py) is exercised by
 the local [tests](tests/) and [validation code](tests/validation/). The
-[run/output contract](docs/run-schema-v1.md) wraps those kernels. A minimal
-Python call after constructing an `AnalysisConfig` from archived input is:
+[input contract](docs/input-schema-v1.md) constructs `AnalysisConfig`; the
+[run/output contract](docs/run-schema-v1.md) wraps the kernels. A minimal
+programmatic call using the canonical [archived config](examples/vanguard_run/config.json) is:
 
 ```python
-from spacecraft_mission_analysis import run_analysis, write_csv_bundle, write_json
+from spacecraft_mission_analysis import (
+    load_analysis_config,
+    run_analysis,
+    write_csv_bundle,
+    write_json,
+)
 
+config = load_analysis_config("examples/vanguard_run/config.json")
 result = run_analysis(config)
 write_json(result, "run.json")
 write_csv_bundle(result, "csv")
 ```
 
 The complete [Vanguard run example](examples/vanguard_run/) contains its exact
-input configuration, explicit test-only EOP fixture, canonical JSON, six CSV
-files and hashes. Its [test](tests/test_run.py) demonstrates constructing
-`AnalysisConfig` and a deterministic rerun. Regular runs use Astropy's
-configured IERS data; the test-only zero EOP is not a production default.
+input configuration, separately scoped test-only EOP fixture, canonical JSON,
+six CSV files and hashes. The [composition test](tests/test_input.py) exercises
+config loading through output; the [run tests](tests/test_run.py) check
+deterministic reruns. Regular runs use Astropy's configured IERS data; the
+test-only zero EOP is not a production default.
 
 On Windows PowerShell:
 
@@ -88,6 +96,8 @@ implementation state.** Its records have separate jobs:
 - [Architecture](docs/architecture.md): implemented interfaces and data path.
 - [Run schema 1.0](docs/run-schema-v1.md): statuses, JSON fields, CSV bundle,
   and failure semantics.
+- [Input schema 1.0](docs/input-schema-v1.md): archived TLE/configuration fields
+  and strict validation before a run.
 - [Verification](docs/verification.md): specified software behaviour, fixtures,
   criteria and results.
 - [Validation](docs/validation.md): cross-implementation evidence, frozen

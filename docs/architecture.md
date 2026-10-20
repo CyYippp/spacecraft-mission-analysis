@@ -3,7 +3,7 @@
 Planned pipeline:
 
 ```text
-AnalysisConfig: archived TLE, UTC interval, stations, numerical settings
+versioned archived JSON → validated AnalysisConfig: TLE, UTC interval, stations, settings
     → SGP4 orbit adapter [implemented M1a]
     → Astropy TEME-to-ITRS frame service [implemented and matched-case verified M1b]
     → WGS84 station ITRS → station-relative ITRS → ENU [implemented]
@@ -14,6 +14,11 @@ AnalysisConfig: archived TLE, UTC interval, stations, numerical settings
     → AnalysisResult [implemented, contract verified]
     → versioned JSON / CSV bundle [implemented, contract verified]
 ```
+
+`input.py` checks input schema 1.0, including required source metadata, strict
+fields/types and UTC `Z` timestamps, before constructing the existing
+`AnalysisConfig`. Test-only EOP table data is separate from the production
+config. Invalid requests raise `InputConfigError` before scientific execution.
 
 `src/spacecraft_mission_analysis/orbit.py` contains the M1a orbit module:
 
@@ -36,9 +41,9 @@ service checks EOP availability and raises `FrameTransformError` for unavailable
 data; predicted EOP emits a warning.
 
 The public states label their frames rather than exposing unlabeled six-element
-arrays. Later geometry can depend on them without depending on `Satrec`. No
-versioned output service exists yet. The frame service passes the
-independent matched split-UT1 comparison at the frozen limits. The direct
+arrays. Later geometry can depend on them without depending on `Satrec`. The
+frame service passes the independent matched split-UT1 comparison at the frozen
+limits. The direct
 published-vector comparison retains a documented 3.17 mm x-position overrun
 from the numerical time-path mismatch.
 

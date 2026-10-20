@@ -35,8 +35,8 @@ coordinates, elevation mask, coarse/root/peak numerical settings, frozen
 7-day TLE-age and 24-hour comparison-duration warning settings, the declared
 Astropy IERS table/source label, and an optional externally supplied source
 revision. The source label is a caller-supplied provenance assertion; the
-archived example also saves its explicit test-only EOP table values in
-`config.json`. Scientific code does not invoke Git to discover a revision.
+archived example saves its explicit test-only EOP table values separately in
+`test_only_eop.json`. Scientific code does not invoke Git to discover a revision.
 
 `provenance` records project, SGP4, Astropy and SciPy versions, WGS72 SGP4
 constants, WGS84 station ellipsoid, TEME SGP4 output frame and Astropy IERS
@@ -67,6 +67,7 @@ Every run exports the same six files:
 - `warnings.csv`: one row per notice. `details_json` contains its stable
   machine-readable context as compact sorted-key JSON.
 
-The [archived example](../examples/vanguard_run/) contains the input manifest,
+The [archived example](../examples/vanguard_run/) contains the versioned input
+config, separately scoped test-only EOP fixture,
 canonical JSON and full CSV bundle. The [verification record](verification.md)
 separates software-contract checks from physical validation.

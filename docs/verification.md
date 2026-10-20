@@ -5,6 +5,43 @@ station/ENU, look-angle, and access-event software boundaries were built correct
 **Validation** asks whether the eventual mission-analysis model is useful for
 the intended planning question; see [validation](validation.md).
 
+## MA-01 archived input and TLE contract
+
+The [schema 1.0 loader](../src/spacecraft_mission_analysis/input.py) maps the
+reviewable [Vanguard config](../examples/vanguard_run/config.json) into the
+existing `AnalysisConfig`. The archived 69-character lines survive unchanged
+in `TleRecord` and run-result provenance. The source label is required by the
+input schema. The parsed UTC epoch is
+`2000-06-27T18:50:19.733568000`, catalogue ID `5`; the raw epoch field remains
+in line 1. `python-sgp4==2.27` validates fixed-column/numeric structure and
+WGS72 initialization. The boundary also requires both checksum columns to be
+digits and both modulo-10 checksums to match; the library helper alone skips a
+non-digit checksum column ([ISS-009](issues.md#iss-009--malformed-tle-escaped-the-input-boundary)).
+
+The [invalid fixtures](../tests/test_input.py) independently corrupt one
+feature at a time. All are expected to raise before `run_analysis()`:
+
+| Fixture fault | Rejection |
+| --- | --- |
+| Wrong line-1 or line-2 prefix | TLE line identity/length |
+| Corrupted line-1 or line-2 checksum digit | Checksum mismatch |
+| Non-digit line-2 checksum column | Non-numeric checksum |
+| Valid-looking lines with different catalogue IDs | Cross-line pair mismatch |
+| Unparseable epoch or malformed line-2 mean element | SGP4 field parser |
+| Truncated line 2 | TLE line length |
+| Zero line-2 mean motion with corrected checksum | SGP4 initialization arithmetic error converted to input error |
+
+Input tests also reject missing/unknown/duplicate fields, wrong types,
+unsupported schema version, naive/local/malformed/vector timestamps, end not
+after start, and invalid stations. Only the existing mask, coarse-step,
+root-tolerance and optional source-revision defaults are applied. With the
+separately scoped [test EOP table](../examples/vanguard_run/test_only_eop.json),
+`config.json → AnalysisConfig → run_analysis → JSON/CSV` reproduces the saved
+configuration, provenance, nonpeak scientific fields and all stable CSV fields
+exactly. Peak elevation/time use the already frozen MA-04 comparison limits
+from [ISS-008](issues.md#iss-008--cross-platform-peak-snapshot-bytes). This is
+software input verification, not physical-orbit validation.
+
 ## Reference vector
 
 The test uses Vanguard 1 / catalogue **00005** at **+360 minutes** after the

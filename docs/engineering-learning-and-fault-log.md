@@ -76,3 +76,14 @@ environment*. A saved file from another platform is a strict oracle for the
 stable fields and a bounded numerical check for optimizer fields. This does
 not authorize changing the MA-04 peak criteria or rewriting the archived
 scientific result to fit CI.
+
+## Archived TLE integrity at the input boundary
+
+[ISS-009](issues.md#iss-009--malformed-tle-escaped-the-input-boundary) shows why
+a parser's checksum helper must be checked for its exact behaviour:
+`python-sgp4` verifies a numeric checksum but skips a non-digit checksum
+column. The input boundary now checks that column first, validates the pair,
+and retains the original 69-character lines. A malformed request raises
+`InputConfigError` before `run_analysis()`, while a later propagation failure
+remains a scientific `FAILED` result. Keeping those outcomes distinct makes
+the archived evidence and failure provenance reviewable.

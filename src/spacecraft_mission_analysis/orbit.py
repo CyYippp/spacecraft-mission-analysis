@@ -32,6 +32,8 @@ class TleRecord:
                 raise ValueError(f"TLE line {number} must be an unmodified 69-character line")
             try:
                 line.encode("ascii")
+                if not line[68].isdigit():
+                    raise ValueError("checksum column is not a digit")
                 verify_checksum(line)
             except (UnicodeEncodeError, ValueError) as exc:
                 raise ValueError(
@@ -44,8 +46,14 @@ class TleRecord:
             # The accelerated parser is permissive about malformed numeric fields.
             validate_tle_format(self.line1, self.line2, wgs72)
             satellite = Satrec.twoline2rv(self.line1, self.line2, WGS72)
-        except (ValueError, TypeError) as exc:
+        except (ValueError, TypeError, ArithmeticError) as exc:
             raise ValueError("TLE could not be parsed by SGP4") from exc
+        if satellite.error:
+            raise ValueError(
+                f"TLE rejected by SGP4 initialization: {SGP4_ERRORS.get(satellite.error, satellite.error)}"
+            )
+        if not isfinite(satellite.jdsatepoch) or not isfinite(satellite.jdsatepochF):
+            raise ValueError("TLE epoch is not finite")
 
         object.__setattr__(self, "_epoch_jd1", satellite.jdsatepoch)
         object.__setattr__(self, "_epoch_jd2", satellite.jdsatepochF)

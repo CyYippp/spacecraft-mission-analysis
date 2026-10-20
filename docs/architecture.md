@@ -10,7 +10,8 @@ archived input / TLE
     → geometric azimuth/elevation/range [implemented]
     → elevation evaluator → coarse event search → bracketed root refinement
       → AccessWindow with peak time/elevation [implemented, internally verified]
-    → temporal metrics and versioned outputs [future]
+    → temporal station coverage metrics [implemented, analytically verified]
+    → versioned outputs [future]
 ```
 
 `src/spacecraft_mission_analysis/orbit.py` contains the M1a orbit module:
@@ -67,3 +68,11 @@ candidate checks. `AccessWindow` stores immutable split UTC endpoints and peak
 time, maximum elevation in degrees, and derived duration in seconds. Clipped
 flags distinguish an analysis bound from a threshold crossing. Upstream
 failures propagate.
+
+`coverage.py` accepts scalar UTC analysis bounds and existing `AccessWindow`
+values or standalone `CoverageInterval` values. It clips, sorts and merges
+positive-duration intervals independently of orbital geometry, then returns an
+immutable `TemporalCoverage` with the union, accessible seconds, coverage
+fraction, merged interval count and longest no-access gap. Source windows can
+remain grouped by station at the caller; the metrics layer needs only their
+timestamps. No scheduling or output schema is present.

@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+- Added MA-08 temporal station coverage from clipped, merged access intervals:
+  union duration, fraction, merged-window count and longest no-access gap.
+  Hand-calculated A–K cases and an archived two-station integration check pass;
+  no dependency or engineering baseline changed.
 - Added immutable maximum elevation and UTC peak time to detected access
   windows, with bounded second-offset refinement, endpoint comparison, analytic
   peak tests and an archived-orbit integration check. Phase A/B artifacts and

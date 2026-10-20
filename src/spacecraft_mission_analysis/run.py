@@ -11,15 +11,17 @@ import astropy.units as u
 import scipy
 import sgp4
 from astropy.time import Time
+from astropy.utils import iers
 
 from .access import AccessWindow
 from .coverage import TemporalCoverage, compute_temporal_coverage
 from .elevation import find_satellite_access_windows
+from .eop import EarthOrientationConfig
 from .frames import FrameTransformError
 from .orbit import PropagationError, Sgp4Propagator, TleRecord
 from .stations import GroundStation
 
-SCHEMA_VERSION = "1.0"
+SCHEMA_VERSION = "1.1"
 TLE_AGE_WARNING_DAYS = 7.0
 VALIDATED_ANALYSIS_SPAN_MAX_HOURS = 24.0
 
@@ -50,7 +52,7 @@ class AnalysisConfig:
     minimum_elevation_deg: float
     coarse_step_s: float
     root_tolerance_s: float
-    earth_orientation_source: str
+    earth_orientation: EarthOrientationConfig
     source_revision: str | None
 
     def __init__(
@@ -63,7 +65,8 @@ class AnalysisConfig:
         minimum_elevation_deg: float = 10.0,
         coarse_step_s: float = 5.0,
         root_tolerance_s: float = 0.01,
-        earth_orientation_source: str = "Astropy configured IERS table",
+        earth_orientation_source: str | None = None,
+        earth_orientation: EarthOrientationConfig | None = None,
         source_revision: str | None = None,
     ) -> None:
         if not isinstance(tle, TleRecord):
@@ -90,8 +93,20 @@ class AnalysisConfig:
                 raise ValueError(f"{label} must be finite")
             if positive and value <= 0:
                 raise ValueError(f"{label} must be positive")
-        if not isinstance(earth_orientation_source, str) or not earth_orientation_source.strip():
-            raise ValueError("earth_orientation_source must be a nonempty source label")
+        if earth_orientation is None:
+            earth_orientation = EarthOrientationConfig(
+                "configured_iers",
+                "Astropy configured IERS table"
+                if earth_orientation_source is None
+                else earth_orientation_source,
+            )
+        elif not isinstance(earth_orientation, EarthOrientationConfig):
+            raise TypeError("earth_orientation must be an EarthOrientationConfig")
+        elif (
+            earth_orientation_source is not None
+            and earth_orientation_source != earth_orientation.source
+        ):
+            raise ValueError("earth_orientation_source differs from the selected table source")
         if source_revision is not None and (
             not isinstance(source_revision, str) or not source_revision.strip()
         ):
@@ -106,7 +121,7 @@ class AnalysisConfig:
             ("minimum_elevation_deg", float(minimum_elevation_deg)),
             ("coarse_step_s", float(coarse_step_s)),
             ("root_tolerance_s", float(root_tolerance_s)),
-            ("earth_orientation_source", earth_orientation_source),
+            ("earth_orientation", earth_orientation),
             ("source_revision", source_revision),
         ):
             object.__setattr__(self, name, value)
@@ -118,6 +133,10 @@ class AnalysisConfig:
     @property
     def end(self) -> Time:
         return Time(self._end_jd1, self._end_jd2, format="jd", scale="utc")
+
+    @property
+    def earth_orientation_source(self) -> str:
+        return self.earth_orientation.source
 
 
 @dataclass(frozen=True, slots=True)
@@ -135,7 +154,7 @@ class RunProvenance:
     sgp4_gravity_constants: str = "WGS72"
     station_ellipsoid: str = "WGS84"
     sgp4_output_frame: str = "TEME"
-    earth_orientation_mode: str = "Astropy IERS"
+    earth_orientation_mode: str = "configured_iers"
 
 
 @dataclass(frozen=True, slots=True)
@@ -158,12 +177,13 @@ class AnalysisResult:
             raise ValueError("successful runs require completed access and coverage results")
 
 
-def _provenance() -> RunProvenance:
+def _provenance(config: AnalysisConfig) -> RunProvenance:
     return RunProvenance(
         version("spacecraft-mission-analysis"),
         sgp4.__version__,
         astropy.__version__,
         scipy.__version__,
+        earth_orientation_mode=config.earth_orientation.mode,
     )
 
 
@@ -171,7 +191,17 @@ def run_analysis(config: AnalysisConfig) -> AnalysisResult:
     """Execute one archived-TLE analysis; required kernel failures discard all results."""
     if not isinstance(config, AnalysisConfig):
         raise TypeError("config must be an AnalysisConfig")
-    provenance = _provenance()
+    if config.earth_orientation.mode == "explicit_table":
+        with (
+            iers.conf.set_temp("auto_download", False),
+            iers.earth_orientation_table.set(config.earth_orientation.build_table()),
+        ):
+            return _execute_analysis(config)
+    return _execute_analysis(config)
+
+
+def _execute_analysis(config: AnalysisConfig) -> AnalysisResult:
+    provenance = _provenance(config)
     start, end = config.start, config.end
     max_age_days = max(
         abs((start - config.tle.epoch).to_value(u.day)),

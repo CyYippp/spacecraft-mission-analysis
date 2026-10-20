@@ -3,6 +3,7 @@
 from .access import AccessWindow, find_access_windows
 from .coverage import CoverageInterval, TemporalCoverage, compute_temporal_coverage
 from .elevation import find_satellite_access_windows, satellite_elevation_deg
+from .eop import EarthOrientationConfig
 from .frames import FrameTransformError, ItrsState, teme_to_itrs
 from .geometry import (
     AzElRange,
@@ -26,6 +27,7 @@ __all__ = [
     "CoverageInterval",
     "FrameTransformError",
     "EnuVector",
+    "EarthOrientationConfig",
     "GroundStation",
     "ItrsPosition",
     "ItrsState",

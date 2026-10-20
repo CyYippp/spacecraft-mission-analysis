@@ -148,3 +148,25 @@ does not imply physical accuracy.
   `InputConfigError`. [Independent corrupt-line fixtures](../tests/test_input.py)
   exercise both paths. Original lines are neither repaired nor normalized;
   no orbit model or physical acceptance criterion changed.
+
+## ISS-010 — named EOP source without reproducible input
+
+- **Kind/status:** Observed run-provenance/reproducibility defect; corrected in
+  the explicit-EOP input increment.
+- **Trigger/expectation/actual:** The canonical Vanguard config named a
+  test-only zero-UT1/polar-motion source but did not provide its table to
+  `load_analysis_config()` or `run_analysis()`. Tests injected the file through
+  a separate Astropy context. With ordinary configured IERS data, the same
+  config returned `SUCCESS` yet accessible duration was
+  `1229.2219018011551 s` instead of the saved `1229.2680210995704 s`, and
+  the first rise was about `0.048487 s` later.
+- **Consequence/cause:** A source label described intended provenance but was
+  not executable model input. The archived input was not self-contained and
+  its saved scientific result could not be reproduced from the config alone.
+- **Correction/retest:** Input schema 1.1 requires `configured_iers` or
+  `explicit_table`. The archived config references its test-only file relative
+  to itself; the loader snapshots validated values and SHA-256, and the run
+  boundary scopes that table without changing the frame transform. Run schema
+  1.1 records mode, source, relative identity and hash. The direct config→run
+  test now matches the archived scientific values under the existing PR #10
+  peak rules. Ordinary configured-IERS and MA-06 fail-closed paths remain.

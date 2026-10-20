@@ -2,6 +2,11 @@
 
 ## Unreleased
 
+- Closed the archived EOP provenance gap with explicit configured-IERS and
+  hashed relative-table input modes. The Vanguard config now reproduces its
+  saved scientific result without test-side EOP injection. Input and run
+  contracts advance to schema 1.1; scientific values and EOP fail-closed
+  behaviour are unchanged.
 - Added strict input schema 1.0 and a loader from the archived Vanguard config
   to `AnalysisConfig`, with raw TLE/epoch/source preservation and invalid-input
   tests. Corrected non-digit checksum and SGP4 initialization error handling;

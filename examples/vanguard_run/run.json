@@ -3,7 +3,10 @@
     "analysis_end_utc": "2000-06-27T20:40:00.000000000Z",
     "analysis_start_utc": "2000-06-27T20:00:00.000000000Z",
     "coarse_step_s": 5.0,
+    "earth_orientation_mode": "explicit_table",
     "earth_orientation_source": "test-only synthetic zero UT1-UTC/xp/yp IERS table at MJD 51722-51723",
+    "earth_orientation_table_identity": "test_only_eop.json",
+    "earth_orientation_table_sha256": "bd3769c7c5f55131e4ca5472e4787daaa9f2674502b01c9bbdbd573a4f77e824",
     "minimum_elevation_deg": 10.0,
     "peak_refinement_xatol_s": 0.002,
     "root_tolerance_s": 0.01,
@@ -52,7 +55,7 @@
   "notices": [],
   "provenance": {
     "astropy_version": "7.2.1",
-    "earth_orientation_mode": "Astropy IERS",
+    "earth_orientation_mode": "explicit_table",
     "project_version": "0.1.0",
     "scipy_version": "1.17.1",
     "sgp4_gravity_constants": "WGS72",
@@ -60,7 +63,7 @@
     "sgp4_version": "2.27",
     "station_ellipsoid": "WGS84"
   },
-  "schema_version": "1.0",
+  "schema_version": "1.1",
   "station_access": [
     {
       "station_name": "Equator Greenwich synthetic fixed WGS84 station",

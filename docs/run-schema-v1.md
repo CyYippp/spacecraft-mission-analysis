@@ -1,4 +1,4 @@
-# Run output contract: schema 1.0
+# Run output contract: schema 1.1
 
 `run_analysis(AnalysisConfig) -> AnalysisResult` composes the existing orbit,
 frame, station, access and temporal-coverage kernels. `serialize_json()` and
@@ -27,20 +27,21 @@ Unexpected software defects are not converted into scientific no-access results.
 ## JSON
 
 Top-level fields are `schema_version`, `status`, `configuration`, `provenance`,
-`notices`, `station_access` and `coverage`. Schema version is `"1.0"`.
+`notices`, `station_access` and `coverage`. Schema version is `"1.1"`.
 
 `configuration` contains analysis `*_utc` bounds, raw 69-character TLE lines,
 TLE catalogue ID, epoch and source, ordered fixed-station WGS84 geodetic
 coordinates, elevation mask, coarse/root/peak numerical settings, frozen
-7-day TLE-age and 24-hour comparison-duration warning settings, the declared
-Astropy IERS table/source label, and an optional externally supplied source
-revision. The source label is a caller-supplied provenance assertion; the
-archived example saves its explicit test-only EOP table values separately in
-`test_only_eop.json`. Scientific code does not invoke Git to discover a revision.
+7-day TLE-age and 24-hour comparison-duration warning settings, the explicit
+Earth-orientation mode and source label, normalized relative table identity
+and SHA-256 for `explicit_table` (otherwise JSON `null`), and an optional
+externally supplied source revision. The archived config selects its
+test-only EOP table; `run_analysis()` scopes the loaded table for that run.
+Scientific code does not invoke Git to discover a revision.
 
 `provenance` records project, SGP4, Astropy and SciPy versions, WGS72 SGP4
 constants, WGS84 station ellipsoid, TEME SGP4 output frame and Astropy IERS
-frame mode. `notices` use stable `code`, `severity`, `stage`, `message` and
+frame mode (`configured_iers` or `explicit_table`). `notices` use stable `code`, `severity`, `stage`, `message` and
 numeric/string `details`. Access windows carry UTC entry, exit and maximum
 time, duration seconds, maximum elevation degrees, and clipped flags. Coverage
 carries accessible seconds, fraction, merged count, longest-gap seconds and
@@ -56,7 +57,7 @@ digits. Numeric units are encoded in field names (`_s`, `_deg`, `_m`, `_days`,
 Every run exports the same six files:
 
 - `run.csv`: one row with status, complete scalar run/TLE configuration,
-  provenance and notice count.
+  Earth-orientation mode/source/table identity/hash, provenance and notice count.
 - `stations.csv`: one row per configured station with WGS84 geodetic fields.
 - `access_windows.csv`: one row per station pass, with entry/exit, duration,
   maximum elevation/time and clipped flags.
@@ -68,6 +69,6 @@ Every run exports the same six files:
   machine-readable context as compact sorted-key JSON.
 
 The [archived example](../examples/vanguard_run/) contains the versioned input
-config, separately scoped test-only EOP fixture,
-canonical JSON and full CSV bundle. The [verification record](verification.md)
+config, its explicitly selected test-only EOP fixture, canonical JSON and full
+CSV bundle. The [verification record](verification.md)
 separates software-contract checks from physical validation.

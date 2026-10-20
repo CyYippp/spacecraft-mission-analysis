@@ -50,7 +50,10 @@ def _configuration(result: AnalysisResult) -> dict:
         "peak_refinement_xatol_s": PEAK_XATOL_S,
         "tle_age_warning_days": TLE_AGE_WARNING_DAYS,
         "validated_analysis_span_max_hours": VALIDATED_ANALYSIS_SPAN_MAX_HOURS,
+        "earth_orientation_mode": config.earth_orientation.mode,
         "earth_orientation_source": config.earth_orientation_source,
+        "earth_orientation_table_identity": config.earth_orientation.table_identity,
+        "earth_orientation_table_sha256": config.earth_orientation.table_sha256,
         "source_revision": config.source_revision,
     }
 
@@ -164,7 +167,10 @@ def csv_bundle(result: AnalysisResult) -> dict[str, str]:
         "peak_refinement_xatol_s": config["peak_refinement_xatol_s"],
         "tle_age_warning_days": config["tle_age_warning_days"],
         "validated_analysis_span_max_hours": config["validated_analysis_span_max_hours"],
+        "earth_orientation_input_mode": config["earth_orientation_mode"],
         "earth_orientation_source": config["earth_orientation_source"],
+        "earth_orientation_table_identity": config["earth_orientation_table_identity"],
+        "earth_orientation_table_sha256": config["earth_orientation_table_sha256"],
         "source_revision": config["source_revision"],
         **provenance,
         "notice_count": len(data["notices"]),

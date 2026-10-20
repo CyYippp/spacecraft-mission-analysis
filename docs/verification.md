@@ -7,7 +7,7 @@ the intended planning question; see [validation](validation.md).
 
 ## MA-01 archived input and TLE contract
 
-The [schema 1.0 loader](../src/spacecraft_mission_analysis/input.py) maps the
+The [schema 1.1 loader](../src/spacecraft_mission_analysis/input.py) maps the
 reviewable [Vanguard config](../examples/vanguard_run/config.json) into the
 existing `AnalysisConfig`. The archived 69-character lines survive unchanged
 in `TleRecord` and run-result provenance. The source label is required by the
@@ -34,11 +34,16 @@ feature at a time. All are expected to raise before `run_analysis()`:
 Input tests also reject missing/unknown/duplicate fields, wrong types,
 unsupported schema version, naive/local/malformed/vector timestamps, end not
 after start, and invalid stations. Only the existing mask, coarse-step,
-root-tolerance and optional source-revision defaults are applied. With the
-separately scoped [test EOP table](../examples/vanguard_run/test_only_eop.json),
+root-tolerance and optional source-revision defaults are applied. The config
+now explicitly references its [test-only EOP table](../examples/vanguard_run/test_only_eop.json),
+resolved relative to the config file. No test-side IERS context is required:
 `config.json → AnalysisConfig → run_analysis → JSON/CSV` reproduces the saved
 configuration, provenance, nonpeak scientific fields and all stable CSV fields
-exactly. Peak elevation/time use the already frozen MA-04 comparison limits
+exactly. The loader records the normalized relative identity
+`test_only_eop.json` and SHA-256
+`bd3769c7c5f55131e4ca5472e4787daaa9f2674502b01c9bbdbd573a4f77e824`.
+Missing or malformed tables fail before a run; a separate test changes the
+working directory to verify path independence. Peak elevation/time use the already frozen MA-04 comparison limits
 from [ISS-008](issues.md#iss-008--cross-platform-peak-snapshot-bytes). This is
 software input verification, not physical-orbit validation.
 
@@ -481,7 +486,7 @@ culmination is not a matched peak reference.
 
 [`run.py`](../src/spacecraft_mission_analysis/run.py) composes the existing
 event and coverage kernels. [`output.py`](../src/spacecraft_mission_analysis/output.py)
-implements [schema 1.0](run-schema-v1.md) without scientific calculations.
+implements [schema 1.1](run-schema-v1.md) without scientific calculations.
 The saved [Vanguard example](../examples/vanguard_run/) records exact archived
 input, synthetic station/EOP configuration, canonical JSON, six CSV files and
 their SHA-256 digests. Two independent runs within one environment produced
@@ -490,9 +495,9 @@ optimizer-derived peak elevations and peak timestamps versus the saved
 Windows-generated example, while the remaining run fields matched. The
 [snapshot test](../tests/test_run.py) now compares every other JSON byte and
 CSV field exactly, and checks those two peak fields against the already frozen
-MA-04 criteria (`1e-5 deg`, `0.02 s`). The saved example was not regenerated;
-its JSON SHA-256 is
-`420b112c399b4be1474a450214537309241e8584ae8293088d2011b4ebd5766a`.
+MA-04 criteria (`1e-5 deg`, `0.02 s`). The saved example's scientific values
+were not changed; only schema/provenance fields were regenerated. Its JSON
+SHA-256 is `cde21a989102fbac56404f23945f60db5b5cb1024bc8f30da3a61ef67f99e33`.
 Schema tests check version, raw TLE/source, ordered stations and windows,
 UTC `Z` timestamps, explicit units, warnings, provenance, CSV rows and fixed
 bundle membership. The clean example is `SUCCESS`, no notices, window counts
@@ -522,8 +527,8 @@ contain fabricated pass or coverage rows. Equal/reversed analysis intervals,
 naive datetime input and vector times fail input validation before producing
 a result. The pre-existing frame service now converts an EOP table acquisition
 `OSError`/`ValueError` into `FrameTransformError`, allowing the run boundary to
-report it as `EOP_UNAVAILABLE`. No zero-valued EOP substitution occurs in
-production; synthetic zeros appear only in explicitly scoped tests.
+report it as `EOP_UNAVAILABLE`. `configured_iers` never substitutes synthetic
+zeros; only the archived, explicitly selected reproducibility fixture uses them.
 
 MA-05 and MA-06 are **VERIFIED** for the defined software/output contract.
 Neither the warning heuristics nor this archived integration case establish

@@ -58,11 +58,12 @@ write_csv_bundle(result, "csv")
 ```
 
 The complete [Vanguard run example](examples/vanguard_run/) contains its exact
-input configuration, separately scoped test-only EOP fixture, canonical JSON,
+input configuration with an explicit, relative-path test-only EOP fixture, canonical JSON,
 six CSV files and hashes. The [composition test](tests/test_input.py) exercises
 config loading through output; the [run tests](tests/test_run.py) check
-deterministic reruns. Regular runs use Astropy's configured IERS data; the
-test-only zero EOP is not a production default.
+deterministic reruns. The archived config loads its own EOP fixture; ordinary
+`configured_iers` runs use Astropy's configured data. The test-only zero EOP
+is never a production default.
 
 On Windows PowerShell:
 
@@ -94,9 +95,9 @@ implementation state.** Its records have separate jobs:
 - [Requirements](docs/requirements.md): live MA-01–MA-08 status and traceability.
 - [Assumptions](docs/assumptions.md): modelling conventions and boundaries.
 - [Architecture](docs/architecture.md): implemented interfaces and data path.
-- [Run schema 1.0](docs/run-schema-v1.md): statuses, JSON fields, CSV bundle,
+- [Run schema 1.1](docs/run-schema-v1.md): statuses, JSON fields, CSV bundle,
   and failure semantics.
-- [Input schema 1.0](docs/input-schema-v1.md): archived TLE/configuration fields
+- [Input schema 1.1](docs/input-schema-v1.md): archived TLE/configuration fields
   and strict validation before a run.
 - [Verification](docs/verification.md): specified software behaviour, fixtures,
   criteria and results.

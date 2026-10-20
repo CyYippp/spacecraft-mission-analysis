@@ -4,6 +4,7 @@ import copy
 import csv
 import io
 import json
+from hashlib import sha256
 from pathlib import Path
 
 import astropy.units as u
@@ -25,7 +26,6 @@ from spacecraft_mission_analysis import (
 
 EXAMPLE = Path(__file__).parent.parent / "examples" / "vanguard_run"
 BASE = json.loads((EXAMPLE / "config.json").read_text(encoding="utf-8"))
-EOP = json.loads((EXAMPLE / "test_only_eop.json").read_text(encoding="utf-8"))
 
 
 def changed(**updates: object) -> dict:
@@ -34,8 +34,22 @@ def changed(**updates: object) -> dict:
     return data
 
 
+def parse_archived(data: dict):
+    return parse_analysis_config(data, base_dir=EXAMPLE)
+
+
 def test_archived_vanguard_input_preserves_raw_tle_epoch_source_and_settings() -> None:
     config = load_analysis_config(EXAMPLE / "config.json")
+    assert config.earth_orientation.mode == "explicit_table"
+    assert config.earth_orientation.table_identity == "test_only_eop.json"
+    assert (
+        config.earth_orientation.table_sha256
+        == "bd3769c7c5f55131e4ca5472e4787daaa9f2674502b01c9bbdbd573a4f77e824"
+    )
+    assert (
+        config.earth_orientation.table_sha256
+        == sha256((EXAMPLE / "test_only_eop.json").read_bytes()).hexdigest()
+    )
     assert (
         config.tle.line1 == "1 00005U 58002B   00179.78495062  .00000023  00000-0  28098-4 0  4753"
     )
@@ -114,7 +128,7 @@ def test_invalid_tle_rejected(fault: str, line1: str, line2: str, message: str) 
     with pytest.raises(ValueError, match=message):
         TleRecord.from_lines(line1, line2, source=BASE["tle_source"])
     with pytest.raises(InputConfigError, match=message):
-        parse_analysis_config(changed(tle_line1=line1, tle_line2=line2))
+        parse_archived(changed(tle_line1=line1, tle_line2=line2))
 
 
 @pytest.mark.parametrize(
@@ -137,7 +151,7 @@ def test_invalid_tle_rejected(fault: str, line1: str, line2: str, message: str) 
 )
 def test_invalid_input_rejected(updates: dict, message: str) -> None:
     with pytest.raises(InputConfigError, match=message):
-        parse_analysis_config(changed(**updates))
+        parse_archived(changed(**updates))
 
 
 @pytest.mark.parametrize(
@@ -147,7 +161,7 @@ def test_required_field_missing(key: str) -> None:
     data = changed()
     del data[key]
     with pytest.raises(InputConfigError, match=key):
-        parse_analysis_config(data)
+        parse_archived(data)
 
 
 @pytest.mark.parametrize(
@@ -177,21 +191,21 @@ def test_required_field_missing(key: str) -> None:
 )
 def test_station_contract_uses_groundstation_validation(station: dict, message: str) -> None:
     with pytest.raises(InputConfigError, match=message):
-        parse_analysis_config(changed(stations=[station]))
+        parse_archived(changed(stations=[station]))
 
 
 def test_optional_defaults_and_explicit_settings() -> None:
     data = changed()
     for key in ("minimum_elevation_deg", "coarse_step_s", "root_tolerance_s"):
         del data[key]
-    default = parse_analysis_config(data)
+    default = parse_archived(data)
     assert (default.minimum_elevation_deg, default.coarse_step_s, default.root_tolerance_s) == (
         10.0,
         5.0,
         0.01,
     )
     assert default.source_revision is None
-    explicit = parse_analysis_config(
+    explicit = parse_archived(
         changed(
             minimum_elevation_deg=7.5,
             coarse_step_s=2,
@@ -209,23 +223,96 @@ def test_optional_defaults_and_explicit_settings() -> None:
 
 def test_json_duplicate_field_rejected(tmp_path: Path) -> None:
     path = tmp_path / "duplicate.json"
-    path.write_text('{"schema_version":"1.0","schema_version":"1.0"}', encoding="utf-8")
+    path.write_text('{"schema_version":"1.1","schema_version":"1.1"}', encoding="utf-8")
     with pytest.raises(InputConfigError, match="duplicate JSON field"):
         load_analysis_config(path)
 
 
-def test_archived_config_to_run_and_output_matches_saved_result() -> None:
+def test_explicit_table_path_is_relative_to_config_not_working_directory(
+    monkeypatch, tmp_path: Path
+) -> None:
+    monkeypatch.chdir(tmp_path)
     config = load_analysis_config(EXAMPLE / "config.json")
-    table = iers.IERS(
+    assert config.earth_orientation.table_identity == "test_only_eop.json"
+    assert config.earth_orientation.rows == ((51722, 0.0, 0.0, 0.0), (51723, 0.0, 0.0, 0.0))
+
+
+def test_missing_explicit_table_rejected_before_run() -> None:
+    with pytest.raises(InputConfigError, match="earth_orientation_table_file.*could not be read"):
+        parse_archived(changed(earth_orientation_table_file="missing-eop.json"))
+
+
+@pytest.mark.parametrize(
+    ("table", "message"),
+    [
+        (
+            {
+                "mjd": [51722, 51723],
+                "ut1_minus_utc_s": [0.0, 0.0, 0.0],
+                "xp_arcsec": [0.0, 0.0],
+                "yp_arcsec": [0.0, 0.0],
+            },
+            "equal lengths",
+        ),
+        (
+            {
+                "mjd": [51723, 51722],
+                "ut1_minus_utc_s": [0.0, 0.0],
+                "xp_arcsec": [0.0, 0.0],
+                "yp_arcsec": [0.0, 0.0],
+            },
+            "strictly increasing",
+        ),
+        (
+            {
+                "mjd": [51722, 51723],
+                "ut1_minus_utc_s": ["zero", 0.0],
+                "xp_arcsec": [0.0, 0.0],
+                "yp_arcsec": [0.0, 0.0],
+            },
+            "ut1_minus_utc_s",
+        ),
+        (
+            {"mjd": [51722, 51723], "ut1_minus_utc_s": [0.0, 0.0], "xp_arcsec": [0.0, 0.0]},
+            "yp_arcsec",
+        ),
+    ],
+)
+def test_malformed_explicit_table_rejected(tmp_path: Path, table: dict, message: str) -> None:
+    (tmp_path / "bad-eop.json").write_text(json.dumps(table), encoding="utf-8")
+    with pytest.raises(InputConfigError, match=message):
+        parse_analysis_config(
+            changed(earth_orientation_table_file="bad-eop.json"), base_dir=tmp_path
+        )
+
+
+def test_configured_iers_mode_keeps_callers_table_and_fail_closed_behaviour() -> None:
+    data = changed(
+        earth_orientation_mode="configured_iers",
+        earth_orientation_source="Astropy configured IERS table",
+    )
+    del data["earth_orientation_table_file"]
+    config = parse_analysis_config(data)
+    assert config.earth_orientation.table_identity is None
+    assert config.earth_orientation.table_sha256 is None
+    unavailable = iers.IERS(
         {
-            "MJD": EOP["mjd"] * u.day,
-            "UT1_UTC": EOP["ut1_minus_utc_s"] * u.s,
-            "PM_x": EOP["xp_arcsec"] * u.arcsec,
-            "PM_y": EOP["yp_arcsec"] * u.arcsec,
+            "MJD": [53000, 53001] * u.day,
+            "UT1_UTC": [0.0, 0.0] * u.s,
+            "PM_x": [0.0, 0.0] * u.arcsec,
+            "PM_y": [0.0, 0.0] * u.arcsec,
         }
     )
-    with iers.conf.set_temp("auto_download", False), iers.earth_orientation_table.set(table):
+    with iers.conf.set_temp("auto_download", False), iers.earth_orientation_table.set(unavailable):
         result = run_analysis(config)
+    assert result.status == RunStatus.FAILED
+    assert result.notices[-1].code == "EOP_UNAVAILABLE"
+    assert result_dict(result)["configuration"]["earth_orientation_mode"] == "configured_iers"
+
+
+def test_archived_config_to_run_and_output_matches_saved_result() -> None:
+    config = load_analysis_config(EXAMPLE / "config.json")
+    result = run_analysis(config)
     assert result.status == RunStatus.SUCCESS
     actual = result_dict(result)
     saved = json.loads((EXAMPLE / "run.json").read_text(encoding="utf-8"))

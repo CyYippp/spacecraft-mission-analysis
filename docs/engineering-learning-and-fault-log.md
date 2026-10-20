@@ -64,3 +64,15 @@ The narrow correction converts acquisition/query `OSError` or `ValueError` to
 `EOP_UNAVAILABLE` failure. A scoped monkeypatch checks the path without
 changing the user's IERS cache. The correction improves failure reporting; it
 does not add synthetic EOP data or validate the resulting physical geometry.
+
+## Cross-platform numerical output — exact bytes versus scientific meaning
+
+[ISS-008](issues.md#iss-008--cross-platform-peak-snapshot-bytes) arose when
+Ubuntu CI compared an archived Windows JSON file with a fresh run. Stable
+configuration, provenance, pass boundaries and coverage matched, but the
+bounded optimizer's peak elevation/time differed in last bits. Exact bytes
+remain the right requirement for repeated serialization *within one
+environment*. A saved file from another platform is a strict oracle for the
+stable fields and a bounded numerical check for optimizer fields. This does
+not authorize changing the MA-04 peak criteria or rewriting the archived
+scientific result to fit CI.

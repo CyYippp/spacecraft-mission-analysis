@@ -447,9 +447,14 @@ event and coverage kernels. [`output.py`](../src/spacecraft_mission_analysis/out
 implements [schema 1.0](run-schema-v1.md) without scientific calculations.
 The saved [Vanguard example](../examples/vanguard_run/) records exact archived
 input, synthetic station/EOP configuration, canonical JSON, six CSV files and
-their SHA-256 digests. On the same pinned dependencies, two independent runs
-produced byte-identical JSON and CSV, each matching the saved files. The
-complete JSON SHA-256 is
+their SHA-256 digests. Two independent runs within one environment produced
+byte-identical JSON and CSV. Linux CI showed last-bit differences in two
+optimizer-derived peak elevations and peak timestamps versus the saved
+Windows-generated example, while the remaining run fields matched. The
+[snapshot test](../tests/test_run.py) now compares every other JSON byte and
+CSV field exactly, and checks those two peak fields against the already frozen
+MA-04 criteria (`1e-5 deg`, `0.02 s`). The saved example was not regenerated;
+its JSON SHA-256 is
 `420b112c399b4be1474a450214537309241e8584ae8293088d2011b4ebd5766a`.
 Schema tests check version, raw TLE/source, ordered stations and windows,
 UTC `Z` timestamps, explicit units, warnings, provenance, CSV rows and fixed

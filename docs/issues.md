@@ -107,3 +107,25 @@ does not imply physical accuracy.
   [Scoped fault injection](../tests/test_run.py) verifies `FAILED`,
   `EOP_UNAVAILABLE`, and absent access/coverage. No EOP fallback or model
   convention changed.
+
+## ISS-008 — cross-platform peak snapshot bytes
+
+- **Kind/status:** Hosted-CI reproducibility discrepancy; snapshot assertion
+  corrected on PR #10, with hosted checks as the retest gate.
+- **Trigger/expectation/actual:** Both Ubuntu/Python 3.11 `verify` checks failed
+  only at the archived JSON byte comparison in
+  `test_archived_clean_run_is_byte_identical_and_complete`. Two reruns within
+  each environment matched byte-for-byte, but Linux optimizer-derived peak
+  elevations differed from the Windows-saved values by about `1e-14 deg`, and
+  peak timestamps by nanoseconds. Entry/exit, duration, coverage,
+  configuration, provenance and schema fields were unchanged in the logged diff.
+- **Cause/consequence:** The bounded SciPy peak optimizer can return slightly
+  different final floating-point values across platforms with the same pinned
+  package versions. Treating those last bits as a cross-platform serialization
+  acceptance oracle overstated the saved example's reproducibility.
+- **Disposition/retest:** Keep exact byte comparison between independent
+  same-environment runs, and exact saved-example comparison for every other
+  JSON byte/CSV field. Check only the two peak fields against the *existing*
+  MA-04 `1e-5 deg` and `0.02 s` criteria. The saved artifact, hashes, peak
+  algorithm, physical model and numerical acceptance criteria remain unchanged.
+  The corrected test must pass both hosted checks before closing this issue.

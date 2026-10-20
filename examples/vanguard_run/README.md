@@ -7,14 +7,14 @@ UTC analysis interval, two synthetic fixed WGS84 stations at `(0°,0°,0 m)` and
 **test-only** zero UT1−UTC/polar-motion IERS table at MJD 51722–51723. It is an
 internal integration/output-contract case, not independent physical validation.
 
-The deterministic [JSON result](run.json) has schema `1.0`, status `SUCCESS`,
+The saved [JSON result](run.json) has schema `1.0`, status `SUCCESS`,
 one window for each station, no validity notices, and one merged coverage
 interval: `1229.2680210995704 s`, fraction `0.5121950087914875`, longest gap
 `660.8317878096642 s`. The [CSV bundle](csv/) encodes the same run in six
 fixed files. `source_revision` is `null` because no build revision was supplied;
 the run code does not query Git or add a clock-based field.
 
-SHA-256 of saved UTF-8 files (LF line endings):
+SHA-256 of the saved Windows-generated UTF-8 files (LF line endings):
 
 ```text
 d9ef6763df578bc12655683684297c17e246220ad22ab4c7e152dc2a0c872360  config.json
@@ -28,4 +28,11 @@ f11ca2ae57bbadd3faeb1d9d6c1752dc91d5229ea6cdf01aa04a9cf12b8f6d73  csv/access_win
 ```
 
 The [run tests](../../tests/test_run.py) execute the archived input twice under
-the scoped EOP table and compare both outputs byte-for-byte with these files.
+the scoped EOP table and require byte-identical reruns on the same platform.
+Across platforms, the exact saved bytes are checked for every field except
+optimizer-derived maximum elevation and peak time. Those two fields retain the
+predeclared MA-04 peak limits (`1e-5 deg`, `0.02 s`) against this saved example;
+all other JSON bytes and CSV fields must match exactly. Linux CI exposed
+last-bit peak differences from the Windows-generated files without changing
+entry/exit, duration, coverage or provenance. The hashes above identify the
+saved files, not a promise of cross-platform identical optimizer bits.

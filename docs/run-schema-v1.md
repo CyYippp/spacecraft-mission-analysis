@@ -7,6 +7,9 @@ serializer performs scientific calculations. Station and window order follows
 the supplied configuration and detected UTC order. JSON keys are sorted and
 indented; CSV uses stable header order and LF line endings. Neither includes a
 wall-clock generation time or random identifier.
+Byte-identical reruns are required within a fixed environment. The archived
+Windows-generated output is not a cross-platform byte oracle for
+optimizer-derived peak elevation/time; see [ISS-008](issues.md#iss-008--cross-platform-peak-snapshot-bytes).
 
 ## Status and availability
 

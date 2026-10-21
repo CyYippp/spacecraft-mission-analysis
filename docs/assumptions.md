@@ -22,7 +22,9 @@
   by default) and any relevant Astropy warnings. The adapter rejects missing
   or out-of-range EOP and warns when using predicted EOP. Formal tests disable
   downloads only in scoped contexts and inject the published EOP for the
-  Vallado case; global settings are restored after each test.
+  Vallado frame case; global settings are restored after each test. The
+  archived Vanguard run selects its own separate test-only EOP table through
+  its config file.
 - Fixed stations use the **WGS84 ellipsoid**, separately from SGP4's WGS72
   gravity constants. Latitude is **geodetic** (the ellipsoid-normal direction),
   longitude is **east-positive** in `[-180°, +180°]`, and height is **ellipsoidal**
@@ -77,7 +79,10 @@
 - The internal orbit smoke fixture uses a synthetic fixed equator/Greenwich
   WGS84 station and a test-only zero-valued EOP table at MJD 51722–51723. It
   demonstrates software integration only, not realistic EOP or independent
-  prediction accuracy. Atmospheric refraction, terrain masks, link margin,
+  prediction accuracy. The archived run config explicitly selects its
+  relative-path fixture and records the loaded content hash; ordinary runs
+  use configured Astropy IERS data without a synthetic fallback. Atmospheric
+  refraction, terrain masks, link margin,
   eclipse, and geographic sensor footprint require separate scope and evidence.
 - TLE prediction quality can degrade with age. Staleness warnings and a
   supported analysis interval were not defined in M1a. The run layer now emits

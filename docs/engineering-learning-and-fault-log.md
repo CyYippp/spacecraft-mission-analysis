@@ -87,3 +87,13 @@ and retains the original 69-character lines. A malformed request raises
 `InputConfigError` before `run_analysis()`, while a later propagation failure
 remains a scientific `FAILED` result. Keeping those outcomes distinct makes
 the archived evidence and failure provenance reviewable.
+
+## Named provenance is not reproducible configuration
+
+[ISS-010](issues.md#iss-010--named-eop-source-without-reproducible-input) exposed
+a gap between a descriptive Earth-orientation source label and the table
+actually used by Astropy. The archived config once required a hidden test
+context to match its own saved result. The versioned input now selects either
+configured IERS or an explicit, hashed test-only table; the result records
+which was used without a machine-specific path. Environmental model data is
+part of the scientific run contract when numerical reproducibility is claimed.

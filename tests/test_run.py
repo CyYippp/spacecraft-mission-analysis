@@ -20,6 +20,7 @@ from spacecraft_mission_analysis import (
     Sgp4Propagator,
     TleRecord,
     csv_bundle,
+    load_analysis_config,
     result_dict,
     run_analysis,
     serialize_json,
@@ -145,8 +146,8 @@ def rows(content: str) -> list[dict[str, str]]:
 
 
 def test_archived_clean_run_is_byte_identical_and_complete(tmp_path: Path) -> None:
-    first = run_with_eop(config())
-    second = run_with_eop(config())
+    first = run_analysis(load_analysis_config(EXAMPLE / "config.json"))
+    second = run_analysis(load_analysis_config(EXAMPLE / "config.json"))
     assert first.status == second.status == RunStatus.SUCCESS
     assert first.notices == second.notices == ()
     assert [len(item.windows) for item in first.station_access] == [1, 1]
@@ -195,7 +196,7 @@ def test_archived_clean_run_is_byte_identical_and_complete(tmp_path: Path) -> No
         "station_access",
         "coverage",
     }
-    assert data["schema_version"] == "1.0"
+    assert data["schema_version"] == "1.1"
     assert data["configuration"]["tle"]["line1"] == FIXTURE["tle_line1"]
     assert data["configuration"]["tle"]["line2"] == FIXTURE["tle_line2"]
     assert data["configuration"]["tle"]["source"] == FIXTURE["tle_source"]
@@ -231,7 +232,7 @@ def test_archived_clean_run_is_byte_identical_and_complete(tmp_path: Path) -> No
         "warnings.csv",
     )
     assert len(rows(bundle["run.csv"])) == 1
-    assert rows(bundle["run.csv"])[0]["schema_version"] == "1.0"
+    assert rows(bundle["run.csv"])[0]["schema_version"] == "1.1"
     assert rows(bundle["run.csv"])[0]["tle_line1"] == FIXTURE["tle_line1"]
     assert len(rows(bundle["stations.csv"])) == 2
     assert [row["station_name"] for row in rows(bundle["access_windows.csv"])] == [

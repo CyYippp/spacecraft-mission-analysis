@@ -3,7 +3,7 @@
 Planned pipeline:
 
 ```text
-versioned archived JSON → validated AnalysisConfig: TLE, UTC interval, stations, settings
+versioned archived JSON → validated AnalysisConfig: TLE, UTC interval, EOP mode, stations, settings
     → SGP4 orbit adapter [implemented M1a]
     → Astropy TEME-to-ITRS frame service [implemented and matched-case verified M1b]
     → WGS84 station ITRS → station-relative ITRS → ENU [implemented]
@@ -15,10 +15,13 @@ versioned archived JSON → validated AnalysisConfig: TLE, UTC interval, station
     → versioned JSON / CSV bundle [implemented, contract verified]
 ```
 
-`input.py` checks input schema 1.0, including required source metadata, strict
+`input.py` checks input schema 1.1, including required source metadata, strict
 fields/types and UTC `Z` timestamps, before constructing the existing
-`AnalysisConfig`. Test-only EOP table data is separate from the production
-config. Invalid requests raise `InputConfigError` before scientific execution.
+`AnalysisConfig`. In `explicit_table` mode it resolves a table relative to the
+config file, snapshots validated rows and their SHA-256, and passes them to the
+run boundary. `run_analysis()` scopes those rows as an Astropy IERS table only
+for that run; `configured_iers` continues to use the caller's normal IERS
+configuration. Invalid requests raise `InputConfigError` before scientific execution.
 
 `src/spacecraft_mission_analysis/orbit.py` contains the M1a orbit module:
 
@@ -88,6 +91,6 @@ stations and the existing event settings. `run_analysis()` composes the current
 access solver for each station and the existing coverage union once. It creates
 explicit `SUCCESS`, `SUCCESS_WITH_WARNINGS` or `FAILED` results. An SGP4 or
 required-EOP failure discards any partial station windows and leaves access and
-coverage unavailable. `output.py` serializes the result as schema 1.0 JSON or
+coverage unavailable. `output.py` serializes the result as schema 1.1 JSON or
 a six-file CSV bundle, without changing the physical calculations. See the
 [run schema](run-schema-v1.md) for field and failed-run semantics.

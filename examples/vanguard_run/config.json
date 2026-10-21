@@ -1,5 +1,5 @@
 {
-  "schema_version": "1.0",
+  "schema_version": "1.1",
   "tle_line1": "1 00005U 58002B   00179.78495062  .00000023  00000-0  28098-4 0  4753",
   "tle_line2": "2 00005  34.2682 348.7242 1859667 331.7664  19.3264 10.82419157413667",
   "tle_source": "Vallado / python-sgp4 2.27 verification case 00005; tests/fixtures/sgp4/README.md",
@@ -12,5 +12,7 @@
   "minimum_elevation_deg": 10.0,
   "coarse_step_s": 5.0,
   "root_tolerance_s": 0.01,
-  "earth_orientation_source": "test-only synthetic zero UT1-UTC/xp/yp IERS table at MJD 51722-51723"
+  "earth_orientation_mode": "explicit_table",
+  "earth_orientation_source": "test-only synthetic zero UT1-UTC/xp/yp IERS table at MJD 51722-51723",
+  "earth_orientation_table_file": "test_only_eop.json"
 }

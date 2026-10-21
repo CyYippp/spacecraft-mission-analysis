@@ -26,8 +26,10 @@ Required top-level keys:
 `earth_orientation_table_file` is required only for `explicit_table` and
 forbidden for `configured_iers`. It is a path relative to the config file's
 directory, resolved when the config is loaded rather than against the process
-working directory. The loader reads the bytes once, computes their SHA-256,
-validates the table and stores immutable rows in `AnalysisConfig`. The result
+working directory. POSIX absolute paths and any Windows root or drive component
+are rejected on every host; expected path-resolution and file-read errors are
+reported as `InputConfigError`. The loader reads the bytes once, computes their
+SHA-256, validates the table and stores immutable rows in `AnalysisConfig`. The result
 records the normalized relative table identity and content hash, never a
 checkout-specific absolute path. A missing or malformed file raises
 `InputConfigError` before scientific execution.

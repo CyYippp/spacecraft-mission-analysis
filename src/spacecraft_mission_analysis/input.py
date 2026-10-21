@@ -6,7 +6,7 @@ import re
 from collections.abc import Mapping
 from hashlib import sha256
 from math import isfinite
-from pathlib import Path
+from pathlib import Path, PurePosixPath, PureWindowsPath
 
 from astropy.time import Time
 
@@ -84,20 +84,26 @@ def _time(value: object, label: str) -> Time:
 
 def _explicit_eop(data: Mapping, base_dir: Path) -> EarthOrientationConfig:
     reference = _text(data["earth_orientation_table_file"], "earth_orientation_table_file")
-    if Path(reference).is_absolute():
+    windows_path = PureWindowsPath(reference)
+    if PurePosixPath(reference).is_absolute() or windows_path.drive or windows_path.root:
         raise InputConfigError("earth_orientation_table_file must be relative to the config file")
-    target = (base_dir / reference).resolve()
-    identity = Path(os.path.relpath(target, base_dir.resolve())).as_posix()
     try:
+        target = (base_dir / reference).resolve()
+        identity = Path(os.path.relpath(target, base_dir.resolve())).as_posix()
         content = target.read_bytes()
+    except (OSError, ValueError) as exc:
+        raise InputConfigError(
+            f"earth_orientation_table_file {reference!r} could not be resolved or read: {exc}"
+        ) from exc
+    try:
         table = json.loads(
             content.decode("utf-8"),
             object_pairs_hook=_unique_object,
             parse_constant=_reject_constant,
         )
-    except (OSError, UnicodeError, json.JSONDecodeError) as exc:
+    except (UnicodeError, json.JSONDecodeError) as exc:
         raise InputConfigError(
-            f"earth_orientation_table_file {reference!r} could not be read: {exc}"
+            f"earth_orientation_table_file {reference!r} is not valid UTF-8 JSON: {exc}"
         ) from exc
     values = _fields(table, "Earth-orientation table", _EOP_FIELDS)
     columns = []

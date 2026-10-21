@@ -238,8 +238,29 @@ def test_explicit_table_path_is_relative_to_config_not_working_directory(
 
 
 def test_missing_explicit_table_rejected_before_run() -> None:
-    with pytest.raises(InputConfigError, match="earth_orientation_table_file.*could not be read"):
+    with pytest.raises(
+        InputConfigError, match="earth_orientation_table_file.*could not be resolved or read"
+    ):
         parse_archived(changed(earth_orientation_table_file="missing-eop.json"))
+
+
+@pytest.mark.parametrize(
+    "reference",
+    [r"\file.json", r"D:file.json", "/file.json", r"\\server\share\file.json"],
+    ids=["windows-rooted", "windows-drive-relative", "posix-absolute", "windows-unc"],
+)
+def test_explicit_table_rejects_root_or_drive_before_file_read(monkeypatch, reference: str) -> None:
+    def unexpected_read(_path: Path) -> bytes:
+        pytest.fail("invalid EOP path attempted a file read")
+
+    monkeypatch.setattr(Path, "read_bytes", unexpected_read)
+    with pytest.raises(InputConfigError, match="earth_orientation_table_file must be relative"):
+        parse_archived(changed(earth_orientation_table_file=reference))
+
+
+def test_explicit_table_path_errors_use_input_error() -> None:
+    with pytest.raises(InputConfigError, match="earth_orientation_table_file.*resolved or read"):
+        parse_archived(changed(earth_orientation_table_file="bad\x00eop.json"))
 
 
 @pytest.mark.parametrize(

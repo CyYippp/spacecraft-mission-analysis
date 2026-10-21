@@ -169,4 +169,8 @@ does not imply physical accuracy.
   boundary scopes that table without changing the frame transform. Run schema
   1.1 records mode, source, relative identity and hash. The direct config→run
   test now matches the archived scientific values under the existing PR #10
-  peak rules. Ordinary configured-IERS and MA-06 fail-closed paths remain.
+  peak rules. Review found that host-only absolute-path validation admitted
+  Windows rooted and drive-relative syntax; the loader now rejects POSIX roots
+  and Windows roots/drives on every host before file access, with expected path
+  errors reported as `InputConfigError`. Ordinary configured-IERS and MA-06
+  fail-closed paths remain.

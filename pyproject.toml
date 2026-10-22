@@ -14,6 +14,9 @@ dependencies = [
     "scipy==1.17.1",
 ]
 
+[project.scripts]
+spacecraft-mission-analysis = "spacecraft_mission_analysis.cli:main"
+
 [project.optional-dependencies]
 test = ["pytest==9.1.1"]
 dev = ["pytest==9.1.1", "ruff==0.16.10"]

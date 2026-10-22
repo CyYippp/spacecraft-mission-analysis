@@ -4,6 +4,7 @@ import json
 import os
 import subprocess
 import sys
+from copy import deepcopy
 from pathlib import Path
 
 import astropy.units as u
@@ -51,8 +52,10 @@ def _assert_archived_science(actual: dict) -> None:
     assert actual["provenance"] == SAVED["provenance"]
     assert actual["coverage"] == SAVED["coverage"]
     assert actual["notices"] == SAVED["notices"] == []
+    assert len(actual["station_access"]) == len(SAVED["station_access"])
     for station, saved_station in zip(actual["station_access"], SAVED["station_access"]):
         assert station["station_name"] == saved_station["station_name"]
+        assert len(station["windows"]) == len(saved_station["windows"])
         for window, saved_window in zip(station["windows"], saved_station["windows"]):
             assert abs(window["max_elevation_deg"] - saved_window["max_elevation_deg"]) <= 1e-5
             current_time = Time(window["max_elevation_time_utc"].removesuffix("Z"), scale="utc")
@@ -101,6 +104,47 @@ def test_invalid_tle_config_returns_two_without_analysis(
     assert cli.main([str(bad), "--output-dir", str(output)]) == 2
     assert not output.exists()
     assert "input error:" in capsys.readouterr().err
+
+
+def test_escaped_surrogate_is_rejected_before_analysis(tmp_path: Path, monkeypatch, capsys) -> None:
+    config = _write_config(tmp_path, source_revision="\ud800")
+    assert b"\\ud800" in config.read_bytes()
+    output = tmp_path / "result"
+
+    def unexpected_analysis(_config):
+        pytest.fail("invalid Unicode reached scientific analysis")
+
+    monkeypatch.setattr(cli, "run_analysis", unexpected_analysis)
+    assert cli.main([str(config), "--output-dir", str(output)]) == 2
+    assert not output.exists()
+    stderr = capsys.readouterr().err
+    assert "source_revision must contain valid Unicode scalar text" in stderr
+    assert "Traceback" not in stderr
+
+    name = "spacecraft-mission-analysis.exe" if os.name == "nt" else "spacecraft-mission-analysis"
+    command = Path(sys.executable).parent / name
+    completed = subprocess.run(
+        [str(command), str(config), "--output-dir", str(output)],
+        cwd=tmp_path,
+        capture_output=True,
+        text=True,
+        check=False,
+    )
+    assert completed.returncode == 2
+    assert "source_revision must contain valid Unicode scalar text" in completed.stderr
+    assert "Traceback" not in completed.stderr
+    assert not output.exists()
+
+
+@pytest.mark.parametrize("collection", ["stations", "windows"])
+def test_archived_comparison_rejects_truncated_collection(collection: str) -> None:
+    actual = deepcopy(SAVED)
+    if collection == "stations":
+        actual["station_access"].pop()
+    else:
+        actual["station_access"][0]["windows"].pop()
+    with pytest.raises(AssertionError):
+        _assert_archived_science(actual)
 
 
 def test_legitimate_stale_tle_warning_returns_zero_and_is_exported(tmp_path: Path, capsys) -> None:

@@ -5,7 +5,9 @@
 - Added a thin installed `spacecraft-mission-analysis` command over the existing
   input, run and output interfaces. It writes a complete JSON/CSV bundle,
   refuses artifact overwrites, reports run status and notices, and uses fixed
-  operational exit codes. Scientific contracts and saved values are unchanged.
+  operational exit codes. The input boundary rejects escaped lone Unicode
+  surrogates before they can fail UTF-8 CSV output. Scientific models and saved
+  values are unchanged.
 - Closed the archived EOP provenance gap with explicit configured-IERS and
   hashed relative-table input modes. The Vanguard config now reproduces its
   saved scientific result without test-side EOP injection. Input and run

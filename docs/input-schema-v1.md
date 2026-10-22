@@ -60,8 +60,11 @@ run-result provenance/configuration and are not input overrides.
 
 Unknown, missing, duplicate or wrongly typed fields are rejected, including
 unknown station keys. JSON booleans are not numbers. Nonfinite numeric values
-are rejected. `TleRecord` checks both line identities and lengths, ASCII,
-numeric checksum digits and checksum arithmetic, catalogue agreement, SGP4
+are rejected. All accepted free-text fields must contain valid Unicode scalar
+text; escaped lone surrogates in otherwise valid JSON are rejected before a
+run because they cannot be written as portable UTF-8 CSV. `TleRecord` checks
+both line identities and lengths, ASCII, numeric checksum digits and checksum
+arithmetic, catalogue agreement, SGP4
 field parsing and SGP4 initialization before a run can begin. Its parsed epoch
 is a scalar UTC Astropy `Time`; the raw epoch field remains in line 1.
 

@@ -174,3 +174,17 @@ does not imply physical accuracy.
   and Windows roots/drives on every host before file access, with expected path
   errors reported as `InputConfigError`. Ordinary configured-IERS and MA-06
   fail-closed paths remain.
+
+## ISS-011 — escaped surrogate bypassed portable output text validation
+
+- **Kind/status:** Review-discovered CLI/input-contract defect; corrected on
+  the CLI branch.
+- **Trigger/expectation/actual:** JSON can validly escape a lone surrogate in
+  `source_revision`. The loader previously accepted any nonempty string; CSV
+  UTF-8 writing then raised `UnicodeEncodeError` outside the CLI's output
+  `OSError` mapping, producing a traceback and process exit `1`.
+- **Correction/retest:** The shared input-text validator rejects strings that
+  cannot encode as UTF-8, returning `InputConfigError` before analysis. The CLI
+  now reports a concise input error and exits `2` with no output. Tests cover
+  every free-text input field and show that valid non-ASCII text remains valid.
+  No scientific value, schema version, or output-failure exit rule changed.

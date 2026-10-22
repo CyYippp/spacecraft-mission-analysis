@@ -221,6 +221,34 @@ def test_optional_defaults_and_explicit_settings() -> None:
     ) == (7.5, 2.0, 0.005, "archived-build")
 
 
+@pytest.mark.parametrize(
+    "field",
+    [
+        "tle_source",
+        "station_name",
+        "earth_orientation_source",
+        "earth_orientation_table_file",
+        "source_revision",
+    ],
+)
+def test_free_text_rejects_lone_unicode_surrogates(field: str) -> None:
+    data = changed()
+    if field == "station_name":
+        data["stations"][0]["name"] = "bad\ud800"
+        label = "stations[0].name"
+    else:
+        data[field] = "bad\ud800"
+        label = field
+    with pytest.raises(InputConfigError, match=r"valid Unicode scalar text") as error:
+        parse_archived(data)
+    assert label in str(error.value)
+
+
+def test_valid_non_ascii_provenance_remains_accepted() -> None:
+    config = parse_archived(changed(source_revision="révision 🛰"))
+    assert config.source_revision == "révision 🛰"
+
+
 def test_json_duplicate_field_rejected(tmp_path: Path) -> None:
     path = tmp_path / "duplicate.json"
     path.write_text('{"schema_version":"1.1","schema_version":"1.1"}', encoding="utf-8")

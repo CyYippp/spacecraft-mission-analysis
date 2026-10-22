@@ -36,12 +36,25 @@ outside the baseline.
 ## Run and verify
 
 Python 3.11 or newer is required. Dependencies and developer tools are pinned
-in [pyproject.toml](pyproject.toml). There is no CLI;
-the [Python API](src/spacecraft_mission_analysis/__init__.py) is exercised by
-the local [tests](tests/) and [validation code](tests/validation/). The
-[input contract](docs/input-schema-v1.md) constructs `AnalysisConfig`; the
-[run/output contract](docs/run-schema-v1.md) wraps the kernels. A minimal
-programmatic call using the canonical [archived config](examples/vanguard_run/config.json) is:
+in [pyproject.toml](pyproject.toml). From the repository root, a reviewer can
+install and run the canonical archived case:
+
+```text
+python -m pip install .
+spacecraft-mission-analysis examples/vanguard_run/config.json --output-dir output/vanguard
+```
+
+The command prints a concise status and writes `output/vanguard/run.json` and
+the six CSV files under `output/vanguard/csv/`. It refuses to overwrite any
+existing analysis artifact. The archived config selects its own test-only EOP
+table relative to the config file, including when the command is run from a
+different working directory. See the [input contract](docs/input-schema-v1.md)
+and [run/output contract](docs/run-schema-v1.md) for scientific input and output
+details.
+
+The [Python API](src/spacecraft_mission_analysis/__init__.py) remains available.
+An equivalent programmatic call using the canonical
+[archived config](examples/vanguard_run/config.json) is:
 
 ```python
 from spacecraft_mission_analysis import (

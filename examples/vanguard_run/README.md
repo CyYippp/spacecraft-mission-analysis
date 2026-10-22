@@ -11,6 +11,17 @@ The config explicitly selects [`test_only_eop.json`](test_only_eop.json), a
 values and hash, and `run_analysis()` scopes it for this run. It is an
 internal integration/output-contract case, not independent physical validation.
 
+After installing the package, run this exact reviewer command from the
+repository root:
+
+```text
+spacecraft-mission-analysis examples/vanguard_run/config.json --output-dir output/vanguard
+```
+
+Expected: exit `0`, `SUCCESS`, `output/vanguard/run.json`, and six files in
+`output/vanguard/csv/`. The summary distinguishes two station access windows
+from one merged coverage interval. Existing analysis files are never overwritten.
+
 The saved [JSON result](run.json) has schema `1.1`, status `SUCCESS`,
 one window for each station, no validity notices, and one merged coverage
 interval: `1229.2680210995704 s`, fraction `0.5121950087914875`, longest gap

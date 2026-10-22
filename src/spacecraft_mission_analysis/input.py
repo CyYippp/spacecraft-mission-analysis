@@ -57,13 +57,17 @@ def _fields(
     if missing:
         raise InputConfigError(f"{label} missing required field: {sorted(missing)[0]}")
     if unknown:
-        raise InputConfigError(f"{label} has unknown field: {sorted(map(str, unknown))[0]}")
+        raise InputConfigError(f"{label} has unknown field: {sorted(map(str, unknown))[0]!r}")
     return value
 
 
 def _text(value: object, label: str) -> str:
     if not isinstance(value, str) or not value.strip():
         raise InputConfigError(f"{label} must be a nonempty string")
+    try:
+        value.encode("utf-8")
+    except UnicodeEncodeError as exc:
+        raise InputConfigError(f"{label} must contain valid Unicode scalar text") from exc
     return value
 
 
@@ -215,7 +219,7 @@ def _unique_object(pairs: list[tuple[str, object]]) -> dict:
     result = {}
     for key, value in pairs:
         if key in result:
-            raise InputConfigError(f"duplicate JSON field: {key}")
+            raise InputConfigError(f"duplicate JSON field: {key!r}")
         result[key] = value
     return result
 

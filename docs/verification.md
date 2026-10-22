@@ -534,6 +534,21 @@ MA-05 and MA-06 are **VERIFIED** for the defined software/output contract.
 Neither the warning heuristics nor this archived integration case establish
 physical-orbit accuracy or widen the earlier access-validation claims.
 
+### Reviewer command integration
+
+The installed `spacecraft-mission-analysis` command calls the versioned loader,
+run boundary and existing exporters. [CLI tests](../tests/test_cli.py) exercise
+the canonical Vanguard config without fixture injection, the installed script
+from a different working directory, all four documented exit codes, warning
+and scientific-failure notices, and no-overwrite/rollback behavior. Its
+`run.json` preserves the archived configuration, provenance, coverage and
+nonpeak access fields exactly; peak fields retain the already frozen PR #10
+cross-platform limits. A separate non-editable clean installation executed
+the command from outside the checkout with the config and EOP fixture copied
+together: exit `0`, `SUCCESS`, six CSV files, and archived accessible duration
+`1229.2680210995704 s`. The command adds invocation evidence, not new MA-01,
+MA-05 or MA-06 physics or output claims; all three statuses remain VERIFIED.
+
 ## MA-08 temporal station coverage
 
 `compute_temporal_coverage()` measures the union of supplied intervals over a

@@ -5,9 +5,9 @@ from math import isfinite
 
 import pytest
 from skyfield.api import EarthSatellite, load
-from validation import skyfield_phase_a as phase_a
 
 from spacecraft_mission_analysis import Sgp4Propagator, TleRecord
+from validation import skyfield_phase_a as phase_a
 
 
 @pytest.fixture(scope="module")

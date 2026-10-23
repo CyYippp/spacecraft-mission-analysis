@@ -97,3 +97,13 @@ context to match its own saved result. The versioned input now selects either
 configured IERS or an explicit, hashed test-only table; the result records
 which was used without a machine-specific path. Environmental model data is
 part of the scientific run contract when numerical reproducibility is claimed.
+
+## Cross-model validation is a controlled difference, not forced agreement
+
+The GMAT Phase B trial started a numerical EGM96 4×4 trajectory from the same
+instantaneous state as production SGP4. Its final state differed by kilometres
+while one integrator refinement changed the numerical answer by only
+millimetres. The useful evidence is the matched initial condition, explicit
+force-model boundary, finite sampled divergence, and contact consequences.
+Changing GMAT forces or a residual limit to imitate SGP4 would erase that
+diagnostic distinction. See the [Phase B record](validation.md#gmat-independent-numerical-propagation-diagnostic--phase-b).

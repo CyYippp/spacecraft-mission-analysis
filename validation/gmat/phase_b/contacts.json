@@ -1,0 +1,50 @@
+{
+  "status": "DIAGNOSTIC",
+  "cross_model_timing_limit": null,
+  "production_run_sha256": "cde21a989102fbac56404f23945f60db5b5cb1024bcb8f30da3a61ef67f99e33",
+  "gmat_report_sha256": "61535087a5cca5aef159a6dd45cf9815324e387adbbea3e5a459840e1e1d670b",
+  "stations": [
+    {
+      "observer": "Greenwich",
+      "production_windows": [
+        {
+          "duration_s": 1229.2680210995704,
+          "end_clipped": false,
+          "end_utc": "2000-06-27T20:31:30.099808909Z",
+          "max_elevation_deg": 20.19386560469357,
+          "max_elevation_time_utc": "2000-06-27T20:22:58.282534089Z",
+          "start_clipped": false,
+          "start_utc": "2000-06-27T20:11:00.831787810Z"
+        }
+      ],
+      "gmat_windows": [
+        {
+          "start_utc": "27 Jun 2000 20:11:00.779",
+          "end_utc": "27 Jun 2000 20:31:30.661",
+          "duration_s": 1229.8823469
+        }
+      ]
+    },
+    {
+      "observer": "OneNorthOneEast",
+      "production_windows": [
+        {
+          "duration_s": 1124.2197898697889,
+          "end_clipped": false,
+          "end_utc": "2000-06-27T20:30:57.478295163Z",
+          "max_elevation_deg": 18.142573700059817,
+          "max_elevation_time_utc": "2000-06-27T20:23:00.722397661Z",
+          "start_clipped": false,
+          "start_utc": "2000-06-27T20:12:13.258505293Z"
+        }
+      ],
+      "gmat_windows": [
+        {
+          "start_utc": "27 Jun 2000 20:12:13.170",
+          "end_utc": "27 Jun 2000 20:30:58.068",
+          "duration_s": 1124.8978407
+        }
+      ]
+    }
+  ]
+}

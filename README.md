@@ -26,8 +26,11 @@ for the disposition of each MA requirement.
 
 The planned scope is one spacecraft per analysis, archived TLEs, fixed WGS84
 stations, geometric visibility and temporal station coverage.
-Versioned JSON/CSV results and structured validity warnings are implemented;
-independent propagation/GMAT comparison remains open. Peak elevation is
+Versioned JSON/CSV results and structured validity warnings are implemented.
+GMAT [same-trajectory event comparison](validation/gmat/phase_a/README.md)
+and [independent cross-model numerical propagation diagnostic](validation/gmat/phase_b/README.md)
+are complete; independent same-model SGP4 accuracy and physical pass-time
+accuracy remain open. Peak elevation is
 analytically verified and checked on an internal
 archived-orbit case; it has no separate independent comparison. Live TLE
 fetching, eclipse, geographic sensor coverage and operational scheduling are

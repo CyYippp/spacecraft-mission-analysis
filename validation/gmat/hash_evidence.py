@@ -8,7 +8,7 @@ ROOT = Path(__file__).resolve().parent
 
 
 def main() -> None:
-    for name in ("fixed_gate_diagnostic", "icrf", "phase_a"):
+    for name in ("fixed_gate_diagnostic", "icrf", "phase_a", "phase_b"):
         folder = ROOT / name
         files = {
             path.relative_to(folder).as_posix(): sha256(path.read_bytes()).hexdigest()

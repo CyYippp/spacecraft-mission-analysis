@@ -1,0 +1,33 @@
+{
+  "epoch_utc": "2000-06-27T20:00:00Z",
+  "initial_position_gcrs_km": [
+    -9557.268433756957,
+    3166.23837472819,
+    823.863275535456
+  ],
+  "initial_velocity_gcrs_km_s": [
+    -1.3289096210919524,
+    -4.544937312339243,
+    -3.216279546830151
+  ],
+  "comparison_convention": "Phase A validated Astropy TEME\u2192GCRS to GMAT EarthICRF",
+  "config_sha256": "822ee68dd955add87e2d00c60b310140976dde560f1afd2698f93355da7e9d99",
+  "eop_sha256": "bd3769c7c5f55131e4ca5472e4787daaa9f2674502b01c9bbdbd573a4f77e824",
+  "gravity_file": "C:\\Users\\Cyrus\\Applications\\GMAT\\R2026a\\data\\gravity\\earth\\EGM96.cof",
+  "gravity_sha256": "3e8806223250224d3c1333a010eb5c2cc5a212a56ccee4024db81b9d889db5ea",
+  "gmat_executable_sha256": "36c880ad6c3f5e69b2e7e90c9d9cec4086eced9c1073fc5b289966d54db15f5f",
+  "startup_sha256": "12481417fc0b6513fefa4e959d1a19422107bbeecdc46b24219074162c6cdd6a",
+  "pck_sha256": "9c198f32cbca8050b0a962afade17850fd9cdd13d0835152f41646bd60d8be4e",
+  "scripts_sha256": {
+    "gate": "80d285d3ccdcaa06ee9b0b8d9e7755d54790c30dc03e51d238943b667ecea392",
+    "base": "ec30935d76e1c8b5dec0da4cd3c90962697ffa1302e54ca8de3819ec6cf6090c",
+    "refined": "3f1253fae36aff58665a04f14d293a924c45133cfd8f1179d6dbad36cce658d7",
+    "contacts": "eecd47b7830fea8fe30993826819db7367c30222e8e8e7228db45a13fd7a5e88"
+  },
+  "limits": {
+    "initial_position_km": 1e-06,
+    "initial_velocity_km_s": 1e-09,
+    "convergence_position_km": 0.001,
+    "convergence_velocity_km_s": 1e-06
+  }
+}

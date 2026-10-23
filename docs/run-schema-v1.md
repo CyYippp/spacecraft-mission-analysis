@@ -72,14 +72,17 @@ Every run exports the same six files:
 
 The installed command also writes `report.html` beside `run.json`. This is a
 self-contained, offline presentation of the same `AnalysisResult`: an access
-timeline, recorded-window duration comparison, station pass table, combined intervals,
-configuration/provenance and notices. The timeline is based on refined event
-times recorded in the result; it does not interpolate an elevation curve or
-calculate a new orbit product. Plot axes use UTC, tables declare units, and
-rounded display values point back to `run.json` for full precision. Failed
+timeline, compact recorded-window duration comparison and network summary,
+station pass table, combined intervals, grouped configuration/provenance and
+notices. The timeline is based on refined event times recorded in the result;
+it does not interpolate an elevation curve or
+calculate a new orbit product. The timeline axis gives minutes from the stated UTC
+analysis interval; tables declare units, and rounded display values point back to
+`run.json` for exact nanosecond timestamps and full numerical precision. Failed
 runs show their error notices and omit access plots; successful no-pass runs
 show zero coverage. Warning runs show an amber status and a summary before the
-plots. The report makes no operational or physical-accuracy claim.
+plots. If no notices were emitted, a compact state replaces the notice table.
+The report makes no operational or physical-accuracy claim.
 
 The JSON schema remains 1.1 and the six CSV files retain their existing names
 and contents. `report.html` joins the staged, no-overwrite output bundle, so

@@ -8,6 +8,8 @@
   versioned JSON/CSV schema, and participates in no-overwrite publication.
 - Put warning status and notices ahead of plots, state geometric and event-grid
   limits up front, and label the recorded-duration scale in minutes.
+- Refined the report into a compact technical sheet with a relative-minute
+  timeline, readable rounded table times, grouped provenance and print layout.
 - Package provenance now records `0.1.1` in newly generated JSON/CSV results;
   the archived v0.1.0 example remains unchanged.
 

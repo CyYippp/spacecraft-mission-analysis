@@ -58,9 +58,10 @@ spacecraft-mission-analysis examples/vanguard_run/config.json --output-dir outpu
 
 The command prints a concise status and writes `output/vanguard/run.json`,
 `output/vanguard/report.html` and six CSV files under `output/vanguard/csv/`.
-Open `report.html` in a browser for access-window and recorded-duration plots, a pass
-table, coverage metrics, notices and provenance. The report draws only recorded
-result intervals; it does not infer an orbit track or measured pass. It is
+Open `report.html` in a browser for the access timeline, recorded-duration plot,
+pass/network summary, access-window table, notices and grouped provenance.
+The report draws only recorded result intervals; it does not infer an orbit
+track or measured pass. It is
 self-contained and needs no Excel or network access. The command refuses to
 overwrite any existing analysis artifact. The archived config selects its own
 test-only EOP table relative to the config file, including when run from a

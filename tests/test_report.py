@@ -23,22 +23,33 @@ def result():
     return run_analysis(load_analysis_config(CONFIG))
 
 
-def test_report_has_source_values_units_and_two_real_plots(result) -> None:
+def test_report_presents_archived_values_without_changing_precision_source(result) -> None:
     report = render_html(result)
     assert report.count('<svg class="plot"') == 2
     assert "51.22%" in report
     assert "20.49 min" in report
-    assert "Duration (s)" in report
-    assert "Peak elevation (deg)" in report
+    assert "Duration (min:s)" in report
+    assert "Peak (UTC / deg)" in report
+    assert "2000-06-27 20:11:00.8" in report
+    assert "2000-06-27 20:31:30.1" in report
+    assert "exact nanosecond timestamps" in report
     assert "2000-06-27T20:11:00.831787810Z" in report
     assert "2000-06-27T20:31:30.099808909Z" in report
+    assert "<td>2000-06-27T" not in report
+    assert report.count(">Equator Greenwich synthetic fixed WGS84 station</text>") == 2
     assert "test-only synthetic zero UT1-UTC/xp/yp" in report
     assert "not a measured pass or an operational prediction" in report
     assert "Finite event-discovery sampling can miss narrow or grazing access" in report
     assert "Visibility is modelled geometrically only" in report
     assert "Duration (min)" in report
-    for tick in ("0.0", "10.0", "20.0", "30.0", "40.0"):
+    for tick in ("0", "10", "20", "30", "40"):
         assert f'class="axis-label">{tick}</text>' in report
+    assert "Minutes from analysis start" in report
+    assert "Reproducibility details" in report
+    assert "Earth-orientation table SHA-256" in report
+    assert "Combined coverage intervals (1)" in report
+    assert '<p class="no-notices">Notices · None emitted for this run.</p>' in report
+    assert "<h2>Notices</h2>" not in report
     assert '<a href="run.json">' in report
     assert "<script" not in report
 
@@ -84,4 +95,5 @@ def test_failed_run_has_notice_and_no_plots(result) -> None:
     report = render_html(failure)
     assert "No access or coverage results were produced" in report
     assert "SGP4_PROPAGATION_ERROR" in report
+    assert '<aside class="error-summary" role="alert">' in report
     assert "<svg" not in report

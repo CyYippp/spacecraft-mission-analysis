@@ -41,8 +41,8 @@ PEAK_TIME_LIMIT_S = 0.02
 PEAK_ELEVATION_LIMIT_DEG = 1e-5
 
 
-def without_peak_bytes(payload: bytes, expected_windows: int) -> bytes:
-    """Mask only the two optimizer-derived fields, preserving every other byte."""
+def without_peak_and_version_bytes(payload: bytes, expected_windows: int) -> bytes:
+    """Mask optimizer-derived fields and package version, preserving every other byte."""
     result, elevation_count = re.subn(
         rb'("max_elevation_deg": )[-+0-9.eE]+',
         rb"\1<optimizer-peak>",
@@ -54,6 +54,8 @@ def without_peak_bytes(payload: bytes, expected_windows: int) -> bytes:
         result,
     )
     assert elevation_count == time_count == expected_windows
+    result, version_count = re.subn(rb'("project_version": ")[^"]+', rb"\1<version>", result)
+    assert version_count == 1
     return result
 
 
@@ -145,7 +147,7 @@ def rows(content: str) -> list[dict[str, str]]:
     return list(csv.DictReader(io.StringIO(content)))
 
 
-def test_archived_clean_run_is_byte_identical_and_complete(tmp_path: Path) -> None:
+def test_archived_clean_run_preserves_scientific_result_and_provenance(tmp_path: Path) -> None:
     first = run_analysis(load_analysis_config(EXAMPLE / "config.json"))
     second = run_analysis(load_analysis_config(EXAMPLE / "config.json"))
     assert first.status == second.status == RunStatus.SUCCESS
@@ -167,12 +169,22 @@ def test_archived_clean_run_is_byte_identical_and_complete(tmp_path: Path) -> No
     saved_json = (EXAMPLE / "run.json").read_bytes()
     assert_peak_snapshot_bounds(json.loads(actual_json), json.loads(saved_json))
     window_count = sum(len(item.windows) for item in first.station_access)
-    assert without_peak_bytes(actual_json, window_count) == without_peak_bytes(
-        saved_json, window_count
-    )
+    assert json.loads(actual_json)["provenance"]["project_version"] == "0.1.1"
+    assert json.loads(saved_json)["provenance"]["project_version"] == "0.1.0"
+    assert without_peak_and_version_bytes(
+        actual_json, window_count
+    ) == without_peak_and_version_bytes(saved_json, window_count)
     for name, path in csv_a.items():
         actual_csv = path.read_bytes()
         saved_csv = (EXAMPLE / "csv" / name).read_bytes()
+        if name == "run.csv":
+            actual_rows = rows(actual_csv.decode("utf-8"))
+            saved_rows = rows(saved_csv.decode("utf-8"))
+            assert actual_rows[0]["project_version"] == "0.1.1"
+            assert saved_rows[0]["project_version"] == "0.1.0"
+            actual_rows[0]["project_version"] = saved_rows[0]["project_version"]
+            assert actual_rows == saved_rows
+            continue
         if name != "access_windows.csv":
             assert actual_csv == saved_csv
             continue

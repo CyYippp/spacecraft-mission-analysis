@@ -34,6 +34,11 @@ def test_report_has_source_values_units_and_two_real_plots(result) -> None:
     assert "2000-06-27T20:31:30.099808909Z" in report
     assert "test-only synthetic zero UT1-UTC/xp/yp" in report
     assert "not a measured pass or an operational prediction" in report
+    assert "Finite event-discovery sampling can miss narrow or grazing access" in report
+    assert "Visibility is modelled geometrically only" in report
+    assert "Duration (min)" in report
+    for tick in ("0.0", "10.0", "20.0", "30.0", "40.0"):
+        assert f'class="axis-label">{tick}</text>' in report
     assert '<a href="run.json">' in report
     assert "<script" not in report
 
@@ -48,6 +53,11 @@ def test_report_escapes_notice_text(result) -> None:
     report = render_html(altered)
     assert dangerous not in report
     assert "&lt;img src=x onerror=&quot;alert(1)&quot;&gt;" in report
+    assert '<span class="badge warning">SUCCESS_WITH_WARNINGS</span>' in report
+    assert '<aside class="warning-summary" role="alert">' in report
+    assert "1 warning for this run" in report
+    assert report.index("1 warning for this run") < report.index("Access timeline")
+    assert report.count("&lt;img src=x onerror=&quot;alert(1)&quot;&gt;") == 2
 
 
 def test_successful_no_pass_is_shown_as_zero_coverage(result) -> None:

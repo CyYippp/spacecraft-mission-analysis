@@ -33,8 +33,9 @@ for the disposition of each MA requirement.
 The planned scope is one spacecraft per analysis, archived TLEs, fixed WGS84
 stations, geometric visibility and temporal station coverage.
 Versioned JSON/CSV results and structured validity warnings are implemented.
-The unreleased code also adds a self-contained HTML report. The `v0.1.0` tag
-remains the released JSON/CSV baseline.
+The proposed v0.1.1 update adds a self-contained HTML report. The `v0.1.0` tag
+remains the released JSON/CSV baseline; new runs record package version 0.1.1
+in their provenance.
 GMAT [same-trajectory event comparison](validation/gmat/phase_a/README.md)
 and [independent cross-model numerical propagation diagnostic](validation/gmat/phase_b/README.md)
 are complete; independent same-model SGP4 accuracy and physical pass-time

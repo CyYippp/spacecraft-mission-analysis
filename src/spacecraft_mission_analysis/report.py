@@ -123,11 +123,23 @@ def _duration_chart(result: AnalysisResult, data: dict) -> str:
     )
     if not rows:
         return "<p>No recorded access intervals to compare.</p>"
-    height = 48 + len(rows) * 43
+    axis_y = 48 + len(rows) * 43
+    height = axis_y + 48
     items = [
         f'<svg class="plot" viewBox="0 0 {_SVG_WIDTH} {height}" role="img" '
-        'aria-label="Duration of each recorded station and union access interval, in minutes">'
+        'aria-label="Duration of each recorded station and union access interval, in minutes">',
+        f'<rect x="{_PLOT_LEFT}" y="12" width="{_PLOT_WIDTH}" '
+        f'height="{axis_y - 12}" fill="#f4f7fa"/>',
     ]
+    for tick in range(5):
+        x = _PLOT_LEFT + _PLOT_WIDTH * tick / 4
+        minutes = span_s * tick / 240
+        items.append(
+            f'<line x1="{x:.2f}" y1="12" x2="{x:.2f}" y2="{axis_y}" '
+            'stroke="#cbd5df" stroke-dasharray="3 4"/>'
+            f'<text x="{x:.2f}" y="{axis_y + 18}" text-anchor="middle" '
+            f'class="axis-label">{minutes:.1f}</text>'
+        )
     for index, (name, duration_s, station_index) in enumerate(rows):
         y = 28 + index * 43
         color = _INK if station_index is None else (_BLUE if station_index % 2 == 0 else _GREEN)
@@ -143,6 +155,10 @@ def _duration_chart(result: AnalysisResult, data: dict) -> str:
             f'<text x="{label_x:.2f}" y="{y + 5}" text-anchor="{label_anchor}" '
             f'fill="{label_color}" class="value-label">{duration_s / 60:.2f} min</text>'
         )
+    items.append(
+        f'<text x="{_PLOT_LEFT + _PLOT_WIDTH / 2}" y="{height - 8}" '
+        'text-anchor="middle" class="axis-title">Duration (min)</text>'
+    )
     items.append("</svg>")
     return "".join(items)
 
@@ -155,7 +171,12 @@ def render_html(result: AnalysisResult) -> str:
     notices = data["notices"]
     status = data["status"]
     coverage = data["coverage"]
-    status_class = "failed" if result.status == RunStatus.FAILED else "ok"
+    status_class = {
+        RunStatus.SUCCESS: "ok",
+        RunStatus.SUCCESS_WITH_WARNINGS: "warning",
+        RunStatus.FAILED: "failed",
+    }[result.status]
+    warnings = [notice for notice in notices if notice["severity"] == "WARNING"]
     parts = [
         '<!doctype html><html lang="en"><head><meta charset="utf-8">',
         '<meta name="viewport" content="width=device-width, initial-scale=1">',
@@ -166,7 +187,8 @@ def render_html(result: AnalysisResult) -> str:
         "h2{font-size:1.25rem;margin:0 0 1rem}p{margin:.6rem 0}small,.muted{color:#526276}",
         "section{background:white;border:1px solid #d8e1e9;border-radius:10px;padding:22px;margin:20px 0}",
         ".lead{font-size:1.08rem}.badge{display:inline-block;padding:3px 10px;border-radius:999px;font-weight:700}",
-        ".ok{background:#ddf3e9;color:#135f47}.failed{background:#fce4e0;color:#9b3428}",
+        ".ok{background:#ddf3e9;color:#135f47}.warning{background:#fff0c2;color:#714c00}",
+        ".failed{background:#fce4e0;color:#9b3428}",
         ".metrics{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:12px}",
         ".metric{border:1px solid #d8e1e9;border-radius:8px;padding:15px}.metric strong{display:block;font-size:1.5rem}",
         ".table-scroll{overflow-x:auto}table{border-collapse:collapse;width:100%;font-variant-numeric:tabular-nums}",
@@ -175,6 +197,8 @@ def render_html(result: AnalysisResult) -> str:
         ".plot{width:100%;height:auto;display:block}.axis-label{font:10px system-ui;fill:#526276}",
         ".axis-title,.lane-label{font:13px system-ui;fill:#243b53}.value-label{font:13px system-ui}",
         ".empty-label{font:12px system-ui;fill:#67798d}.note{background:#fff9e9;border-left:4px solid #b57a1a;padding:12px 16px}",
+        ".warning-summary{background:#fff4d6;border:1px solid #d89b2b;border-left:5px solid #b57a1a;border-radius:6px;padding:12px 16px;margin:16px 0}",
+        ".warning-summary ul{margin:6px 0 0;padding-left:22px}",
         "a{color:#135d9c}@media print{body{background:white}main{padding:0}section{break-inside:avoid;border-color:#b8c2cd}}",
         "</style></head><body><main>",
         "<header><h1>Spacecraft access report</h1>",
@@ -183,9 +207,21 @@ def render_html(result: AnalysisResult) -> str:
         f"&nbsp; Schema {_html(data['schema_version'])} &nbsp;·&nbsp; "
         f"spacecraft-mission-analysis {_html(provenance['project_version'])}</p></header>",
         '<p class="note">Calculated model output, not a measured pass or an operational prediction. '
-        "The input TLE and Earth-orientation source define the validity limits of this run. "
+        "Visibility is modelled geometrically only. Finite event-discovery sampling can miss "
+        "narrow or grazing access. TLE age and Earth-orientation input also limit validity. "
         "See run.json for full numerical precision.</p>",
     ]
+    if warnings:
+        parts.append(
+            '<aside class="warning-summary" role="alert"><strong>'
+            f"{len(warnings)} warning{'s' if len(warnings) != 1 else ''} for this run</strong>"
+            "<ul>"
+            + "".join(
+                f"<li><strong>{_html(notice['code'])}</strong>: {_html(notice['message'])}</li>"
+                for notice in warnings
+            )
+            + "</ul></aside>"
+        )
     if coverage is None:
         parts.append(
             "<section><h2>Analysis result</h2><p>No access or coverage results were produced. "

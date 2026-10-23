@@ -1,11 +1,15 @@
 # Changelog
 
-## Unreleased
+## 0.1.1 — pending release
 
 - Added an automatically generated, self-contained `report.html` with UTC
   access and duration plots, pass/coverage tables, notices and provenance. It
   renders existing run results without changing scientific calculations or the
   versioned JSON/CSV schema, and participates in no-overwrite publication.
+- Put warning status and notices ahead of plots, state geometric and event-grid
+  limits up front, and label the recorded-duration scale in minutes.
+- Package provenance now records `0.1.1` in newly generated JSON/CSV results;
+  the archived v0.1.0 example remains unchanged.
 
 ## 0.1.0 — 2026-10-23
 

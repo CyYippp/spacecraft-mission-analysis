@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "spacecraft-mission-analysis"
-version = "0.1.0"
+version = "0.1.1"
 description = "Archived-TLE spacecraft access and temporal coverage analysis demonstrator"
 readme = "README.md"
 requires-python = ">=3.11"

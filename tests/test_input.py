@@ -366,7 +366,9 @@ def test_archived_config_to_run_and_output_matches_saved_result() -> None:
     actual = result_dict(result)
     saved = json.loads((EXAMPLE / "run.json").read_text(encoding="utf-8"))
     assert actual["configuration"] == saved["configuration"]
-    assert actual["provenance"] == saved["provenance"]
+    assert actual["provenance"]["project_version"] == "0.1.1"
+    assert saved["provenance"]["project_version"] == "0.1.0"
+    assert actual["provenance"] | {"project_version": "0.1.0"} == saved["provenance"]
     assert actual["coverage"] == saved["coverage"]
     assert actual["notices"] == saved["notices"] == []
     for current_station, saved_station in zip(actual["station_access"], saved["station_access"]):
@@ -396,6 +398,16 @@ def test_archived_config_to_run_and_output_matches_saved_result() -> None:
         assert current == reference
     bundle = csv_bundle(result)
     for name, content in bundle.items():
+        if name == "run.csv":
+            actual_rows = list(csv.DictReader(io.StringIO(content)))
+            saved_rows = list(
+                csv.DictReader(io.StringIO((EXAMPLE / "csv" / name).read_text(encoding="utf-8")))
+            )
+            assert actual_rows[0]["project_version"] == "0.1.1"
+            assert saved_rows[0]["project_version"] == "0.1.0"
+            actual_rows[0]["project_version"] = saved_rows[0]["project_version"]
+            assert actual_rows == saved_rows
+            continue
         if name != "access_windows.csv":
             assert content.encode("utf-8") == (EXAMPLE / "csv" / name).read_bytes()
             continue

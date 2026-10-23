@@ -5,6 +5,7 @@ import os
 import subprocess
 import sys
 from copy import deepcopy
+from importlib.metadata import version
 from pathlib import Path
 
 import astropy.units as u
@@ -49,7 +50,10 @@ def _configured_iers(directory: Path, **changes: object) -> Path:
 def _assert_archived_science(actual: dict) -> None:
     assert actual["status"] == SAVED["status"] == "SUCCESS"
     assert actual["configuration"] == SAVED["configuration"]
-    assert actual["provenance"] == SAVED["provenance"]
+    assert (
+        actual["provenance"]["project_version"] == version("spacecraft-mission-analysis") == "0.1.1"
+    )
+    assert actual["provenance"] | {"project_version": "0.1.0"} == SAVED["provenance"]
     assert actual["coverage"] == SAVED["coverage"]
     assert actual["notices"] == SAVED["notices"] == []
     assert len(actual["station_access"]) == len(SAVED["station_access"])

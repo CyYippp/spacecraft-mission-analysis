@@ -3,7 +3,7 @@
 import json
 from dataclasses import FrozenInstanceError
 from datetime import datetime
-from math import isfinite
+from math import isclose, isfinite
 from pathlib import Path
 
 import pytest
@@ -34,6 +34,8 @@ EXPECTED_VELOCITY_KM_S = FIXTURE["expected_velocity_km_s"]
 # before observing this adapter's residuals.
 POSITION_TOLERANCE_KM = 2e-7
 VELOCITY_TOLERANCE_KM_S = 2e-9
+# Split-JD arithmetic should reproduce a minute offset to well below a microsecond.
+EPOCH_OFFSET_TOLERANCE_MIN = 1e-9
 
 
 @pytest.fixture
@@ -58,11 +60,36 @@ def test_vallado_reference_vector_and_teme_contract(tle: TleRecord) -> None:
     assert state.time == time
     assert len(state.position_km) == len(state.velocity_km_s) == 3
     assert all(isfinite(value) for value in (*state.position_km, *state.velocity_km_s))
+    assert isclose(
+        state.minutes_since_tle_epoch,
+        FIXTURE["minutes_since_epoch"],
+        rel_tol=0,
+        abs_tol=EPOCH_OFFSET_TOLERANCE_MIN,
+    )
     assert max(map(abs, position_residuals)) <= POSITION_TOLERANCE_KM
     assert max(map(abs, velocity_residuals)) <= VELOCITY_TOLERANCE_KM_S
     returned_time = state.time
     returned_time.format = "mjd"
     assert state.time.format == "jd"
+    with pytest.raises(FrozenInstanceError):
+        state.minutes_since_tle_epoch = 0.0  # type: ignore[misc]
+
+
+@pytest.mark.parametrize("offset_min", [0.0, -30.0])
+def test_signed_sgp4_epoch_offset(tle: TleRecord, offset_min: float) -> None:
+    time = Time(
+        tle.epoch.jd1,
+        tle.epoch.jd2 + offset_min / 1440.0,
+        format="jd",
+        scale="utc",
+    )
+    state = Sgp4Propagator(tle).propagate(time)
+    assert isclose(
+        state.minutes_since_tle_epoch,
+        offset_min,
+        rel_tol=0,
+        abs_tol=EPOCH_OFFSET_TOLERANCE_MIN,
+    )
 
 
 def test_original_tle_and_epoch_are_preserved(tle: TleRecord) -> None:

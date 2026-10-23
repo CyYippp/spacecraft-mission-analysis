@@ -5,7 +5,7 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "spacecraft-mission-analysis"
 version = "0.1.0"
-description = "Archived TLE to TEME SGP4 orbit kernel"
+description = "Archived-TLE spacecraft access and temporal coverage analysis demonstrator"
 readme = "README.md"
 requires-python = ">=3.11"
 dependencies = [

@@ -49,6 +49,19 @@ software input verification, not physical-orbit validation.
 
 ## Reference vector
 
+### MA-02 SGP4 propagation
+
+`sgp4==2.27` with WGS72 takes scalar UTC Astropy `Time` through split Julian
+dates. The typed TEME state reports km, km/s and signed
+`minutes_since_tle_epoch`, calculated from the requested and stored TLE epoch
+split JDs using SGP4's 1440 minutes/day convention. This is a model propagation
+offset, not SI elapsed time across arbitrary UTC leap-second boundaries. The
+Vanguard reference vector at +360 minutes, a zero-epoch case and a negative
+offset pass within a fixed `1e-9 min` offset limit. The reference-vector
+position/velocity residuals are recorded below. An SGP4 error raises
+`PropagationError` with its code and message and yields no state. These tests
+verify the implementation and interface, not physical orbit truth.
+
 The test uses Vanguard 1 / catalogue **00005** at **+360 minutes** after the
 archived TLE epoch. Exact TLE lines, complete printed reference values, source
 URLs, and source-file SHA-256 hashes are recorded with the

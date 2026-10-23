@@ -66,12 +66,13 @@ class TleRecord:
 
 @dataclass(frozen=True, slots=True)
 class TemeState:
-    """SGP4 TEME position in km and velocity in km/s at scalar UTC time."""
+    """SGP4 TEME state and signed TLE-model epoch offset in minutes."""
 
     _time_jd1: float
     _time_jd2: float
     position_km: tuple[float, float, float]
     velocity_km_s: tuple[float, float, float]
+    minutes_since_tle_epoch: float
 
     @property
     def time(self) -> Time:
@@ -114,4 +115,9 @@ class Sgp4Propagator:
         ):
             raise PropagationError(0, "SGP4 returned a non-finite or incomplete state")
 
-        return TemeState(time.jd1, time.jd2, position_km, velocity_km_s)
+        # Match SGP4's split-JD epoch arithmetic; this is not SI elapsed time
+        # across arbitrary UTC leap-second boundaries.
+        minutes_since_tle_epoch = (
+            (time.jd1 - self.tle._epoch_jd1) + (time.jd2 - self.tle._epoch_jd2)
+        ) * 1440.0
+        return TemeState(time.jd1, time.jd2, position_km, velocity_km_s, minutes_since_tle_epoch)

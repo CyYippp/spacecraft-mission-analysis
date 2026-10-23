@@ -56,7 +56,7 @@ corrected-gate residuals.
 ## Consequences and verification impact
 
 The initial ICRF sample gate stays **failed under its frozen criteria**.
-ICRF approval remains pending both corrected position gates. A pass would
+At protocol freeze, ICRF approval remained pending both corrected position gates. A pass would
 qualify only the numerical transfer for Phase A, not orbit truth or event
 agreement. The original event limits and 1 s versus 0.5 s **event-shift**
 limit remain separate and unchanged. Production code, evidence, numerical

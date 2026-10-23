@@ -31,6 +31,7 @@ def _reference_state() -> TemeState:
         time.jd2,
         tuple(FIXTURE["teme_position_km"]),
         tuple(FIXTURE["teme_velocity_km_s"]),
+        0.0,  # Synthetic published vector; no source TLE offset is asserted.
     )
 
 

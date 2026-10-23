@@ -5,6 +5,12 @@ fixed-station geometric access. It traces a spacecraft state through coordinate
 frames to station viewing geometry and threshold-crossing windows. It is not
 operational or flight-qualified mission software.
 
+The [v0.1.0 release case and decision](docs/release-v0.1.0.md) is the reviewer
+front door; [live requirements](docs/requirements.md) link each claim to its
+evidence. The canonical reproduction command is below. The tool does not claim
+physical orbit truth, operational pass-time accuracy, certification or flight
+qualification.
+
 ## Current scope and status
 
 The implemented path is:

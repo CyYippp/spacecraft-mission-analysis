@@ -2,6 +2,13 @@
 
 ## Unreleased
 
+## 0.1.0 — 2026-10-23
+
+- Closed MA-02 with immutable signed SGP4 minutes since the TLE epoch on TEME
+  states; reference, zero, negative and failure-path checks pass.
+- Preserved GMAT Phase A same-trajectory event comparison and Phase B
+  different-dynamics propagation diagnostic with their bounded dispositions.
+- Added a v0.1.0 reviewer report and clean-environment reproduction evidence.
 - Added a thin installed `spacecraft-mission-analysis` command over the existing
   input, run and output interfaces. It writes a complete JSON/CSV bundle,
   refuses artifact overwrites, reports run status and notices, and uses fixed

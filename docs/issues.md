@@ -44,8 +44,12 @@ does not imply physical accuracy.
 - **Consequence/cause:** Their agreement cannot independently validate TLE
   propagation or physical pass-time accuracy.
 - **Disposition/retest:** Scope the PASS to downstream numerical agreement;
-  retain independent propagation/GMAT as future work. See
-  [validation](validation.md#phase-b-first-observed-hold-out-result--pass).
+  [GMAT Phase A](validation.md#gmat-r2026a-same-trajectory-event-comparison--phase-a-pass)
+  now independently compares event location on an imported production
+  trajectory. [GMAT Phase B](validation.md#gmat-independent-numerical-propagation-diagnostic--phase-b)
+  independently integrates under deliberately different dynamics. Neither
+  validates same-model SGP4 propagation accuracy or physical pass-time
+  accuracy; those claims remain open.
 
 ## ISS-004 — raw Skyfield event-time distinction
 

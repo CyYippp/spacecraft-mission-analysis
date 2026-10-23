@@ -74,8 +74,9 @@ The installed command also writes `report.html` beside `run.json`. This is a
 self-contained, offline presentation of the same `AnalysisResult`: an access
 timeline, compact recorded-window duration comparison and network summary,
 station pass table, combined intervals, grouped configuration/provenance and
-notices. The timeline is based on refined event times recorded in the result;
-it does not interpolate an elevation curve or
+notices. A short purpose and engineering-use introduction and reading notes
+explain what each plot, metric and input means. The timeline is based on refined
+event times recorded in the result; it does not interpolate an elevation curve or
 calculate a new orbit product. The timeline axis gives minutes from the stated UTC
 analysis interval; tables declare units, and rounded display values point back to
 `run.json` for exact nanosecond timestamps and full numerical precision. Failed

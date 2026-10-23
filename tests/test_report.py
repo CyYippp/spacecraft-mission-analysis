@@ -38,6 +38,14 @@ def test_report_presents_archived_values_without_changing_precision_source(resul
     assert "<td>2000-06-27T" not in report
     assert report.count(">Equator Greenwich synthetic fixed WGS84 station</text>") == 2
     assert "test-only synthetic zero UT1-UTC/xp/yp" in report
+    assert "What this project does" in report
+    assert "Engineering use" in report
+    assert "operational planning needs current inputs and separate validation" in report
+    assert "the dark union row shows when at least one station exceeds the mask" in report
+    assert "not usable downlink time" in report
+    assert "Coverage is the share of the interval" in report
+    assert "Start and end are threshold crossings or analysis-boundary clips" in report
+    assert "Scenario fields define what was analysed" in report
     assert "not a measured pass or an operational prediction" in report
     assert "Finite event-discovery sampling can miss narrow or grazing access" in report
     assert "Visibility is modelled geometrically only" in report
@@ -48,7 +56,8 @@ def test_report_presents_archived_values_without_changing_precision_source(resul
     assert "Reproducibility details" in report
     assert "Earth-orientation table SHA-256" in report
     assert "Combined coverage intervals (1)" in report
-    assert '<p class="no-notices">Notices · None emitted for this run.</p>' in report
+    assert "Notices · None emitted for this run." in report
+    assert "This does not establish physical accuracy or operational suitability" in report
     assert "<h2>Notices</h2>" not in report
     assert '<a href="run.json">' in report
     assert "<script" not in report

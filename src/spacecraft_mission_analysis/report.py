@@ -224,12 +224,14 @@ def render_html(result: AnalysisResult) -> str:
         "header{padding-bottom:16px;border-bottom:1px solid #cbd8dc}.header-row{display:flex;justify-content:space-between;gap:22px;align-items:flex-start}.subtitle{color:#526777;margin:0}.run-state{text-align:right;white-space:nowrap}.run-state p{font-size:.78rem;color:#526777;margin:.4rem 0 0}.context{display:flex;flex-wrap:wrap;gap:5px 20px;margin-top:15px;color:#40596a;font-size:.81rem}",
         ".badge{display:inline-block;padding:3px 9px;border-radius:3px;font-size:.72rem;letter-spacing:.04em;font-weight:800}.ok{background:#dcedeb;color:#176254}.warning{background:#fff0c2;color:#714c00}.failed{background:#fce4e0;color:#9b3428}",
         "section{padding:18px 0;border-bottom:1px solid #d7e1e4}.section-head{display:flex;align-items:baseline;justify-content:space-between;gap:12px;margin-bottom:9px}.section-head p{margin:0;font-size:.81rem}.plot{width:100%;height:auto;display:block}.axis-label{font:12px system-ui;fill:#526777}.axis-title,.lane-label{font:13px system-ui;fill:#263e54}.value-label{font:12px system-ui}.empty-label{font:12px system-ui;fill:#667b88}",
+        ".purpose-band{display:grid;grid-template-columns:1fr 1fr;gap:24px;padding:15px 0 10px}.purpose-band p{font-size:.83rem;color:#40596a;margin:0}",
         ".note{margin:14px 0 0;padding:9px 12px;background:#f1f6f6;border-left:3px solid #16836f;color:#38505e;font-size:.82rem}.warning-summary,.error-summary{background:#fff4d6;border-left:4px solid #b57a1a;padding:10px 13px;margin:12px 0 0}.error-summary{background:#fce9e5;border-color:#ac493a}.warning-summary ul,.error-summary ul{margin:5px 0 0;padding-left:20px}",
         ".analysis-grid{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(245px,.7fr);gap:22px;align-items:start}.chart-panel,.summary-panel{min-width:0}.summary-panel{border-left:1px solid #d7e1e4;padding-left:19px}.metrics{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.metric{border-top:2px solid #b5c9cc;padding:6px 3px;font-size:.75rem;color:#526777}.metric strong{display:block;font-size:1.23rem;line-height:1.2;color:#183a50;font-variant-numeric:tabular-nums}.microcopy{font-size:.78rem;color:#526777;margin:9px 0 0}.scroll-cue{display:none}",
         ".table-scroll{overflow-x:auto}table{border-collapse:collapse;width:100%;font-variant-numeric:tabular-nums;font-size:.81rem}th,td{border-bottom:1px solid #e1e9eb;padding:7px 8px;text-align:left;vertical-align:top}th{background:#f0f5f5;color:#2e4c5b;white-space:nowrap;font-size:.72rem;text-transform:uppercase;letter-spacing:.03em}td{overflow-wrap:anywhere}.time-table td:nth-child(2),.time-table td:nth-child(3),.time-table td:nth-child(5){white-space:nowrap}.table-note{font-size:.78rem;color:#526777;margin:5px 0 9px}details{margin-top:10px;border-top:1px solid #e1e9eb;padding-top:9px}summary{cursor:pointer;color:#236176;font-weight:700}details p{font-size:.78rem;color:#526777}",
         ".detail-grid{display:grid;grid-template-columns:1fr 1fr;gap:26px}.facts{margin:0}.facts>div{display:grid;grid-template-columns:minmax(125px,.9fr) minmax(0,1.1fr);gap:10px;padding:5px 0;border-bottom:1px solid #e7eded;font-size:.8rem}.facts dt{color:#526777}.facts dd{margin:0;font-weight:600;overflow-wrap:anywhere}.station-table{margin-top:12px}.station-table h3{margin-bottom:5px}.repro{margin-top:13px}.no-notices{font-size:.79rem;color:#526777;padding:9px 0}.evidence{display:flex;flex-wrap:wrap;align-items:center;gap:5px 15px;padding-top:15px;font-size:.79rem}.evidence strong{color:#183a50;margin-right:5px}a{color:#176879;text-underline-offset:2px}",
-        "@media(max-width:740px){main{padding:22px 18px 30px}.analysis-grid,.detail-grid{grid-template-columns:1fr}.summary-panel{border-left:0;border-top:1px solid #d7e1e4;padding:12px 0 0}.header-row{display:block}.run-state{text-align:left;margin-top:10px}.section-head{display:block}.scroll-cue{display:block;color:#526777;font-size:.75rem;margin:5px 0 0}.timeline-plot .plot{min-width:900px}.chart-panel .plot{min-width:680px}.timeline-plot,.chart-panel{overflow-x:auto}.time-table table{min-width:900px}.facts>div{grid-template-columns:145px minmax(0,1fr)}}",
-        "@page{size:A4 landscape;margin:12mm}@media print{body{background:#fff;font-size:11px}main{max-width:none;min-height:0;padding:0;border-top:3px solid #163a50;box-shadow:none}section{padding:8px 0}.access-section{break-before:page}.analysis-grid{grid-template-columns:1.2fr .8fr;gap:14px}.plot{min-width:0}.timeline-plot,.chart-panel,.table-scroll{overflow:visible}.time-table td:first-child{white-space:nowrap}th,td{padding:4px 6px}.facts>div{padding:3px 0}.station-table{margin-top:6px}.repro{margin-top:6px}.no-notices{padding:4px 0}.evidence{padding-top:5px}thead{display:table-header-group}tr,.metric,.facts>div{break-inside:avoid}section,details{break-inside:auto}.note,.warning-summary,.error-summary{print-color-adjust:exact}.evidence a{color:#263b4c}}",
+        "@media(max-width:740px){main{padding:22px 18px 30px}.analysis-grid,.detail-grid,.purpose-band{grid-template-columns:1fr}.purpose-band{gap:12px}.summary-panel{border-left:0;border-top:1px solid #d7e1e4;padding:12px 0 0}.header-row{display:block}.run-state{text-align:left;margin-top:10px}.section-head{display:block}.scroll-cue{display:block;color:#526777;font-size:.75rem;margin:5px 0 0}.timeline-plot .plot{min-width:900px}.chart-panel .plot{min-width:680px}.timeline-plot,.chart-panel{overflow-x:auto}.time-table table{min-width:900px}.facts>div{grid-template-columns:145px minmax(0,1fr)}}",
+        "@page{size:A4 landscape;margin:10mm}@media print{body{background:#fff;font-size:10px}main{max-width:none;min-height:0;padding:0;border-top:3px solid #163a50;box-shadow:none}header{padding-bottom:8px}.context{margin-top:8px}section{padding:6px 0}h2{font-size:1.05rem}h3{font-size:.86rem}.purpose-band{padding:7px 0 4px;gap:18px}.note{margin-top:8px;padding:7px 10px}.microcopy{margin:4px 0}.table-note{margin:3px 0 6px}.analysis-grid{grid-template-columns:1.2fr .8fr;gap:14px;padding:3px 0;break-inside:avoid}.analysis-grid .metric{padding:2px 1px}.analysis-grid .microcopy{margin:3px 0 0}.plot{min-width:0}.timeline-plot{max-width:930px;margin:auto}.timeline-plot,.chart-panel,.table-scroll{overflow:visible}.time-table td:first-child{white-space:nowrap}th,td{padding:3px 5px}.facts>div{padding:2px 0}.station-table{margin-top:5px}.repro{margin-top:5px}.no-notices{padding:3px 0}.evidence{padding-top:4px}thead{display:table-header-group}tr,.metric,.facts>div{break-inside:avoid}section,details{break-inside:auto}.note,.warning-summary,.error-summary{print-color-adjust:exact}.evidence a{color:#263b4c}}",
+        "@media print{header{padding-bottom:5px}.context{margin-top:5px}.purpose-band{padding:4px 0 2px}.purpose-band p,.note{line-height:1.35}.note{margin-top:5px;padding:5px 8px}.timeline-plot{max-width:850px}.analysis-grid .metric{padding:0}.analysis-grid .microcopy{line-height:1.3}}",
         "</style></head><body><main>",
         '<header><p class="eyebrow">Mission analysis / run report</p><div class="header-row"><div>'
         '<h1>Spacecraft access report</h1><p class="subtitle">Geometric station access and temporal coverage from an archived TLE.</p></div>',
@@ -239,6 +241,14 @@ def render_html(result: AnalysisResult) -> str:
         f"<span>{_html(len(config['stations']))} stations</span>"
         f"<span>Mask {_html(config['minimum_elevation_deg'])}°</span>"
         f"<span>{_html(interval)}</span></div></header>",
+        '<section class="purpose-band" aria-label="Project purpose and engineering use">'
+        "<div><h2>What this project does</h2><p>It propagates an archived Two-Line Element (TLE) "
+        "and reports when fixed ground stations exceed an elevation mask, plus their combined "
+        "geometric coverage of the chosen UTC interval.</p></div>"
+        "<div><h2>Engineering use</h2><p>These outputs can inform early ground-station and "
+        "data-handling trade studies. This archived demonstration is not an operations product; "
+        "operational planning needs current inputs and separate validation.</p>"
+        "</div></section>",
         '<p class="note">Calculated model output, not a measured pass or an operational prediction. '
         "Visibility is modelled geometrically only. Finite event-discovery sampling can miss "
         "narrow or grazing access. TLE age and Earth-orientation input also limit validity. "
@@ -269,29 +279,34 @@ def render_html(result: AnalysisResult) -> str:
     if coverage is None:
         parts.append(
             "<section><h2>Analysis result</h2><p>No access or coverage results were produced. "
-            "Review the notices below; plots are omitted for failed runs.</p></section>"
+            "Review the notices below to identify the failure stage; plots are omitted for failed runs.</p></section>"
         )
     else:
         parts.extend(
             [
                 '<section><div class="section-head"><h2>Access timeline</h2>'
                 '<p class="muted">Relative minutes · exact UTC interval in run context above</p></div>',
-                '<p class="microcopy">Bars mark access above the elevation mask; dots mark reported peaks. '
-                "The dark row is the union across stations.</p>"
+                '<p class="microcopy">Each station row shows when calculated elevation exceeds the mask. '
+                "Dots mark the calculated peak within each window; the dark union row shows when at least "
+                "one station exceeds the mask.</p>"
                 '<p class="scroll-cue">Scroll charts and tables horizontally on narrow screens.</p>'
                 '<div class="timeline-plot">',
                 _access_timeline(result, data),
                 '</div></section><section class="analysis-grid"><div class="chart-panel">'
-                '<h2>Recorded durations</h2><p class="microcopy">Each bar is a recorded station window or merged interval.</p>',
+                '<h2>Recorded durations</h2><p class="microcopy">Each bar is one station window or merged '
+                "network interval. Length represents geometric access time, not usable downlink time.</p>",
                 _duration_chart(data),
                 '</div><div class="summary-panel"><h2>Pass &amp; network summary</h2><div class="metrics">',
                 f'<div class="metric">Total access<strong>{coverage["total_access_duration_s"] / 60:.2f} min</strong></div>',
                 f'<div class="metric">Temporal coverage<strong>{coverage["coverage_fraction"] * 100:.2f}%</strong></div>',
                 f'<div class="metric">Longest no-access gap<strong>{coverage["longest_no_access_gap_s"] / 60:.2f} min</strong></div>',
                 f'<div class="metric">Merged intervals<strong>{coverage["merged_access_interval_count"]}</strong></div>',
-                '</div><p class="microcopy">Overlapping station windows are merged for network coverage; '
-                "station durations are not added to obtain the union.</p></div></section>",
-                '<section class="access-section"><h2>Access windows</h2><p class="table-note">Displayed UTC times are rounded to 0.1 s '
+                '</div><p class="microcopy">Coverage is the share of the interval with any station '
+                "above the mask; overlap counts once. The longest gap has none.</p></div></section>",
+                '<section class="access-section"><h2>Access windows</h2><p class="table-note">'
+                "Start and end are threshold crossings or analysis-boundary clips. Peak is the "
+                "highest calculated elevation in that window; boundary flags identify clips. "
+                "Displayed UTC times are rounded to 0.1 s "
                 "and durations to 0.1 s. See run.json for exact nanosecond timestamps and full numerical precision.</p>",
             ]
         )
@@ -340,6 +355,10 @@ def render_html(result: AnalysisResult) -> str:
             f"({len(coverage['union_intervals'])})</summary>"
         )
         parts.append(
+            '<p class="table-note">Each interval is continuous geometric access from at least '
+            "one station; overlapping or touching station windows are merged.</p>"
+        )
+        parts.append(
             _table(
                 ("Start (UTC)", "End (UTC)", "Duration (min:s)"),
                 [
@@ -356,7 +375,12 @@ def render_html(result: AnalysisResult) -> str:
             else "<p>No combined access intervals.</p>"
         )
         parts.append("</details></section>")
-    parts.append('<section><h2>Scenario &amp; model</h2><div class="detail-grid"><div>')
+    parts.append(
+        '<section><h2>Scenario &amp; model</h2><p class="table-note">Scenario fields define '
+        "what was analysed. Model settings and provenance show how access was calculated and "
+        "help a reviewer reproduce it; station coordinates are fixed WGS84 inputs.</p>"
+        '<div class="detail-grid"><div>'
+    )
     parts.append("<h3>Scenario</h3>")
     parts.append(
         _facts(
@@ -429,7 +453,10 @@ def render_html(result: AnalysisResult) -> str:
     )
     parts.append("</details></section>")
     if notices:
-        parts.append("<section><h2>Notices</h2>")
+        parts.append(
+            '<section><h2>Notices</h2><p class="table-note">Review these conditions and '
+            "their stages before interpreting the result.</p>"
+        )
         parts.append(
             _table(
                 ("Severity", "Code", "Stage", "Message"),
@@ -438,7 +465,10 @@ def render_html(result: AnalysisResult) -> str:
         )
         parts.append("</section>")
     else:
-        parts.append('<p class="no-notices">Notices · None emitted for this run.</p>')
+        parts.append(
+            '<p class="no-notices">Notices · None emitted for this run. '
+            "This does not establish physical accuracy or operational suitability.</p>"
+        )
     parts.append(
         '<footer class="evidence"><strong>Machine-readable evidence</strong>'
         '<a href="run.json">Full JSON result</a>'

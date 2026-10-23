@@ -188,3 +188,56 @@ does not imply physical accuracy.
   now reports a concise input error and exits `2` with no output. Tests cover
   every free-text input field and show that valid non-ASCII text remains valid.
   No scientific value, schema version, or output-failure exit rule changed.
+
+## ISS-012 — GMAT STK transfer failed same-state compatibility gates
+
+- **Kind/status:** Observed MA-07 validation-transfer discrepancy. Historical
+  failed gates and raw evidence retained; corrected ICRF transfer method
+  subsequently qualified for Phase A. The Fixed import mechanism remains
+  unexplained.
+- **Fixed path:** GMAT R2026a accepted the STK `Fixed` file syntactically, but
+  its propagated 20:00 EarthFixed state differed from production ITRS by
+  `0.734178219 km`, almost exactly a one-sidereal-second Z rotation. Time,
+  leap-second, direct-state and EOP controls did not explain the inter-path
+  residual. The internal cause is not established. The `Fixed` transfer was
+  rejected, with raw evidence retained in
+  [the diagnostic](../validation/gmat/fixed_gate_diagnostic/README.md).
+- **ICRF trial:** Installed R2026a help documents STK ICRF for Earth. A
+  validation-only Astropy TEME→GCRS conversion agreed with Skyfield's
+  geocentric inertial conversion at all five frozen times (position maximum
+  `1.424365e-7 km`, velocity maximum `7.999170e-8 km/s`), below `0.001 km`
+  and `1e-6 km/s`. GMAT `GetEphemStates(..., EarthICRF)` reproduced both
+  serialized endpoints within `1e-6 km` and `1e-9 km/s`. At the exact 20:00,
+  20:20 and 20:40 file-grid epochs, GMAT STK-propagated velocity differed
+  from the serialized rows by `0.001141886`, `0.000448212` and
+  `0.000401191 km/s`; the frozen limit is `1e-9 km/s`. Position also exceeded
+  its `1e-6 km` limit at 20:20 and 20:40. The sample gate failed and ICRF is
+  not approved for ContactLocator **under that original gate**. The precise
+  mechanism is not established.
+  See the [trial evidence](../validation/gmat/icrf/README.md) and
+  [Decision 0003](decisions/0003-gmat-icrf-transfer-trial.md).
+- **Immediate consequence:** ContactLocator, EarthFixed diagnostic, Phase B
+  and alternate transfer-frame trials stopped at the failed original gate.
+  Production analysis, frozen event limits and MA-07 status remained unchanged.
+- **Validation-method review:** The installed R2026a STK propagator guide
+  states that default position interpolation uses a seventh-order
+  Hermite-Newton polynomial from position values and derives propagated
+  velocity from its derivative. The original velocity-equality criterion
+  therefore tested a guarantee GMAT does not make. Its observed FAIL and
+  raw residuals stay intact; the result neither approves nor disproves ICRF
+  frame compatibility. [Decision 0004](decisions/0004-gmat-stk-position-transfer-gate.md)
+  freezes a direct-reference continuous-time position gate and a 1 s versus
+  0.5 s position-convergence gate before new results. The documented
+  semantics do not, by themselves, quantitatively explain every velocity
+  residual. This is a validation-method discrepancy, not a production defect.
+- **Corrected disposition:** The predeclared 13-point direct-reference
+  position gate passed (maximum `7.17963611987e-6 km`, limit `0.001 km`),
+  and the 1 s versus 0.5 s GMAT position-convergence gate passed (maximum
+  `1.63010147317e-6 km`, limit `0.0001 km`). ICRF was therefore approved
+  for the bounded Phase A ContactLocator run; the historical sample gate
+  remains FAILED. Phase A found one corresponding event per station and
+  passed the frozen 0.25 s AOS/LOS, 0.50 s duration and 0.02 s transfer
+  event-shift criteria. See [corrected transfer evidence](../validation/gmat/icrf/corrected_position/README.md)
+  and [Phase A report](../validation/gmat/phase_a/README.md). This does not
+  resolve the Fixed import's internal mechanism or provide physical orbit
+  accuracy or independent SGP4 evidence.

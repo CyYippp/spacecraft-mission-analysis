@@ -1,0 +1,9 @@
+initialEpoch              initialState              finalEpoch                finalState                
+27 Jun 2000 19:59:01.000  5645.389835155235         27 Jun 2000 20:01:01.000  6024.496125196986         
+                          -8344.990537282032                                  -8050.391279425899        
+                          1016.053778715939                                   630.0595638048942         
+                          3.27017447144226                                    3.04568402833047          
+                          2.294567285851372                                   2.614958898748228         
+                          -3.194890752453375                                  -3.233172051041493        
+ImportedVanguard.UTCGregorian   ImportedVanguard.EarthFixed.X   ImportedVanguard.EarthFixed.Y   ImportedVanguard.EarthFixed.Z   
+27 Jun 2000 20:00:01.000        5838.908648141503               -8202.071350192924              823.6306346095721               

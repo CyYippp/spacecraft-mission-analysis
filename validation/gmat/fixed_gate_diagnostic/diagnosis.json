@@ -1,0 +1,93 @@
+{
+  "rotation": {
+    "xy_radius_km": 10068.109486666352,
+    "xy_residual_km": 0.7341782188259105,
+    "best_fit_z_angle_rad": 7.29211596240645e-05,
+    "equivalent_sidereal_seconds": 1.0000001319790555,
+    "one_sidereal_second_delta_km": [
+      0.5981199988937078,
+      0.4257581257534184,
+      0.0
+    ],
+    "post_one_sidereal_second_residual_km": [
+      6.443042366299778e-08,
+      7.657217793166637e-08,
+      3.0581031751353294e-07
+    ],
+    "post_fit_residual_km": [
+      -1.4507349987979978e-08,
+      2.037813828792423e-08,
+      3.0581031751353294e-07
+    ],
+    "post_fit_residual_norm_km": 3.068316835359141e-07,
+    "z_residual_km": 3.0581031751353294e-07
+  },
+  "label_shift_tests": {
+    "original": {
+      "reported_utc": "27 Jun 2000 20:00:00.000",
+      "position_km": [
+        5838.908648141503,
+        -8202.071350192926,
+        823.6306346095722
+      ],
+      "gmat_minus_production_km": [
+        0.5981200633241315,
+        0.42575820232559636,
+        3.0581031751353294e-07
+      ],
+      "residual_norm_km": 0.7341782188259741
+    },
+    "minus_one_second": {
+      "reported_utc": "27 Jun 2000 19:59:59.000",
+      "position_km": [
+        5838.90864814149,
+        -8202.071350192935,
+        823.6306346095727
+      ],
+      "gmat_minus_production_km": [
+        0.5981200633104891,
+        0.4257582023165014,
+        3.058107722608838e-07
+      ],
+      "residual_norm_km": 0.7341782188095857
+    },
+    "plus_one_second": {
+      "reported_utc": "27 Jun 2000 20:00:01.000",
+      "position_km": [
+        5838.908648141503,
+        -8202.071350192924,
+        823.6306346095721
+      ],
+      "gmat_minus_production_km": [
+        0.5981200633241315,
+        0.42575820232741535,
+        3.058102038266952e-07
+      ],
+      "residual_norm_km": 0.734178218827029
+    }
+  },
+  "direct_gmat_earth_fixed_control": {
+    "direct_fixed_position_km": [
+      5838.310528078179,
+      -8202.497108395251,
+      823.6306343037619
+    ],
+    "direct_earth_mj2000_eq_position_km": [
+      -9557.314641372639,
+      3166.094911542474,
+      823.8785797516799
+    ],
+    "imported_earth_mj2000_eq_position_km": [
+      -9557.54549259551,
+      3165.39797153804,
+      823.8785687312989
+    ],
+    "imported_minus_direct_inertial_km": [
+      -0.23085122287011473,
+      -0.6969400044340546,
+      -1.1020381066373375e-05
+    ],
+    "inertial_residual_norm_km": 0.7341782188287911
+  },
+  "original_stk_sha256": "c9925ec177179c2558a3c5f61fc50ae5faa04cba27af91ed9f9566ade3c2d693"
+}

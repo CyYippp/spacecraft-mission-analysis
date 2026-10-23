@@ -1,0 +1,16 @@
+{
+  "file": "vanguard_icrf_0p5s.e",
+  "sha256": "73b0d8648b63df8e36284d518447b221bfae2639d24670a4398a5acbc7824c93",
+  "generator_sha256": "19705d315fbaea9b95fc175fc4967a5590b7dee85e819df659a50fb3fefa7cf1",
+  "one_second_sha256": "25947878388a27baaad24370f75df1691740b6514842ddb7a4e3a3aef11dacd7",
+  "conversion_result_sha256": "6ad39d5e32cd35d62ab571be6c83f217951b10e14c2fbc7b40ed044b4c81594e",
+  "config_sha256": "822ee68dd955add87e2d00c60b310140976dde560f1afd2698f93355da7e9d99",
+  "eop_table_sha256": "bd3769c7c5f55131e4ca5472e4787daaa9f2674502b01c9bbdbd573a4f77e824",
+  "samples": 5041,
+  "sampling_s": 0.5,
+  "first_utc": "2000-06-27T19:59:00Z",
+  "last_utc": "2000-06-27T20:41:00Z",
+  "source": "Production WGS72 SGP4 TEME to validation-only Astropy GCRS",
+  "stk_coordinate_system": "ICRF",
+  "gcrs_to_stk_icrf": "Provisional geocentric ICRS-aligned transfer convention"
+}

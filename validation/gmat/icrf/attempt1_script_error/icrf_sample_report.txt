@@ -1,0 +1,4 @@
+ImportedVanguard.UTCGregorian   ImportedVanguard.EarthICRF.X   ImportedVanguard.EarthICRF.Y   ImportedVanguard.EarthICRF.Z   ImportedVanguard.EarthICRF.VX   ImportedVanguard.EarthICRF.VY   ImportedVanguard.EarthICRF.VZ   
+27 Jun 2000 20:00:00.000        -9557.268433756979             3166.238374728098              823.8632755355297              -1.328926690284062              -4.544849785803639              -3.217417945748112              
+ImportedVanguard.UTCGregorian   ImportedVanguard.EarthICRF.X   ImportedVanguard.EarthICRF.Y   ImportedVanguard.EarthICRF.Z   ImportedVanguard.EarthICRF.VX   ImportedVanguard.EarthICRF.VY   ImportedVanguard.EarthICRF.VZ   
+27 Jun 2000 20:21:00.000        -8031.5104169414               -2911.303491276541             -3031.11614743458              3.887362852515562               -4.522853330900332              -2.495168993691657              

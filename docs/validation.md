@@ -261,9 +261,53 @@ The five Skyfield culmination elevations were `34.595140988°`,
 in chronological order. The **overall Phase B disposition is PASS** for the
 frozen downstream numerical agreement criteria. This does not establish the
 real spacecraft's pass times, physical angular accuracy, independent SGP4
-accuracy, or operational navigation performance. GMAT comparison, physical
-orbit-prediction accuracy, and temporal coverage remain future work.
+accuracy, or operational navigation performance. At the time of the
+Skyfield hold-out, GMAT comparison and physical orbit-prediction accuracy
+remained future work; bounded GMAT Phase A evidence is recorded below.
 
 Earlier matched split-UT1 Vallado frame verification and its documented
 direct printed-vector x-position overrun of 3.17 mm remain unchanged; see
 [verification](verification.md).
+
+## GMAT R2026a same-trajectory event comparison — Phase A PASS
+
+This is an independent **event-location implementation** using GMAT's
+SPICE-based ContactLocator on a production-generated STK ICRF trajectory.
+It is not independent SGP4 propagation evidence or an orbital-truth test.
+The original STK `Fixed` transfer failed its same-state gate. The first ICRF
+sample gate also remains formally failed under its frozen position-and-
+velocity criteria. Installed R2026a documentation then established that
+STK-propagated velocity is derived from the position-interpolation
+polynomial, rather than guaranteed to reproduce supplied TimePosVel
+velocities. [Decision 0004](decisions/0004-gmat-stk-position-transfer-gate.md)
+preserved that failure and froze corrected continuous-time position tests.
+
+At 13 predeclared exact-node, midpoint and other fractional UTC epochs,
+GMAT's 1 s STK trajectory differed from direct production SGP4→TEME→
+validation-only GCRS position by at most `7.17963611987e-6 km` against
+`0.001 km`. Its 1 s versus 0.5 s GMAT position difference was at most
+`1.63010147317e-6 km` against `0.0001 km`. Both passed, allowing Phase A.
+The [transfer record](../validation/gmat/icrf/corrected_position/README.md)
+links every reference and GMAT vector, residual and raw report. These are
+numerical transfer-fidelity results, not physical orbit accuracy.
+
+In the frozen 20:00–20:40 UTC Vanguard interval, both production and GMAT
+found one corresponding 10° access at each of the two archived stations.
+With the 1 s transfer, maximum absolute AOS/LOS residual was
+`0.050494707 s` (limit `0.25 s`) and maximum absolute duration residual
+was `0.050373770 s` (limit `0.50 s`). With the 0.5 s transfer and unchanged
+1 s ContactLocator step, the reported AOS/LOS shift was `0.000 s` at
+GMAT's 1 ms report resolution (limit `0.02 s`). Phase A passes the frozen
+count/order, event timing, duration and transfer-sensitivity checks. The
+[Phase A evidence](../validation/gmat/phase_a/README.md) links raw GMAT
+scripts/reports and machine-readable signed residuals.
+
+GMAT's bundled SPICE PCK Earth ellipsoid and installed orientation/time
+inputs differ from production WGS84 and the explicit synthetic zero-EOP
+snapshot. The validation record gives their identities and hashes. Event
+residuals therefore include station/frame/environment differences; the
+millimetre-scale trajectory-transfer result does not make them physical
+pass-time errors. MA-07 remains **PARTIALLY VALIDATED** because Phase B's
+independently propagated different-dynamics diagnostic and physical-orbit
+validation remain outstanding. No production model, archived scientific
+artifact or original acceptance threshold changed.

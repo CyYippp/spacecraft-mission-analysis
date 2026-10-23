@@ -1,0 +1,18 @@
+Target: ImportedVanguard
+
+Observer: Greenwich
+Start Time (UTC)            Stop Time (UTC)               Duration (s)         
+27 Jun 2000 20:11:00.880    27 Jun 2000 20:31:30.103      1229.2228969    
+
+
+Number of events : 1
+
+
+Observer: OneNorthOneEast
+Start Time (UTC)            Stop Time (UTC)               Duration (s)         
+27 Jun 2000 20:12:13.309    27 Jun 2000 20:30:57.478      1124.1694151    
+
+
+Number of events : 1
+
+

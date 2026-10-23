@@ -15,3 +15,10 @@ orbit boundary and its evidence are described in
 
 [Decision 0002](0002-skyfield-holdout-acceptance.md) freezes the Skyfield
 Phase B downstream comparison criteria before the hold-out is executed.
+
+[Decision 0003](0003-gmat-icrf-transfer-trial.md) records the rejected GMAT
+STK Fixed transfer and a gated, validation-only ICRF trial.
+
+[Decision 0004](0004-gmat-stk-position-transfer-gate.md) preserves the failed
+ICRF sample gate while correcting its validation method to continuous-time
+position fidelity under GMAT's documented STK interpolation semantics.

@@ -1,0 +1,573 @@
+{
+  "status": "PASS",
+  "mode": "0p5s",
+  "criterion": "position_convergence",
+  "position_limit_km": 0.0001,
+  "maximum_position_residual_km": 1.6301014731714192e-06,
+  "velocity_role": "diagnostic_only_no_pass_fail_criterion",
+  "ephemeris_sha256": "73b0d8648b63df8e36284d518447b221bfae2639d24670a4398a5acbc7824c93",
+  "script_sha256": "060ddb72c0df37ae13692ff4f37876870cabc774756d96c802366d03d657c6be",
+  "raw_report_sha256": "424a08d61b96c91c09c45ab9a13a37e3829cf8eec2af04fdc0c982ad8ace7c68",
+  "gmat_returncode": 0,
+  "samples": [
+    {
+      "utc": "2000-06-27T20:00:00.000Z",
+      "gmat_reported_utc": "27 Jun 2000 20:00:00.000",
+      "utc_label_matches": true,
+      "production_direct_gcrs_position_km": [
+        -9557.268433756957,
+        3166.23837472819,
+        823.863275535456
+      ],
+      "production_direct_gcrs_velocity_km_s": [
+        -1.3289096210919524,
+        -4.544937312339243,
+        -3.216279546830151
+      ],
+      "gmat_stk_earth_icrf_position_km": [
+        -9557.26843375698,
+        3166.238374728098,
+        823.8632755355297
+      ],
+      "gmat_stk_earth_icrf_velocity_km_s": [
+        -1.328927064885053,
+        -4.544851068240193,
+        -3.217418853552401
+      ],
+      "gmat_minus_production_position_km": [
+        -2.3646862246096134e-11,
+        -9.231371222995222e-11,
+        7.37827576813288e-11
+      ],
+      "position_residual_norm_km": 1.2051925526994414e-10,
+      "gmat_minus_production_velocity_diagnostic_km_s": [
+        -1.7443793100646587e-05,
+        8.624409905078068e-05,
+        -0.0011393067222500441
+      ],
+      "velocity_residual_diagnostic_norm_km_s": 0.0011426994958881177,
+      "one_second_minus_half_second_position_km": [
+        1.8189894035458565e-12,
+        0.0,
+        0.0
+      ],
+      "convergence_position_norm_km": 1.8189894035458565e-12
+    },
+    {
+      "utc": "2000-06-27T20:00:00.500Z",
+      "gmat_reported_utc": "27 Jun 2000 20:00:00.500",
+      "utc_label_matches": true,
+      "production_direct_gcrs_position_km": [
+        -9557.932434779113,
+        3163.96579634674,
+        822.2545264495437
+      ],
+      "production_direct_gcrs_velocity_km_s": [
+        -1.3270599445586413,
+        -4.545549778966233,
+        -3.2164390576685946
+      ],
+      "gmat_stk_earth_icrf_position_km": [
+        -9557.93243477911,
+        3163.965796346739,
+        822.2545264495436
+      ],
+      "gmat_stk_earth_icrf_velocity_km_s": [
+        -1.327076561583857,
+        -4.545460945588806,
+        -3.217576416962097
+      ],
+      "gmat_minus_production_position_km": [
+        3.637978807091713e-12,
+        -9.094947017729282e-13,
+        -1.1368683772161603e-13
+      ],
+      "position_residual_norm_km": 3.751665644813329e-12,
+      "gmat_minus_production_velocity_diagnostic_km_s": [
+        -1.661702521560393e-05,
+        8.883337742737751e-05,
+        -0.001137359293502449
+      ],
+      "velocity_residual_diagnostic_norm_km_s": 0.0011409441953875576,
+      "one_second_minus_half_second_position_km": [
+        -1.8189894035458565e-10,
+        1.0322764865122736e-10,
+        2.4101609596982598e-11
+      ],
+      "convergence_position_norm_km": 2.1053279918660586e-10
+    },
+    {
+      "utc": "2000-06-27T20:03:17.123Z",
+      "gmat_reported_utc": "27 Jun 2000 20:03:17.123",
+      "utc_label_matches": true,
+      "production_direct_gcrs_position_km": [
+        -9746.129339852701,
+        2248.6257208256466,
+        185.00294638841564
+      ],
+      "production_direct_gcrs_velocity_km_s": [
+        -0.5811768187813868,
+        -4.754471483785437,
+        -3.2552769199655813
+      ],
+      "gmat_stk_earth_icrf_position_km": [
+        -9746.12933982885,
+        2248.625721019985,
+        185.0029465215263
+      ],
+      "gmat_stk_earth_icrf_velocity_km_s": [
+        -0.5811695945182259,
+        -4.754387080873046,
+        -3.256354969829763
+      ],
+      "gmat_minus_production_position_km": [
+        2.385058905929327e-08,
+        1.9433855413808487e-07,
+        1.3311066027199558e-07
+      ],
+      "position_residual_norm_km": 2.3675889022590735e-07,
+      "gmat_minus_production_velocity_diagnostic_km_s": [
+        7.2242631609098495e-06,
+        8.440291239075748e-05,
+        -0.001078049864181807
+      ],
+      "velocity_residual_diagnostic_norm_km_s": 0.00108137299358763,
+      "one_second_minus_half_second_position_km": [
+        1.4160832506604493e-08,
+        1.1704287317115813e-07,
+        8.014339414330607e-08
+      ],
+      "convergence_position_norm_km": 1.4255710070792413e-07
+    },
+    {
+      "utc": "2000-06-27T20:10:00.000Z",
+      "gmat_reported_utc": "27 Jun 2000 20:10:00.000",
+      "utc_label_matches": true,
+      "production_direct_gcrs_position_km": [
+        -9656.046239109068,
+        280.40587754636164,
+        -1118.283128300794
+      ],
+      "production_direct_gcrs_velocity_km_s": [
+        1.0488622906159435,
+        -4.964535745464616,
+        -3.1750787498740465
+      ],
+      "gmat_stk_earth_icrf_position_km": [
+        -9656.046239109066,
+        280.4058775463617,
+        -1118.283128300794
+      ],
+      "gmat_stk_earth_icrf_velocity_km_s": [
+        1.048902023706182,
+        -4.9644972985894,
+        -3.17595798827908
+      ],
+      "gmat_minus_production_position_km": [
+        1.8189894035458565e-12,
+        5.684341886080802e-14,
+        0.0
+      ],
+      "position_residual_norm_km": 1.8198773652309366e-12,
+      "gmat_minus_production_velocity_diagnostic_km_s": [
+        3.973309023841409e-05,
+        3.844687521592505e-05,
+        -0.0008792384050333446
+      ],
+      "velocity_residual_diagnostic_norm_km_s": 0.0008809750584206925,
+      "one_second_minus_half_second_position_km": [
+        0.0,
+        -1.1368683772161603e-13,
+        0.0
+      ],
+      "convergence_position_norm_km": 1.1368683772161603e-13
+    },
+    {
+      "utc": "2000-06-27T20:10:00.500Z",
+      "gmat_reported_utc": "27 Jun 2000 20:10:00.500",
+      "utc_label_matches": true,
+      "production_direct_gcrs_position_km": [
+        -9655.521264424618,
+        277.92361358216397,
+        -1119.8710465071586
+      ],
+      "production_direct_gcrs_velocity_km_s": [
+        1.0509568317102094,
+        -4.964596182510604,
+        -3.174835426530308
+      ],
+      "gmat_stk_earth_icrf_position_km": [
+        -9655.521264424606,
+        277.9236135821286,
+        -1119.871046507186
+      ],
+      "gmat_stk_earth_icrf_velocity_km_s": [
+        1.050996862857099,
+        -4.964559054148001,
+        -3.175715148365478
+      ],
+      "gmat_minus_production_position_km": [
+        1.2732925824820995e-11,
+        -3.5356606531422585e-11,
+        -2.751221472863108e-11
+      ],
+      "position_residual_norm_km": 4.6574016197366236e-11,
+      "gmat_minus_production_velocity_diagnostic_km_s": [
+        4.0031146889552005e-05,
+        3.7128362603056075e-05,
+        -0.0008797218351701552
+      ],
+      "velocity_residual_diagnostic_norm_km_s": 0.000881414496877617,
+      "one_second_minus_half_second_position_km": [
+        2.2610765881836414e-07,
+        -1.0666965977179643e-06,
+        -6.82293830323033e-07
+      ],
+      "convergence_position_norm_km": 1.2862702577049187e-06
+    },
+    {
+      "utc": "2000-06-27T20:17:43.371Z",
+      "gmat_reported_utc": "27 Jun 2000 20:17:43.371",
+      "utc_label_matches": true,
+      "production_direct_gcrs_position_km": [
+        -8712.348929609407,
+        -1995.5726358366494,
+        -2511.482734940331
+      ],
+      "production_direct_gcrs_velocity_km_s": [
+        3.036288620742198,
+        -4.772905117246864,
+        -2.777517924719632
+      ],
+      "gmat_stk_earth_icrf_position_km": [
+        -8712.348929714815,
+        -1995.572635670863,
+        -2511.482734843835
+      ],
+      "gmat_stk_earth_icrf_velocity_km_s": [
+        3.036368455910824,
+        -4.772961610014071,
+        -2.778066285940054
+      ],
+      "gmat_minus_production_position_km": [
+        -1.0540861694607884e-07,
+        1.6578633221797645e-07,
+        9.649602361605503e-08
+      ],
+      "position_residual_norm_km": 2.1887797296778103e-07,
+      "gmat_minus_production_velocity_diagnostic_km_s": [
+        7.983516862619666e-05,
+        -5.6492767206428596e-05,
+        -0.0005483612204217891
+      ],
+      "velocity_residual_diagnostic_norm_km_s": 0.0005570144656637626,
+      "one_second_minus_half_second_position_km": [
+        -4.147295840084553e-07,
+        6.516120265587233e-07,
+        3.7923064155620523e-07
+      ],
+      "convergence_position_norm_km": 8.604735559579525e-07
+    },
+    {
+      "utc": "2000-06-27T20:20:00.000Z",
+      "gmat_reported_utc": "27 Jun 2000 20:20:00.000",
+      "utc_label_matches": true,
+      "production_direct_gcrs_position_km": [
+        -8256.998201825132,
+        -2637.2340715864866,
+        -2878.5477318422027
+      ],
+      "production_direct_gcrs_velocity_km_s": [
+        3.6285867087826773,
+        -4.610935731562222,
+        -2.588848670592597
+      ],
+      "gmat_stk_earth_icrf_position_km": [
+        -8256.998201825132,
+        -2637.234071586487,
+        -2878.547731842203
+      ],
+      "gmat_stk_earth_icrf_velocity_km_s": [
+        3.628674685055913,
+        -4.61100809023489,
+        -2.589279955772281
+      ],
+      "gmat_minus_production_position_km": [
+        0.0,
+        -4.547473508864641e-13,
+        -4.547473508864641e-13
+      ],
+      "position_residual_norm_km": 6.431098710768743e-13,
+      "gmat_minus_production_velocity_diagnostic_km_s": [
+        8.797627323575696e-05,
+        -7.235867266786045e-05,
+        -0.0004312851796841599
+      ],
+      "velocity_residual_diagnostic_norm_km_s": 0.0004460745547303783,
+      "one_second_minus_half_second_position_km": [
+        1.8189894035458565e-12,
+        0.0,
+        0.0
+      ],
+      "convergence_position_norm_km": 1.8189894035458565e-12
+    },
+    {
+      "utc": "2000-06-27T20:20:00.500Z",
+      "gmat_reported_utc": "27 Jun 2000 20:20:00.500",
+      "utc_label_matches": true,
+      "production_direct_gcrs_position_km": [
+        -8255.183323462923,
+        -2639.5394040286515,
+        -2879.8421835368554
+      ],
+      "production_direct_gcrs_velocity_km_s": [
+        3.630747502476879,
+        -4.610245027030032,
+        -2.5880935771351687
+      ],
+      "gmat_stk_earth_icrf_position_km": [
+        -8255.183323462888,
+        -2639.539404028685,
+        -2879.84218353688
+      ],
+      "gmat_stk_earth_icrf_velocity_km_s": [
+        3.630838175024818,
+        -4.610320822062124,
+        -2.588526330352931
+      ],
+      "gmat_minus_production_position_km": [
+        3.456079866737127e-11,
+        -3.3651303965598345e-11,
+        -2.4556356947869062e-11
+      ],
+      "position_residual_norm_km": 5.412830802512512e-11,
+      "gmat_minus_production_velocity_diagnostic_km_s": [
+        9.067254793881929e-05,
+        -7.579503209154126e-05,
+        -0.00043275321776237163
+      ],
+      "velocity_residual_diagnostic_norm_km_s": 0.00044859976072570735,
+      "one_second_minus_half_second_position_km": [
+        4.923440428683534e-07,
+        -6.255418156797532e-07,
+        -3.5126504371874034e-07
+      ],
+      "convergence_position_norm_km": 8.701105393285418e-07
+    },
+    {
+      "utc": "2000-06-27T20:30:00.000Z",
+      "gmat_reported_utc": "27 Jun 2000 20:30:00.000",
+      "utc_label_matches": true,
+      "production_direct_gcrs_position_km": [
+        -5327.397406142181,
+        -5041.918176945669,
+        -4087.800563069812
+      ],
+      "production_direct_gcrs_velocity_km_s": [
+        6.064665007034819,
+        -3.2027848105617522,
+        -1.3164228044247466
+      ],
+      "gmat_stk_earth_icrf_position_km": [
+        -5327.397404235922,
+        -5041.918177952381,
+        -4087.800563483575
+      ],
+      "gmat_stk_earth_icrf_velocity_km_s": [
+        6.064682047859041,
+        -3.20280851008495,
+        -1.316371612855941
+      ],
+      "gmat_minus_production_position_km": [
+        1.906259058159776e-06,
+        -1.0067114999401383e-06,
+        -4.1376279114047065e-07
+      ],
+      "position_residual_norm_km": 2.195106213434847e-06,
+      "gmat_minus_production_velocity_diagnostic_km_s": [
+        1.7040824221936646e-05,
+        -2.3699523197695527e-05,
+        5.119156880550868e-05
+      ],
+      "velocity_residual_diagnostic_norm_km_s": 5.892905740575001e-05,
+      "one_second_minus_half_second_position_km": [
+        -1.8189894035458565e-12,
+        0.0,
+        0.0
+      ],
+      "convergence_position_norm_km": 1.8189894035458565e-12
+    },
+    {
+      "utc": "2000-06-27T20:30:00.500Z",
+      "gmat_reported_utc": "27 Jun 2000 20:30:00.500",
+      "utc_label_matches": true,
+      "production_direct_gcrs_position_km": [
+        -5324.364617798633,
+        -5043.519156474121,
+        -4088.458404026317
+      ],
+      "production_direct_gcrs_velocity_km_s": [
+        6.066457374842685,
+        -3.2010874499010242,
+        -1.3150442488035878
+      ],
+      "gmat_stk_earth_icrf_position_km": [
+        -5324.364613984911,
+        -5043.519158486518,
+        -4088.458404852997
+      ],
+      "gmat_stk_earth_icrf_velocity_km_s": [
+        6.066473467508263,
+        -3.201110628009069,
+        -1.314992606734138
+      ],
+      "gmat_minus_production_position_km": [
+        3.8137222873046994e-06,
+        -2.0123970898566768e-06,
+        -8.266797522082925e-07
+      ],
+      "position_residual_norm_km": 4.390628559176849e-06,
+      "gmat_minus_production_velocity_diagnostic_km_s": [
+        1.6092665578781862e-05,
+        -2.317810804486342e-05,
+        5.164206944985317e-05
+      ],
+      "velocity_residual_diagnostic_norm_km_s": 5.884812584129873e-05,
+      "one_second_minus_half_second_position_km": [
+        -1.0054409358417615e-06,
+        5.30764737050049e-07,
+        2.1809091776958667e-07
+      ],
+      "convergence_position_norm_km": 1.1576641697727997e-06
+    },
+    {
+      "utc": "2000-06-27T20:33:08.777Z",
+      "gmat_reported_utc": "27 Jun 2000 20:33:08.777",
+      "utc_label_matches": true,
+      "production_direct_gcrs_position_km": [
+        -4121.666997478437,
+        -5581.872321196845,
+        -4284.785649279427
+      ],
+      "production_direct_gcrs_velocity_km_s": [
+        6.691996211004152,
+        -2.4955026802854263,
+        -0.758218268141718
+      ],
+      "gmat_stk_earth_icrf_position_km": [
+        -4121.666993588735,
+        -5581.872322647092,
+        -4284.785649719895
+      ],
+      "gmat_stk_earth_icrf_velocity_km_s": [
+        6.691911452437684,
+        -2.495474218953208,
+        -0.7580887961182458
+      ],
+      "gmat_minus_production_position_km": [
+        3.889702384185512e-06,
+        -1.4502466001431458e-06,
+        -4.4046828406862915e-07
+      ],
+      "position_residual_norm_km": 4.1745673006954346e-06,
+      "gmat_minus_production_velocity_diagnostic_km_s": [
+        -8.475856646850133e-05,
+        2.8461332218121527e-05,
+        0.00012947202347224351
+      ],
+      "velocity_residual_diagnostic_norm_km_s": 0.00015734378565238226,
+      "one_second_minus_half_second_position_km": [
+        3.5350240068510175e-08,
+        -1.360695023322478e-08,
+        -4.2891770135611296e-09
+      ],
+      "convergence_position_norm_km": 3.812067164944001e-08
+    },
+    {
+      "utc": "2000-06-27T20:39:59.500Z",
+      "gmat_reported_utc": "27 Jun 2000 20:39:59.500",
+      "utc_label_matches": true,
+      "production_direct_gcrs_position_km": [
+        -1165.8514283398922,
+        -6218.640986358757,
+        -4308.421180902699
+      ],
+      "production_direct_gcrs_velocity_km_s": [
+        7.56548064318963,
+        -0.5072044353955789,
+        0.690021088591493
+      ],
+      "gmat_stk_earth_icrf_position_km": [
+        -1165.851423584039,
+        -6218.640986677567,
+        -4308.421180468918
+      ],
+      "gmat_stk_earth_icrf_velocity_km_s": [
+        7.565090029070878,
+        -0.5071273631490868,
+        0.6900090793406893
+      ],
+      "gmat_minus_production_position_km": [
+        4.755853296956047e-06,
+        -3.188097252859734e-07,
+        4.337816790211946e-07
+      ],
+      "position_residual_norm_km": 4.786224688432321e-06,
+      "gmat_minus_production_velocity_diagnostic_km_s": [
+        -0.0003906141187526302,
+        7.707224649211586e-05,
+        -1.2009250803690641e-05
+      ],
+      "velocity_residual_diagnostic_norm_km_s": 0.0003983261767108726,
+      "one_second_minus_half_second_position_km": [
+        1.6197598142753122e-06,
+        -1.0821895557455719e-07,
+        1.4797842595726252e-07
+      ],
+      "convergence_position_norm_km": 1.6301014731714192e-06
+    },
+    {
+      "utc": "2000-06-27T20:40:00.000Z",
+      "gmat_reported_utc": "27 Jun 2000 20:40:00.000",
+      "utc_label_matches": true,
+      "production_direct_gcrs_position_km": [
+        -1162.0687548382866,
+        -6218.893859538271,
+        -4308.075697305529
+      ],
+      "production_direct_gcrs_velocity_km_s": [
+        7.565997407396026,
+        -0.5044424290590541,
+        0.6919381002753653
+      ],
+      "gmat_stk_earth_icrf_position_km": [
+        -1162.068747704192,
+        -6218.893860013869,
+        -4308.075696653067
+      ],
+      "gmat_stk_earth_icrf_velocity_km_s": [
+        7.565606080347592,
+        -0.5043653830202385,
+        0.6919255764766716
+      ],
+      "gmat_minus_production_position_km": [
+        7.1340946306008846e-06,
+        -4.7559842641931027e-07,
+        6.524614946101792e-07
+      ],
+      "position_residual_norm_km": 7.179638296149037e-06,
+      "gmat_minus_production_velocity_diagnostic_km_s": [
+        -0.0003913270484332543,
+        7.704603881564243e-05,
+        -1.2523798693653276e-05
+      ],
+      "velocity_residual_diagnostic_norm_km_s": 0.0003990360841658097,
+      "one_second_minus_half_second_position_km": [
+        -2.0463630789890885e-12,
+        9.094947017729282e-13,
+        -9.094947017729282e-13
+      ],
+      "convergence_position_norm_km": 2.4170153239389606e-12
+    }
+  ]
+}

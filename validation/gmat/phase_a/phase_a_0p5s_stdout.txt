@@ -1,0 +1,67 @@
+
+********************************************
+***  GMAT Console Application
+********************************************
+
+General Mission Analysis Tool
+Console Based Version
+Build Date: Mar 26 2026  15:02:55
+
+
+Moderator is updating data files...
+Moderator is creating core engine...
+*** Library "..\plugins\libPythonInterface_py312" did not open.
+*** Library "..\plugins\libMatlabInterface" did not open.
+*** Library "..\plugins\libFminconOptimizer" did not open.
+Successfully set Planetary Source to use: DE405
+Successfully set Planetary Source to use: DE405
+Successfully set Planetary Source to use: DE405
+Setting nutation file to C:\Users\Cyrus\Applications\GMAT\R2026a\bin\..\data\planetary_coeff\NUTATION.DAT
+Setting leap seconds file to C:\Users\Cyrus\Applications\GMAT\R2026a\bin\..\data\time\tai-utc.dat
+2026-10-23 00:30:57 GMAT Moderator successfully created core engine
+
+Interpreting scripts from the file.
+***** file: C:\Users\Cyrus\Documents\ChatGPT\P1 - Spacecraft Mission Analysis Tool\validation\gmat\phase_a\phase_a_0p5s.script
+Successfully set Planetary Source to use: DE405
+Successfully set Planetary Source to use: DE405
+Successfully interpreted the script
+.................... Print out the whole sequence ........................................
+   Command::NoOp
+   Command::BeginMissionSequence
+   Command::CallBuiltinGmatFunction
+   Command::GMAT
+   Command::Propagate
+   Command::FindEvents
+.................... End sequence ........................................................
+Running mission...
+Successfully set Planetary Source to use: DE405
+Successfully set Planetary Source to use: DE405
+Kernel C:/Users/Cyrus/Applications/GMAT/R2026a/bin/../data/planetary_ephem/spk/DE405AllPlanets.bsp has been loaded.
+Kernel C:/Users/Cyrus/Applications/GMAT/R2026a/data/planetary_coeff/SPICEPlanetaryConstantsKernel.tpc has been loaded.
+Kernel C:\Users\Cyrus\Applications\GMAT\R2026a\bin\..\data\time\SPICELeapSecondKernel.tls has been loaded.
+Kernel C:\Users\Cyrus\Applications\GMAT\R2026a\bin\..\data\planetary_coeff\SPICEEarthPredictedKernel.bpc has been loaded.
+Kernel C:\Users\Cyrus\Applications\GMAT\R2026a\bin\..\data\planetary_coeff\SPICEEarthCurrentKernel.bpc has been loaded.
+Kernel C:\Users\Cyrus\Applications\GMAT\R2026a\bin\..\data\planetary_coeff\earth_latest_high_prec.bpc has been loaded.
+Kernel C:\Users\Cyrus\Applications\GMAT\R2026a\bin\..\data\planetary_coeff\SPICELunaCurrentKernel.bpc has been loaded.
+Kernel C:\Users\Cyrus\Applications\GMAT\R2026a\bin\..\data\planetary_coeff\SPICELunaFrameKernel.tf has been loaded.
+Kernel C:\Users\Cyrus\AppData\Local\Temp\tmp_Greenwich_1792711857_1768682719286.bsp has been loaded.
+Kernel C:\Users\Cyrus\AppData\Local\Temp\tmp_Greenwich_1792711857_1768682750386.tf has been loaded.
+Kernel C:\Users\Cyrus\AppData\Local\Temp\tmp_OneNorthOneEast_1792711857_1768682782595.bsp has been loaded.
+Kernel C:\Users\Cyrus\AppData\Local\Temp\tmp_OneNorthOneEast_1792711857_1768682815465.tf has been loaded.
+Kernel C:\Users\Cyrus\AppData\Local\Temp\tmp_ImportedVanguardSCLK_1792711857_1768682710751.tsc has been loaded.
+Kernel C:\Users\Cyrus\AppData\Local\Temp\tmp_ImportedVanguardSCLK_1792711857_1768682710751.tsc has been loaded.
+Kernel C:\Users\Cyrus\AppData\Local\Temp\tmp_ImportedVanguardSCLK_1792711857_1768682710751.tsc has been loaded.
+Kernel C:\Users\Cyrus\AppData\Local\Temp\tmp_ImportedVanguard_1792711857_1768682682381.bsp has been loaded.
+Kernel C:\Users\Cyrus\AppData\Local\Temp\tmp_ImportedVanguard_1792711857_1768682702142.bc has been loaded.
+Finding events for ContactLocator VanguardContacts ...
+Celestial body properties are provided by SPICE kernels.
+
+Mission run completed.
+===> Total Run Time: 0.553 seconds
+
+========================================
+
+
+*** GMAT Integration test (Console version) successful! ***
+
+Moderator is deleting core engine...

@@ -1,0 +1,69 @@
+{
+  "stage": "observations frozen before deliberate time-label shifts",
+  "original_import": {
+    "scenario_epoch_line": "ScenarioEpoch 27 Jun 2000 19:59:00.",
+    "coordinate_system": "Fixed",
+    "sample_interval_s": 1,
+    "point_count": 121,
+    "center_offset_s": 60,
+    "GMAT_minus_production_position_km": [
+      0.5981200633241315,
+      0.42575820232559636,
+      3.0581031751353294e-07
+    ]
+  },
+  "rotation": {
+    "xy_radius_km": 10068.109486666352,
+    "xy_residual_km": 0.7341782188259105,
+    "best_fit_z_angle_rad": 7.29211596240645e-05,
+    "equivalent_sidereal_seconds": 1.0000001319790555,
+    "post_fit_residual_km": [
+      -1.4507349987979978e-08,
+      2.037813828792423e-08,
+      3.0581031751353294e-07
+    ],
+    "z_residual_km": 3.0581031751353294e-07
+  },
+  "time_trace": {
+    "comparison_utc": "27 Jun 2000 20:00:00.000",
+    "comparison_tai": "27 Jun 2000 20:00:32.000",
+    "comparison_a1_modjulian": 21723.33370410164,
+    "comparison_elapsed_s": 0,
+    "file_initial_utc": "27 Jun 2000 19:59:00.000",
+    "file_initial_tai": "27 Jun 2000 19:59:32.000"
+  },
+  "gmat_eop": {
+    "source": "GMAT startup EOP_FILE; Earth.EopFileName not overridden in diagnostic script",
+    "path": "C:\\Users\\Cyrus\\Applications\\GMAT\\R2026a\\data\\planetary_coeff\\eopc04_08.62-now",
+    "sha256": "eddd4bf62178dad0ff0a5cb500e639a85a2bd54ff507708dbdac7184e2e7159c",
+    "mjd51722": {
+      "mjd": 51722,
+      "xp_arcsec": 0.109043,
+      "yp_arcsec": 0.285471,
+      "ut1_minus_utc_s": 0.2053382
+    },
+    "mjd51723": {
+      "mjd": 51723,
+      "xp_arcsec": 0.10961,
+      "yp_arcsec": 0.284156,
+      "ut1_minus_utc_s": 0.2048634
+    },
+    "linear_at_2000_06_27_20_utc": {
+      "xp_arcsec": 0.1095155,
+      "yp_arcsec": 0.2843751666666667,
+      "ut1_minus_utc_s": 0.20494253333333334
+    },
+    "interpolation_note": "linear estimate from daily rows; internal GMAT interpolation not directly exposed"
+  },
+  "production_eop": {
+    "source": "examples/vanguard_run/test_only_eop.json",
+    "ut1_minus_utc_s": 0,
+    "xp_arcsec": 0,
+    "yp_arcsec": 0
+  },
+  "leap_seconds": {
+    "gmat_file": "C:\\Users\\Cyrus\\Applications\\GMAT\\R2026a\\data\\time\\tai-utc.dat",
+    "utc_tai_offset_s": 32,
+    "confirmed_by_gmat_trace": true
+  }
+}

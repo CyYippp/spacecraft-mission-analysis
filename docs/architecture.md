@@ -94,3 +94,12 @@ required-EOP failure discards any partial station windows and leaves access and
 coverage unavailable. `output.py` serializes the result as schema 1.1 JSON or
 a six-file CSV bundle, without changing the physical calculations. See the
 [run schema](run-schema-v1.md) for field and failed-run semantics.
+
+`cli.py` is the command boundary and publishes `run.json`, `report.html` and
+the six CSVs as a staged, no-overwrite bundle. The optional `dashboard.py`
+binds a browser UI to `127.0.0.1`, accepts the path to an existing versioned
+configuration, then calls the same loader, `run_analysis()` and CLI publication
+function. It adds no scientific parameters or calculations. A session-specific
+URL limits local requests; each run gets a unique output folder. The dashboard
+reads the saved JSON for its small status summary and serves the saved HTML
+report and evidence files from that folder.

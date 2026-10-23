@@ -69,7 +69,35 @@ different working directory. See the [input contract](docs/input-schema-v1.md)
 and [run/output contract](docs/run-schema-v1.md) for scientific input and output
 details.
 
+## Local run dashboard (proposed)
+
+The optional browser dashboard runs the same versioned configuration and
+publishes the same `run.json`, six CSV files and `report.html` as the command
+above. From the repository root, after installation, start it with:
+
+```text
+spacecraft-mission-analysis-dashboard --config examples/vanguard_run/config.json
+```
+
+The browser opens to a local address. Press **Run analysis** to execute the
+filled-in Vanguard example and show its report, status, notices and evidence
+links. To use another scenario, enter the path to its existing input-schema 1.1
+JSON file. The dashboard does not edit scientific inputs or add calculation
+options; an explicit Earth-orientation table is still resolved relative to that
+configuration file. The Vanguard table is test-only. For Windows checkouts,
+`start-dashboard.cmd` opens the same local dashboard after dependencies have
+been installed. Close its terminal window or press `Ctrl+C` to stop the server.
+
+The service binds only to `127.0.0.1`, uses a session-specific URL, and saves
+each run in a new folder under `outputs/dashboard-runs/` by default. Recent runs
+can be reopened in the dashboard. No cloud service, account, external web asset
+or internet fetch is needed for the archived example. The generated report
+remains a standalone file that can be opened without the dashboard.
+
+## Python API and evidence
+
 The [Python API](src/spacecraft_mission_analysis/__init__.py) remains available.
+
 An equivalent programmatic call using the canonical
 [archived config](examples/vanguard_run/config.json) is:
 

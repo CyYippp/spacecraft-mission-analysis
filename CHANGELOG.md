@@ -1,5 +1,13 @@
 # Changelog
 
+## Unreleased — local analysis dashboard
+
+- Added a loopback-only browser workbench with a Run analysis button. It uses
+  the existing versioned configuration, scientific runner and staged output
+  publication, then displays the saved HTML report and JSON/CSV evidence.
+- Saved runs receive unique folders and can be reopened without changing the
+  v0.1.1 scientific calculations or schema 1.1 artifacts.
+
 ## 0.1.1 — pending release
 
 - Added an automatically generated, self-contained `report.html` with UTC

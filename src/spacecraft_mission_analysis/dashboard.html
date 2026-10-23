@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Mission analysis workbench</title>
+  <style>
+    :root{color-scheme:light;font-family:system-ui,-apple-system,Segoe UI,sans-serif;color:#183a50;background:#edf2f3}
+    *{box-sizing:border-box}body{margin:0}main{max-width:1300px;min-height:100vh;margin:auto;padding:26px 32px 48px;background:#fff;border-top:5px solid #183a50;box-shadow:0 2px 22px #183a5012}
+    header{display:flex;justify-content:space-between;gap:30px;align-items:start;border-bottom:1px solid #ccd9dc;padding-bottom:18px}.eyebrow{text-transform:uppercase;letter-spacing:.11em;font-size:.7rem;font-weight:800;color:#167d6d;margin:0 0 8px}h1{font-size:1.75rem;letter-spacing:-.03em;margin:0 0 4px}h2{font-size:1.08rem;margin:0 0 8px}p{line-height:1.5}.subtitle{color:#526777;margin:0}.local{font-size:.75rem;font-weight:700;color:#176254;background:#e2f1ed;padding:5px 9px;border-radius:3px;white-space:nowrap}
+    .intro{display:grid;grid-template-columns:1fr 1fr;gap:26px;padding:20px 0;border-bottom:1px solid #d8e3e5}.intro p{font-size:.86rem;color:#40596a;margin:0}.controls{padding:23px 0;border-bottom:1px solid #d8e3e5}.run-row{display:flex;gap:15px;align-items:center}.run-row p{font-size:.8rem;color:#526777;margin:0}.configuration{margin-top:14px}.configuration summary{color:#176879;font-size:.8rem;font-weight:700;cursor:pointer}.field{margin-top:12px}label{display:block;font-size:.75rem;font-weight:700;margin-bottom:7px;color:#40596a}input{width:100%;height:41px;border:1px solid #bacbd0;border-radius:3px;padding:8px 10px;font:inherit;font-size:.84rem;color:#183a50;background:#fff}input:focus{outline:2px solid #16836f;outline-offset:1px}button{height:41px;border:0;border-radius:3px;background:#167d6d;color:#fff;padding:0 21px;font:inherit;font-size:.85rem;font-weight:750;cursor:pointer;white-space:nowrap}button:hover{background:#116557}button:disabled{opacity:.6;cursor:wait}.hint{font-size:.77rem;color:#526777;margin:8px 0 0}.status{min-height:24px;margin:13px 0 0;font-size:.84rem;color:#40596a}.status.error{color:#9b3428}.status.busy{color:#176254}
+    .workspace{display:grid;grid-template-columns:minmax(0,1fr) 225px;gap:25px;padding:22px 0}.result{min-width:0}.result-head{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:baseline;gap:8px 18px;margin-bottom:11px}.result-head p{font-size:.78rem;color:#526777;margin:0}.metrics{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:9px;margin-bottom:13px}.metric{border-top:2px solid #b6cace;padding:6px 2px;color:#526777;font-size:.74rem}.metric strong{display:block;color:#183a50;font-size:1.12rem;font-variant-numeric:tabular-nums}.state-success{color:#176254!important}.state-warning{color:#845700!important}.state-failed{color:#a0352a!important}.actions{display:flex;flex-wrap:wrap;gap:7px 16px;margin:0 0 13px;font-size:.8rem}a{color:#176879;text-underline-offset:2px}.report-frame{display:block;width:100%;height:1120px;border:1px solid #d0dde0;background:#fff}.empty{border:1px dashed #bacbd0;padding:30px 20px;color:#526777;font-size:.86rem}.runs{border-left:1px solid #d8e3e5;padding-left:20px}.runs p{color:#526777;font-size:.76rem;margin:0 0 10px}.runs ol{list-style:none;margin:0;padding:0}.runs button{display:block;width:100%;height:auto;text-align:left;background:#f1f6f6;color:#183a50;border:1px solid #d8e3e5;border-radius:3px;padding:9px;margin-bottom:8px;white-space:normal;font-size:.73rem}.runs button:hover,.runs button[aria-current="true"]{border-color:#16836f;background:#e9f4f1}.runs small{display:block;color:#526777;font-size:.69rem;margin-top:3px}footer{border-top:1px solid #d8e3e5;padding-top:12px;color:#526777;font-size:.76rem}.output-path{overflow-wrap:anywhere}
+    @media(max-width:850px){main{padding:20px 18px 35px}.workspace{grid-template-columns:1fr}.runs{border-left:0;border-top:1px solid #d8e3e5;padding:16px 0 0}.runs ol{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:8px}.runs button{margin:0}.report-frame{height:900px}}
+    @media(max-width:600px){header{display:block}.local{display:inline-block;margin-top:10px}.intro{grid-template-columns:1fr;gap:14px}.run-row{display:block}.run-row p{margin-top:9px}button[type="submit"]{width:100%}.metrics{grid-template-columns:repeat(2,1fr)}.report-frame{height:760px}}
+  </style>
+</head>
+<body>
+<main>
+  <header><div><p class="eyebrow">Mission analysis / local workbench</p><h1>Run and review an analysis</h1><p class="subtitle">One configuration file produces a recorded result, evidence files, and the engineering report.</p></div><span class="local">LOCAL · 127.0.0.1</span></header>
+  <section class="intro" aria-label="Purpose and limits"><div><h2>What this runs</h2><p>The existing archived-TLE workflow calculates geometric access for fixed stations over the UTC interval in your configuration. Each run gets its own evidence folder.</p></div><div><h2>Engineering use</h2><p>Use the results to examine early station and data-handling trades. These model outputs are not measured passes or operational predictions; current inputs and separate validation are needed for operations.</p></div></section>
+  <section class="controls" aria-label="Run controls"><h2>Run analysis</h2><form id="run-form"><div class="run-row"><button id="run-button" type="submit">Run analysis</button><p>Runs the selected configuration and opens its saved report below.</p></div><details id="configuration" class="configuration"><summary>Configuration file · view or change</summary><div class="field"><label for="config-path">Configuration JSON file on this computer</label><input id="config-path" name="config_path" value="{{CONFIG_PATH}}" spellcheck="false" required></div><p class="hint">The Vanguard example is filled in when available and uses a test-only Earth-orientation table. For another scenario, enter its existing configuration path; relative Earth-orientation files remain relative to that file.</p></details></form><p id="run-status" class="status" role="status" aria-live="polite"></p></section>
+  <div class="workspace"><section class="result" aria-label="Selected result"><div class="result-head"><h2>Analysis result</h2><p id="run-id">Choose a saved run or press Run analysis.</p></div><div id="result-content" class="empty">The completed engineering report and machine-readable evidence will appear here.</div></section><aside class="runs"><h2>Recent runs</h2><p>Saved on this computer. Select a run to reopen its report.</p><ol id="recent-runs"></ol></aside></div>
+  <footer>Runs are never overwritten. Evidence folder: <span class="output-path">{{OUTPUT_ROOT}}</span>. Stop the local server with Ctrl+C.</footer>
+</main>
+<script>
+  const form=document.getElementById('run-form');
+  const statusLine=document.getElementById('run-status');
+  const content=document.getElementById('result-content');
+  const recent=document.getElementById('recent-runs');
+  let selectedId=null;
+  if(!document.getElementById('config-path').value)document.getElementById('configuration').open=true;
+  function displayId(id){const match=/^(\d{4})(\d{2})(\d{2})T(\d{2})(\d{2})(\d{2})Z-(.+)$/.exec(id);return match?`${match[1]}-${match[2]}-${match[3]} ${match[4]}:${match[5]}:${match[6]} UTC · ${match[7]}`:id;}
+  function link(label,href){const a=document.createElement('a');a.textContent=label;a.href=href;a.target='_blank';a.rel='noopener';return a;}
+  function showRun(run){
+    selectedId=run.id;
+    document.getElementById('run-id').textContent=displayId(run.id);
+    content.className='';content.replaceChildren();
+    const metrics=document.createElement('div');metrics.className='metrics';
+    const values=[['Status',run.status],['Station windows',String(run.window_count)],['Temporal coverage',run.coverage_fraction===null?'Unavailable':(run.coverage_fraction*100).toFixed(2)+'%'],['Notices',String(run.notice_count)]];
+    for(const [name,value] of values){const item=document.createElement('div');item.className='metric';const label=document.createElement('span');label.textContent=name;const strong=document.createElement('strong');strong.textContent=value;if(name==='Status'){strong.className=run.status==='FAILED'?'state-failed':run.status==='SUCCESS_WITH_WARNINGS'?'state-warning':'state-success';}item.append(label,strong);metrics.append(item);}
+    const actions=document.createElement('div');actions.className='actions';const base='runs/'+encodeURIComponent(run.id)+'/';
+    actions.append(link('Open full report',base+'report.html'),link('Exact JSON',base+'run.json'));
+    for(const name of ['run','stations','access_windows','coverage','union_intervals','warnings'])actions.append(link(name.replace('_',' ')+' CSV',base+'csv/'+name+'.csv'));
+    const frame=document.createElement('iframe');frame.className='report-frame';frame.title='Engineering analysis report';frame.src=base+'report.html';frame.setAttribute('sandbox','allow-downloads allow-same-origin');
+    frame.addEventListener('load',()=>{const documentHeight=frame.contentDocument?.documentElement.scrollHeight;if(documentHeight)frame.style.height=(documentHeight+4)+'px';});
+    content.append(metrics,actions,frame);
+    for(const button of recent.querySelectorAll('button'))button.setAttribute('aria-current',String(button.dataset.id===run.id));
+  }
+  async function loadRuns(focusId){
+    const response=await fetch('api/runs');if(!response.ok)throw Error('Could not load saved runs.');
+    const runs=await response.json();recent.replaceChildren();
+    for(const run of runs){const li=document.createElement('li');const button=document.createElement('button');button.type='button';button.dataset.id=run.id;button.textContent=displayId(run.id);const small=document.createElement('small');small.textContent=run.status+' · '+run.window_count+' station windows';button.append(small);button.addEventListener('click',()=>showRun(run));li.append(button);recent.append(li);}
+    const target=runs.find(run=>run.id===focusId)||runs.find(run=>run.id===selectedId)||runs[0];if(target)showRun(target);
+  }
+  form.addEventListener('submit',async event=>{
+    event.preventDefault();const button=document.getElementById('run-button');button.disabled=true;statusLine.className='status busy';statusLine.textContent='Running the analysis and saving its evidence…';
+    try{const response=await fetch('api/run',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({config_path:document.getElementById('config-path').value})});const result=await response.json();if(!response.ok)throw Error(result.error||'The run could not be completed.');await loadRuns(result.id);statusLine.className='status';statusLine.textContent='Run saved. Review the report and notices below.';}
+    catch(error){statusLine.className='status error';statusLine.textContent=error.message||'The run could not be completed.';}
+    finally{button.disabled=false;}
+  });
+  loadRuns().catch(error=>{statusLine.className='status error';statusLine.textContent=error.message;});
+</script>
+</body>
+</html>

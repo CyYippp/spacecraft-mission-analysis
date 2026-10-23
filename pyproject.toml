@@ -16,6 +16,7 @@ dependencies = [
 
 [project.scripts]
 spacecraft-mission-analysis = "spacecraft_mission_analysis.cli:main"
+spacecraft-mission-analysis-dashboard = "spacecraft_mission_analysis.dashboard:main"
 
 [project.optional-dependencies]
 test = ["pytest==9.1.1"]
@@ -24,6 +25,9 @@ validation = ["skyfield==1.55"]
 
 [tool.setuptools.packages.find]
 where = ["src"]
+
+[tool.setuptools.package-data]
+spacecraft_mission_analysis = ["dashboard.html"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]

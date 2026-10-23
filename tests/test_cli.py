@@ -75,9 +75,13 @@ def _assert_archived_science(actual: dict) -> None:
 def test_canonical_cli_run_writes_complete_archived_result(tmp_path: Path, capsys) -> None:
     output = tmp_path / "result"
     assert cli.main([str(CONFIG), "--output-dir", str(output)]) == 0
-    assert {item.name for item in output.iterdir()} == {"run.json", "csv"}
+    assert {item.name for item in output.iterdir()} == {"run.json", "report.html", "csv"}
     assert {item.name for item in (output / "csv").iterdir()} == CSV_NAMES
     _assert_archived_science(json.loads((output / "run.json").read_text(encoding="utf-8")))
+    report = (output / "report.html").read_text(encoding="utf-8")
+    assert "Access timeline" in report
+    assert "51.22%" in report
+    assert "Geometric station access" in report
     stdout = capsys.readouterr().out
     for item in (
         "status=SUCCESS",
@@ -185,6 +189,10 @@ def test_scientific_failure_writes_structured_result_and_returns_three(
     assert data["coverage"] is data["station_access"] is None
     assert data["notices"][-1]["code"] == "EOP_UNAVAILABLE"
     assert {item.name for item in (output / "csv").iterdir()} == CSV_NAMES
+    report = (output / "report.html").read_text(encoding="utf-8")
+    assert "No access or coverage results were produced" in report
+    assert "EOP_UNAVAILABLE" in report
+    assert "<svg" not in report
     assert "EOP_UNAVAILABLE:" in capsys.readouterr().err
 
 
@@ -197,7 +205,19 @@ def test_existing_artifact_is_untouched_and_no_bundle_is_published(tmp_path: Pat
     assert conflict.read_bytes() == b"existing evidence\n"
     assert {item.name for item in (output / "csv").iterdir()} == {"run.csv"}
     assert not (output / "run.json").exists()
+    assert not (output / "report.html").exists()
     assert str(conflict) in capsys.readouterr().err
+
+
+def test_existing_report_is_untouched_and_blocks_bundle(tmp_path: Path, capsys) -> None:
+    output = tmp_path / "result"
+    output.mkdir()
+    report = output / "report.html"
+    report.write_bytes(b"existing report\n")
+    assert cli.main([str(CONFIG), "--output-dir", str(output)]) == 4
+    assert report.read_bytes() == b"existing report\n"
+    assert not (output / "run.json").exists()
+    assert "report.html" in capsys.readouterr().err
 
 
 def test_missing_config_returns_two_without_output(tmp_path: Path, capsys) -> None:
@@ -225,6 +245,7 @@ def test_output_write_failure_leaves_no_analysis_artifacts(
     output = tmp_path / "result"
     assert cli.main([str(CONFIG), "--output-dir", str(output)]) == 4
     assert not (output / "run.json").exists()
+    assert not (output / "report.html").exists()
     assert not list((output / "csv").iterdir())
     assert "simulated storage failure" in capsys.readouterr().err
 
@@ -244,6 +265,7 @@ def test_publication_failure_rolls_back_new_artifacts(tmp_path: Path, monkeypatc
     output = tmp_path / "result"
     assert cli.main([str(CONFIG), "--output-dir", str(output)]) == 4
     assert not (output / "run.json").exists()
+    assert not (output / "report.html").exists()
     assert not list((output / "csv").iterdir())
 
 
@@ -279,3 +301,4 @@ def test_installed_console_script_runs_from_another_working_directory(tmp_path: 
     assert "status=SUCCESS" in completed.stdout
     _assert_archived_science(json.loads((output / "run.json").read_text(encoding="utf-8")))
     assert {item.name for item in (output / "csv").iterdir()} == CSV_NAMES
+    assert (output / "report.html").is_file()

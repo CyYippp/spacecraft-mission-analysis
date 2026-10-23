@@ -8,6 +8,7 @@ from tempfile import TemporaryDirectory
 
 from .input import InputConfigError, load_analysis_config
 from .output import csv_bundle, write_csv_bundle, write_json
+from .report import write_html
 from .run import AnalysisResult, RunStatus, run_analysis
 
 
@@ -22,7 +23,11 @@ def _write_outputs(result: AnalysisResult, output_dir: Path) -> None:
     csv_dir = output_dir / "csv"
     if csv_dir.is_symlink() or (csv_dir.exists() and not csv_dir.is_dir()):
         raise OSError(f"output path is not a directory: {csv_dir}")
-    targets = (output_dir / "run.json", *(csv_dir / name for name in csv_names))
+    targets = (
+        output_dir / "run.json",
+        output_dir / "report.html",
+        *(csv_dir / name for name in csv_names),
+    )
     for target in targets:
         if target.exists() or target.is_symlink():
             raise FileExistsError(f"output artifact already exists: {target}")
@@ -31,8 +36,13 @@ def _write_outputs(result: AnalysisResult, output_dir: Path) -> None:
     with TemporaryDirectory(prefix=".analysis-", dir=output_dir) as temporary:
         staged = Path(temporary)
         write_json(result, staged / "run.json")
+        write_html(result, staged / "report.html")
         write_csv_bundle(result, staged / "csv")
-        sources = (staged / "run.json", *(staged / "csv" / name for name in csv_names))
+        sources = (
+            staged / "run.json",
+            staged / "report.html",
+            *(staged / "csv" / name for name in csv_names),
+        )
         published: list[Path] = []
         try:
             for source, target in zip(sources, targets):

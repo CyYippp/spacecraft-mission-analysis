@@ -2,6 +2,11 @@
 
 ## Unreleased
 
+- Added an automatically generated, self-contained `report.html` with UTC
+  access and duration plots, pass/coverage tables, notices and provenance. It
+  renders existing run results without changing scientific calculations or the
+  versioned JSON/CSV schema, and participates in no-overwrite publication.
+
 ## 0.1.0 — 2026-10-23
 
 - Closed MA-02 with immutable signed SGP4 minutes since the TLE epoch on TEME

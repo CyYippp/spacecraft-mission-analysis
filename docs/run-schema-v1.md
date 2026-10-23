@@ -68,6 +68,23 @@ Every run exports the same six files:
 - `warnings.csv`: one row per notice. `details_json` contains its stable
   machine-readable context as compact sorted-key JSON.
 
+## Human-readable report (unreleased)
+
+The installed command also writes `report.html` beside `run.json`. This is a
+self-contained, offline presentation of the same `AnalysisResult`: an access
+timeline, recorded-window duration comparison, station pass table, combined intervals,
+configuration/provenance and notices. The timeline is based on refined event
+times recorded in the result; it does not interpolate an elevation curve or
+calculate a new orbit product. Plot axes use UTC, tables declare units, and
+rounded display values point back to `run.json` for full precision. Failed
+runs show their error notices and omit access plots; successful no-pass runs
+show zero coverage. The report makes no operational or physical-accuracy claim.
+
+The JSON schema remains 1.1 and the six CSV files retain their existing names
+and contents. `report.html` joins the staged, no-overwrite output bundle, so
+publication failures roll back newly written artifacts. The archived v0.1.0
+example is still the scientific baseline and does not contain an HTML report.
+
 The [archived example](../examples/vanguard_run/) contains the versioned input
 config, its explicitly selected test-only EOP fixture, canonical JSON and full
 CSV bundle. The [verification record](verification.md)

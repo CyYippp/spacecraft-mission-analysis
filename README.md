@@ -20,7 +20,7 @@ archived TLE → WGS72 SGP4 → TEME → ITRS → station-relative ITRS
              → ENU → geometric azimuth/elevation/range
              → elevation threshold → access entry/exit, duration and peak
              → temporal station coverage union, fraction and no-access gap
-             → versioned run result → JSON / CSV bundle
+             → versioned run result → JSON / CSV bundle + HTML report
 ```
 
 The orbit, frame, station, look-angle and access boundaries have component
@@ -33,6 +33,8 @@ for the disposition of each MA requirement.
 The planned scope is one spacecraft per analysis, archived TLEs, fixed WGS84
 stations, geometric visibility and temporal station coverage.
 Versioned JSON/CSV results and structured validity warnings are implemented.
+The unreleased code also adds a self-contained HTML report. The `v0.1.0` tag
+remains the released JSON/CSV baseline.
 GMAT [same-trajectory event comparison](validation/gmat/phase_a/README.md)
 and [independent cross-model numerical propagation diagnostic](validation/gmat/phase_b/README.md)
 are complete; independent same-model SGP4 accuracy and physical pass-time
@@ -53,10 +55,14 @@ python -m pip install .
 spacecraft-mission-analysis examples/vanguard_run/config.json --output-dir output/vanguard
 ```
 
-The command prints a concise status and writes `output/vanguard/run.json` and
-the six CSV files under `output/vanguard/csv/`. It refuses to overwrite any
-existing analysis artifact. The archived config selects its own test-only EOP
-table relative to the config file, including when the command is run from a
+The command prints a concise status and writes `output/vanguard/run.json`,
+`output/vanguard/report.html` and six CSV files under `output/vanguard/csv/`.
+Open `report.html` in a browser for access-window and recorded-duration plots, a pass
+table, coverage metrics, notices and provenance. The report draws only recorded
+result intervals; it does not infer an orbit track or measured pass. It is
+self-contained and needs no Excel or network access. The command refuses to
+overwrite any existing analysis artifact. The archived config selects its own
+test-only EOP table relative to the config file, including when run from a
 different working directory. See the [input contract](docs/input-schema-v1.md)
 and [run/output contract](docs/run-schema-v1.md) for scientific input and output
 details.

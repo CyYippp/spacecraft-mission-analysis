@@ -129,7 +129,7 @@ warnings. Output membership was `run.json` plus `access_windows.csv`,
 `coverage.csv`, `run.csv`, `stations.csv`, `union_intervals.csv` and
 `warnings.csv` under `csv/`.
 
-The [PR #10 comparison rule](../tests/test_input.py) checks all stable JSON
+The [PR #10 comparison rule](../tests/test_run.py) checks all stable JSON
 bytes and five CSV files exactly, checks access-window CSV nonpeak fields
 exactly, and permits only optimizer peak time/elevation under their frozen
 `0.02 s`/`1e-5 deg` limits. This rerun passed those rules: maximum peak-time

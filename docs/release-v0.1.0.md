@@ -112,15 +112,15 @@ orbit-truth product.
 On Windows `Windows-10-10.0.26200-SP0`, a new external Python `3.11.9`
 virtual environment received a **non-editable** `python -m pip install
 "C:\Users\Cyrus\Documents\ChatGPT\P1 - Spacecraft Mission Analysis Tool"`
-from committed candidate `5c8a8f353f178389f175f26ca3db217c8186b303`. Installed versions:
+from committed candidate `4cfc1b4d9bd2f43b3b3af79e15956530fb319230`. Installed versions:
 `spacecraft-mission-analysis==0.1.0`, `sgp4==2.27`, `astropy==7.2.1`,
-`scipy==1.17.1`; `pip check` passed. The only later candidate amendment
-records this rerun in documentation.
+`scipy==1.17.1`; `pip check` passed. A separate later commit records only
+this evidence update.
 
 From outside the repository, the exact invocation was:
 
 ```powershell
-& 'C:\Users\Cyrus\AppData\Local\Temp\p1-release-v010-bbc71657400344138c8d9ed6a340fc62\Scripts\spacecraft-mission-analysis.exe' 'C:\Users\Cyrus\Documents\ChatGPT\P1 - Spacecraft Mission Analysis Tool\examples\vanguard_run\config.json' --output-dir 'C:\Users\Cyrus\AppData\Local\Temp\p1-release-v010-bbc71657400344138c8d9ed6a340fc62\fresh-output'
+& 'C:\Users\Cyrus\AppData\Local\Temp\p1-release-v010-final-f471e333e2cb411c82dd168724f48b33\Scripts\spacecraft-mission-analysis.exe' 'C:\Users\Cyrus\Documents\ChatGPT\P1 - Spacecraft Mission Analysis Tool\examples\vanguard_run\config.json' --output-dir 'C:\Users\Cyrus\AppData\Local\Temp\p1-release-v010-final-f471e333e2cb411c82dd168724f48b33\fresh-output'
 ```
 
 Exit code **0**; the concise result was `SUCCESS`, two stations, two station

@@ -1,0 +1,2 @@
+Vanguard.UTCGregorian     Vanguard.EarthICRF.X      Vanguard.EarthICRF.Y      Vanguard.EarthICRF.Z      Vanguard.EarthICRF.VX     Vanguard.EarthICRF.VY     Vanguard.EarthICRF.VZ     
+27 Jun 2000 20:00:00.000   -9557.2684337569535       3166.2383747281901        823.86327553545584        -1.3289096210919524       -4.5449373123392443       -3.2162795468301506       

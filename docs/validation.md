@@ -261,9 +261,103 @@ The five Skyfield culmination elevations were `34.595140988°`,
 in chronological order. The **overall Phase B disposition is PASS** for the
 frozen downstream numerical agreement criteria. This does not establish the
 real spacecraft's pass times, physical angular accuracy, independent SGP4
-accuracy, or operational navigation performance. GMAT comparison, physical
-orbit-prediction accuracy, and temporal coverage remain future work.
+accuracy, or operational navigation performance. At the time of the
+Skyfield hold-out, GMAT comparison and physical orbit-prediction accuracy
+remained future work; bounded GMAT Phase A evidence is recorded below.
 
 Earlier matched split-UT1 Vallado frame verification and its documented
 direct printed-vector x-position overrun of 3.17 mm remain unchanged; see
 [verification](verification.md).
+
+## GMAT R2026a same-trajectory event comparison — Phase A PASS
+
+This is an independent **event-location implementation** using GMAT's
+SPICE-based ContactLocator on a production-generated STK ICRF trajectory.
+It is not independent SGP4 propagation evidence or an orbital-truth test.
+The original STK `Fixed` transfer failed its same-state gate. The first ICRF
+sample gate also remains formally failed under its frozen position-and-
+velocity criteria. Installed R2026a documentation then established that
+STK-propagated velocity is derived from the position-interpolation
+polynomial, rather than guaranteed to reproduce supplied TimePosVel
+velocities. [Decision 0004](decisions/0004-gmat-stk-position-transfer-gate.md)
+preserved that failure and froze corrected continuous-time position tests.
+
+At 13 predeclared exact-node, midpoint and other fractional UTC epochs,
+GMAT's 1 s STK trajectory differed from direct production SGP4→TEME→
+validation-only GCRS position by at most `7.17963611987e-6 km` against
+`0.001 km`. Its 1 s versus 0.5 s GMAT position difference was at most
+`1.63010147317e-6 km` against `0.0001 km`. Both passed, allowing Phase A.
+The [transfer record](../validation/gmat/icrf/corrected_position/README.md)
+links every reference and GMAT vector, residual and raw report. These are
+numerical transfer-fidelity results, not physical orbit accuracy.
+
+In the frozen 20:00–20:40 UTC Vanguard interval, both production and GMAT
+found one corresponding 10° access at each of the two archived stations.
+With the 1 s transfer, maximum absolute AOS/LOS residual was
+`0.050494707 s` (limit `0.25 s`) and maximum absolute duration residual
+was `0.050373770 s` (limit `0.50 s`). With the 0.5 s transfer and unchanged
+1 s ContactLocator step, the reported AOS/LOS shift was `0.000 s` at
+GMAT's 1 ms report resolution (limit `0.02 s`). Phase A passes the frozen
+count/order, event timing, duration and transfer-sensitivity checks. The
+[Phase A evidence](../validation/gmat/phase_a/README.md) links raw GMAT
+scripts/reports and machine-readable signed residuals.
+
+GMAT's bundled SPICE PCK Earth ellipsoid and installed orientation/time
+inputs differ from production WGS84 and the explicit synthetic zero-EOP
+snapshot. The validation record gives their identities and hashes. Event
+residuals therefore include station/frame/environment differences; the
+millimetre-scale trajectory-transfer result does not make them physical
+pass-time errors. Phase A independently exercises event location on an
+imported production trajectory; the separate Phase B numerical diagnostic is
+recorded below. No production model, archived scientific artifact or original
+acceptance threshold changed.
+
+## GMAT independent numerical propagation diagnostic — Phase B
+
+GMAT R2026a (console build Mar 26 2026 15:02:55) independently integrated a
+Cartesian spacecraft initialized directly in `EarthICRF` at
+`2000-06-27T20:00:00Z`. Its initial state came from the canonical WGS72 SGP4
+TLE, propagated in TEME and converted through the Phase A checked
+validation-only Astropy GCRS convention with the archived explicit EOP table.
+No STK interpolation was involved. The [frozen protocol and full evidence](../validation/gmat/phase_b/README.md)
+include scripts, raw reports, full vectors, signed residuals, and hashes.
+
+The GMAT initial-state transfer gate passed: `3.63975473046e-12 km`
+position and `9.93013661299e-16 km/s` velocity residual against frozen
+`1e-6 km` and `1e-9 km/s` limits. The force model used the installed
+`EGM96.cof` (SHA-256
+`3e8806223250224d3c1333a010eb5c2cc5a212a56ccee4024db81b9d889db5ea`)
+at degree/order 4/4, Earth only, without drag, SRP, third bodies, tides,
+relativity or maneuvers. PrinceDormand78 used RSSStep, Accuracy `1e-12`,
+initial step `10 s`, minimum step `0.001 s`, and maximum step `60 s`.
+The single 30 s maximum-step refinement changed the final state by
+`2.71396590939e-6 km` and `2.42434507453e-9 km/s`, passing its frozen
+`0.001 km` and `1e-6 km/s` numerical-repeatability limits.
+
+At all nine exact 5-minute epochs through 20:40, reported states and
+GMAT-minus-production residuals were finite. Sampled position and velocity
+residual norms grew monotonically, without an unexplained sampled jump. At
+40 minutes they were `3.05814740466 km` and `0.00355989458257 km/s`; full
+vectors and signed components are in the [machine-readable CSV](../validation/gmat/phase_b/state_comparison.csv).
+There was **no cross-model residual magnitude criterion**. SGP4 uses
+TLE-fitted analytical dynamics and its BSTAR parameter; GMAT used numerical
+EGM96 4×4 without drag. BSTAR was not converted to physical Cd/area/mass.
+The two models also have different constants, and GCRS/EarthICRF convention
+differences may remain. Neither trajectory is truth.
+
+The numerical trajectory yielded one 10° contact per archived station.
+Relative to production, GMAT Greenwich AOS/LOS were
+`−0.052787810/+0.561191091 s` and duration `+0.614325800 s`; 1N/1E were
+`−0.088505293/+0.589704837 s` and duration `+0.678050830 s`. These are
+diagnostic consequences of different dynamics **and** GMAT's different
+station/earth-orientation environment. Phase A's same-trajectory timing limits
+do not apply. The [raw contact report](../validation/gmat/phase_b/contacts_report.txt)
+and [parsed comparison](../validation/gmat/phase_b/contact_comparison.json)
+preserve event counts, epochs, durations and signed differences.
+
+MA-07 remains **PARTIALLY VALIDATED**. The evidence chain now contains
+SGP4/reference-vector numerical verification, Skyfield downstream comparison
+with a shared SGP4 kernel, Phase A independent event location on an imported
+production trajectory, and Phase B independently propagated cross-model
+diagnostics. It does not establish independent same-model SGP4 accuracy,
+physical orbit truth, or operational pass-time accuracy.

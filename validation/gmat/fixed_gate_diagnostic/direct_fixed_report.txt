@@ -1,0 +1,2 @@
+DirectFixed.UTCGregorian   DirectFixed.TAIGregorian   DirectFixed.A1ModJulian   DirectFixed.EarthFixed.X   DirectFixed.EarthFixed.Y   DirectFixed.EarthFixed.Z   DirectFixed.EarthMJ2000Eq.X   DirectFixed.EarthMJ2000Eq.Y   DirectFixed.EarthMJ2000Eq.Z   
+27 Jun 2000 20:00:00.000   27 Jun 2000 20:00:32.000   21723.33370410164         5838.310528078179          -8202.497108395251         823.6306343037619          -9557.314641372639            3166.094911542474             823.8785797516799             

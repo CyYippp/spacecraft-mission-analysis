@@ -1,0 +1,11 @@
+Create Spacecraft ImportedVanguard;
+ImportedVanguard.DateFormat = UTCGregorian;
+ImportedVanguard.Epoch = '27 Jun 2000 19:59:00.000';
+ImportedVanguard.EphemerisName = 'C:/Users/Cyrus/Documents/ChatGPT/P1 - Spacecraft Mission Analysis Tool/validation/gmat/icrf/vanguard_icrf_1s.e';
+Create Array initialState[6,1] finalState[6,1];
+Create String initialEpoch finalEpoch;
+Create ReportFile GateReport;
+GateReport.Filename = 'C:/Users/Cyrus/Documents/ChatGPT/P1 - Spacecraft Mission Analysis Tool/validation/gmat/icrf/icrf_parser_report.txt';
+BeginMissionSequence;
+[initialEpoch, initialState, finalEpoch, finalState] = GetEphemStates('STK', ImportedVanguard, 'UTCGregorian', EarthICRF);
+Report GateReport initialEpoch initialState finalEpoch finalState;

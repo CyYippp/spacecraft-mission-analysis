@@ -1,0 +1,174 @@
+{
+  "status": "PASS",
+  "mode": "1s",
+  "analysis_start_utc": "2000-06-27T20:00:00Z",
+  "analysis_end_utc": "2000-06-27T20:40:00Z",
+  "ephemeris_sha256": "25947878388a27baaad24370f75df1691740b6514842ddb7a4e3a3aef11dacd7",
+  "ephemeris_sampling_s": 1.0,
+  "canonical_config_sha256": "822ee68dd955add87e2d00c60b310140976dde560f1afd2698f93355da7e9d99",
+  "archived_production_run_sha256": "cde21a989102fbac56404f23945f60db5b5cb1024bcb8f30da3a61ef67f99e33",
+  "script_sha256": "e9b5c21ec83a0726cd45633b9d374b31527a8a0878db8b5374f1a045c8bf2977",
+  "raw_report_sha256": "c7c16bd0029361f4622676f35ae7b93542f68b3aef5d1a6d97a2b2fae2fb24ff",
+  "gmat_returncode": 0,
+  "environment": {
+    "platform": "Windows-10-10.0.26200-SP0",
+    "gmat_release": "R2026a",
+    "gmat_build_date": "Mar 26 2026 15:02:55",
+    "gmat_invocation": "GmatConsole.exe --logfile <path> --exit --run <script>, cwd=GMAT bin",
+    "files": {
+      "gmat_executable": {
+        "path": "C:\\Users\\Cyrus\\Applications\\GMAT\\R2026a\\bin\\GmatConsole.exe",
+        "sha256": "36c880ad6c3f5e69b2e7e90c9d9cec4086eced9c1073fc5b289966d54db15f5f"
+      },
+      "gmat_startup": {
+        "path": "C:\\Users\\Cyrus\\Applications\\GMAT\\R2026a\\bin\\gmat_startup_file.txt",
+        "sha256": "12481417fc0b6513fefa4e959d1a19422107bbeecdc46b24219074162c6cdd6a"
+      },
+      "gmat_eop": {
+        "path": "C:\\Users\\Cyrus\\Applications\\GMAT\\R2026a\\data\\planetary_coeff\\eopc04_08.62-now",
+        "sha256": "eddd4bf62178dad0ff0a5cb500e639a85a2bd54ff507708dbdac7184e2e7159c"
+      },
+      "gmat_pck": {
+        "path": "C:\\Users\\Cyrus\\Applications\\GMAT\\R2026a\\data\\planetary_coeff\\SPICEPlanetaryConstantsKernel.tpc",
+        "sha256": "9c198f32cbca8050b0a962afade17850fd9cdd13d0835152f41646bd60d8be4e"
+      },
+      "gmat_lsk": {
+        "path": "C:\\Users\\Cyrus\\Applications\\GMAT\\R2026a\\data\\time\\SPICELeapSecondKernel.tls",
+        "sha256": "f15293b0747e5fb01a865596281cb0534f7c77274e78184bd64260cc92be3706"
+      },
+      "gmat_leap_seconds": {
+        "path": "C:\\Users\\Cyrus\\Applications\\GMAT\\R2026a\\data\\time\\tai-utc.dat",
+        "sha256": "96017d361fda96801547dc7846c25d4a529ad48128a2aa849962966ad5b95eeb"
+      }
+    },
+    "core_earth_equatorial_radius_km": 6378.1366,
+    "core_earth_flattening": 0.00335281310845547,
+    "spice_pck_earth_radii_km": [
+      6378.1366,
+      6378.1366,
+      6356.7519
+    ],
+    "production_station_ellipsoid": "WGS84",
+    "production_wgs84_equatorial_radius_km": 6378.137,
+    "production_wgs84_flattening": 0.0033528106647474805,
+    "station_geodetic_coordinates": {
+      "Greenwich": {
+        "latitude_deg": 0,
+        "longitude_deg_east": 0,
+        "height_km": 0
+      },
+      "OneNorthOneEast": {
+        "latitude_deg": 1,
+        "longitude_deg_east": 1,
+        "height_km": 0
+      }
+    },
+    "production_eop": "explicit synthetic zero UT1-UTC/xp/yp fixture",
+    "contact_environment": "Installed GMAT SPICE PCK, BPC, LSK and startup EOP; no overrides"
+  },
+  "contact_settings": {
+    "target": "ImportedVanguard",
+    "observers": [
+      "Greenwich",
+      "OneNorthOneEast"
+    ],
+    "horizon_reference": "Ellipsoid",
+    "minimum_elevation_deg": 10,
+    "step_size_s": 1,
+    "use_entire_interval": false,
+    "use_light_time_delay": false,
+    "use_stellar_aberration": false,
+    "extra_occulting_bodies": [],
+    "run_mode": "Manual",
+    "report_format": "Legacy UTCGregorian"
+  },
+  "criteria": {
+    "same_event_count_and_order": true,
+    "aos_los_abs_limit_s": 0.25,
+    "duration_abs_limit_s": 0.5,
+    "one_second_vs_half_second_event_shift_limit_s": 0.02
+  },
+  "gmat_events": {
+    "Greenwich": [
+      {
+        "start_utc": "27 Jun 2000 20:11:00.880",
+        "end_utc": "27 Jun 2000 20:31:30.103",
+        "duration_s": 1229.2228972
+      }
+    ],
+    "OneNorthOneEast": [
+      {
+        "start_utc": "27 Jun 2000 20:12:13.309",
+        "end_utc": "27 Jun 2000 20:30:57.478",
+        "duration_s": 1124.1694161
+      }
+    ]
+  },
+  "production_comparison": [
+    {
+      "observer": "Greenwich",
+      "production_station": "Equator Greenwich synthetic fixed WGS84 station",
+      "production_event_count": 1,
+      "gmat_event_count": 1,
+      "same_count": true,
+      "paired_by_chronological_order": [
+        {
+          "production": {
+            "duration_s": 1229.2680210995704,
+            "end_clipped": false,
+            "end_utc": "2000-06-27T20:31:30.099808909Z",
+            "max_elevation_deg": 20.19386560469357,
+            "max_elevation_time_utc": "2000-06-27T20:22:58.282534089Z",
+            "start_clipped": false,
+            "start_utc": "2000-06-27T20:11:00.831787810Z"
+          },
+          "gmat": {
+            "start_utc": "27 Jun 2000 20:11:00.880",
+            "end_utc": "27 Jun 2000 20:31:30.103",
+            "duration_s": 1229.2228972
+          },
+          "intervals_overlap": true,
+          "gmat_minus_production_aos_s": 0.04821219000348265,
+          "gmat_minus_production_los_s": 0.0031910910074373078,
+          "gmat_minus_production_duration_s": -0.04512389957039886,
+          "pass": true
+        }
+      ],
+      "pass": true
+    },
+    {
+      "observer": "OneNorthOneEast",
+      "production_station": "Synthetic 1N 1E WGS84 station",
+      "production_event_count": 1,
+      "gmat_event_count": 1,
+      "same_count": true,
+      "paired_by_chronological_order": [
+        {
+          "production": {
+            "duration_s": 1124.2197898697889,
+            "end_clipped": false,
+            "end_utc": "2000-06-27T20:30:57.478295163Z",
+            "max_elevation_deg": 18.142573700059817,
+            "max_elevation_time_utc": "2000-06-27T20:23:00.722397661Z",
+            "start_clipped": false,
+            "start_utc": "2000-06-27T20:12:13.258505293Z"
+          },
+          "gmat": {
+            "start_utc": "27 Jun 2000 20:12:13.309",
+            "end_utc": "27 Jun 2000 20:30:57.478",
+            "duration_s": 1124.1694161
+          },
+          "intervals_overlap": true,
+          "gmat_minus_production_aos_s": 0.05049470699809433,
+          "gmat_minus_production_los_s": -0.00029516299804299706,
+          "gmat_minus_production_duration_s": -0.05037376978884822,
+          "pass": true
+        }
+      ],
+      "pass": true
+    }
+  ],
+  "production_criteria_pass": true,
+  "event_convergence": null,
+  "event_convergence_pass": true
+}

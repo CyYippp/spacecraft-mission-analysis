@@ -1,0 +1,51 @@
+{
+  "gmat_release": "R2026a",
+  "installation_root_at_execution": "C:\\Users\\Cyrus\\Applications\\GMAT\\R2026a",
+  "source": "Installed files and kernel-load names in Phase A raw GMAT stdout",
+  "production_eop_mode": "explicit synthetic zero UT1-UTC/xp/yp",
+  "gmat_core_eop_source": "data/planetary_coeff/eopc04_08.62-now",
+  "contact_spice_orientation_sources": [
+    "data/planetary_coeff/SPICEEarthPredictedKernel.bpc",
+    "data/planetary_coeff/SPICEEarthCurrentKernel.bpc",
+    "data/planetary_coeff/earth_latest_high_prec.bpc"
+  ],
+  "contact_spice_shape_source": "data/planetary_coeff/SPICEPlanetaryConstantsKernel.tpc",
+  "files": {
+    "startup": {
+      "relative_to_gmat_installation": "bin/gmat_startup_file.txt",
+      "sha256": "12481417fc0b6513fefa4e959d1a19422107bbeecdc46b24219074162c6cdd6a"
+    },
+    "eop": {
+      "relative_to_gmat_installation": "data/planetary_coeff/eopc04_08.62-now",
+      "sha256": "eddd4bf62178dad0ff0a5cb500e639a85a2bd54ff507708dbdac7184e2e7159c"
+    },
+    "planetary_pck": {
+      "relative_to_gmat_installation": "data/planetary_coeff/SPICEPlanetaryConstantsKernel.tpc",
+      "sha256": "9c198f32cbca8050b0a962afade17850fd9cdd13d0835152f41646bd60d8be4e"
+    },
+    "earth_predicted_bpc": {
+      "relative_to_gmat_installation": "data/planetary_coeff/SPICEEarthPredictedKernel.bpc",
+      "sha256": "f5ed4d1f460dbcf40bf24f657ab9021718048e18fb723093bfd229066b4e3a49"
+    },
+    "earth_current_bpc": {
+      "relative_to_gmat_installation": "data/planetary_coeff/SPICEEarthCurrentKernel.bpc",
+      "sha256": "6d899c83542e32dfd77f3b3b79383db88860adca59adf60f4823780760589a52"
+    },
+    "earth_latest_bpc": {
+      "relative_to_gmat_installation": "data/planetary_coeff/earth_latest_high_prec.bpc",
+      "sha256": "94b3cedf59698eedf429ed50e25a2c9cec3e916cbc1bc5ce405671ce11b3a527"
+    },
+    "planetary_spk": {
+      "relative_to_gmat_installation": "data/planetary_ephem/spk/DE405AllPlanets.bsp",
+      "sha256": "d047c43e67b32aa842fe3c0014ae174ad6c2f1f73382bd4f46d98fe7a05be953"
+    },
+    "spice_lsk": {
+      "relative_to_gmat_installation": "data/time/SPICELeapSecondKernel.tls",
+      "sha256": "f15293b0747e5fb01a865596281cb0534f7c77274e78184bd64260cc92be3706"
+    },
+    "core_leap_seconds": {
+      "relative_to_gmat_installation": "data/time/tai-utc.dat",
+      "sha256": "96017d361fda96801547dc7846c25d4a529ad48128a2aa849962966ad5b95eeb"
+    }
+  }
+}

@@ -1,0 +1,74 @@
+"""Generate only the gated, validation-only STK ICRF transfer ephemeris."""
+
+import json
+from hashlib import sha256
+from pathlib import Path
+
+import astropy.units as u
+from astropy.time import Time
+from astropy.utils import iers
+from check_transfer import CONFIG, _astropy_gcrs
+
+from spacecraft_mission_analysis.input import load_analysis_config
+from spacecraft_mission_analysis.orbit import Sgp4Propagator
+
+HERE = Path(__file__).resolve().parent
+TRANSFER_CHECK = HERE / "transfer_check.json"
+EPHEMERIS = HERE / "vanguard_icrf_1s.e"
+MANIFEST = HERE / "ephemeris_manifest.json"
+START = Time("2000-06-27T19:59:00", format="isot", scale="utc")
+SAMPLES = 2521  # 19:59 through 20:41 inclusive, 60 s padding each side.
+
+
+def main() -> None:
+    check = json.loads(TRANSFER_CHECK.read_text(encoding="utf-8"))
+    if check["status"] != "PASS":
+        raise RuntimeError("Independent conversion gate has not passed")
+    config = load_analysis_config(CONFIG)
+    if check["config_sha256"] != sha256(CONFIG.read_bytes()).hexdigest():
+        raise RuntimeError("Canonical input changed after conversion check")
+    if check["eop_table_sha256"] != config.earth_orientation.table_sha256:
+        raise RuntimeError("EOP snapshot changed after conversion check")
+    propagator = Sgp4Propagator(config.tle)
+    lines = [
+        "stk.v.10.0",
+        "BEGIN Ephemeris",
+        f"NumberOfEphemerisPoints {SAMPLES}",
+        "ScenarioEpoch 27 Jun 2000 19:59:00.000",
+        "CentralBody Earth",
+        "CoordinateSystem ICRF",
+        "DistanceUnit Kilometers",
+        "",
+        "EphemerisTimePosVel",
+    ]
+    with (
+        iers.conf.set_temp("auto_download", False),
+        iers.earth_orientation_table.set(config.earth_orientation.build_table()),
+    ):
+        for offset in range(SAMPLES):
+            time = START + offset * u.s
+            position, velocity = _astropy_gcrs(propagator, time)
+            values = " ".join(f"{value:.17e}" for value in (*position, *velocity))
+            lines.append(f"{offset:.9f} {values}")
+    lines.extend(("END Ephemeris", ""))
+    EPHEMERIS.write_text("\n".join(lines), encoding="ascii", newline="\n")
+    manifest = {
+        "file": EPHEMERIS.name,
+        "sha256": sha256(EPHEMERIS.read_bytes()).hexdigest(),
+        "generator_sha256": sha256(Path(__file__).read_bytes()).hexdigest(),
+        "transfer_check_sha256": sha256(TRANSFER_CHECK.read_bytes()).hexdigest(),
+        "samples": SAMPLES,
+        "sampling_s": 1.0,
+        "first_utc": "2000-06-27T19:59:00Z",
+        "last_utc": "2000-06-27T20:41:00Z",
+        "source": "Production WGS72 SGP4 TEME; validation-only Astropy TEME→GCRS",
+        "stk_coordinate_system": "ICRF",
+        "gcrs_to_stk_icrf": "Provisional geocentric ICRS-aligned transfer convention",
+        "eop_table_sha256": config.earth_orientation.table_sha256,
+    }
+    MANIFEST.write_text(json.dumps(manifest, indent=2) + "\n", encoding="utf-8")
+    print(f"{EPHEMERIS} sha256={manifest['sha256']}")
+
+
+if __name__ == "__main__":
+    main()

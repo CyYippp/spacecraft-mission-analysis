@@ -1,0 +1,333 @@
+{
+  "status": "CONTINUOUS_REVIEWED",
+  "cross_model_magnitude_limit": null,
+  "config_sha256": "822ee68dd955add87e2d00c60b310140976dde560f1afd2698f93355da7e9d99",
+  "gravity_sha256": "3e8806223250224d3c1333a010eb5c2cc5a212a56ccee4024db81b9d889db5ea",
+  "samples": [
+    {
+      "utc": "2000-06-27T20:00:00.000Z",
+      "offset_min": 0,
+      "production_position_gcrs_km": [
+        -9557.268433756957,
+        3166.23837472819,
+        823.863275535456
+      ],
+      "gmat_position_earthicrf_km": [
+        -9557.268433756954,
+        3166.23837472819,
+        823.8632755354558
+      ],
+      "gmat_minus_production_position_km": [
+        3.637978807091713e-12,
+        0.0,
+        -1.1368683772161603e-13
+      ],
+      "position_residual_norm_km": 3.639754730461873e-12,
+      "production_velocity_gcrs_km_s": [
+        -1.3289096210919524,
+        -4.544937312339243,
+        -3.216279546830151
+      ],
+      "gmat_velocity_earthicrf_km_s": [
+        -1.3289096210919524,
+        -4.544937312339244,
+        -3.2162795468301506
+      ],
+      "gmat_minus_production_velocity_km_s": [
+        0.0,
+        -8.881784197001252e-16,
+        4.440892098500626e-16
+      ],
+      "velocity_residual_norm_km_s": 9.930136612989092e-16
+    },
+    {
+      "utc": "2000-06-27T20:05:00.000Z",
+      "offset_min": 5,
+      "production_position_gcrs_km": [
+        -9785.20556444065,
+        1755.0874237305288,
+        -150.1529460591509
+      ],
+      "gmat_position_earthicrf_km": [
+        -9785.261619515722,
+        1755.069661558021,
+        -149.82721687358233
+      ],
+      "gmat_minus_production_position_km": [
+        -0.05605507507243601,
+        -0.017762172507900686,
+        0.32572918556857644
+      ],
+      "position_residual_norm_km": 0.3309942122526389,
+      "production_velocity_gcrs_km_s": [
+        -0.17700383765622973,
+        -4.837271792297543,
+        -3.25595857264355
+      ],
+      "gmat_velocity_earthicrf_km_s": [
+        -0.17737491124730223,
+        -4.837228448381222,
+        -3.255996291142884
+      ],
+      "gmat_minus_production_velocity_km_s": [
+        -0.00037107359107249605,
+        4.334391632099255e-05,
+        -3.771849933409399e-05
+      ],
+      "velocity_residual_norm_km_s": 0.000375495659449607
+    },
+    {
+      "utc": "2000-06-27T20:10:00.000Z",
+      "offset_min": 10,
+      "production_position_gcrs_km": [
+        -9656.046239109068,
+        280.40587754636164,
+        -1118.283128300794
+      ],
+      "gmat_position_earthicrf_km": [
+        -9656.276042680094,
+        280.3807568125508,
+        -1117.7049977665454
+      ],
+      "gmat_minus_production_position_km": [
+        -0.22980357102642301,
+        -0.025120733810808815,
+        0.5781305342486576
+      ],
+      "position_residual_norm_km": 0.6226360471048299,
+      "production_velocity_gcrs_km_s": [
+        1.0488622906159435,
+        -4.964535745464616,
+        -3.1750787498740465
+      ],
+      "gmat_velocity_earthicrf_km_s": [
+        1.0481394405993636,
+        -4.964516945667201,
+        -3.1753049038654657
+      ],
+      "gmat_minus_production_velocity_km_s": [
+        -0.0007228500165799012,
+        1.8799797414814634e-05,
+        -0.0002261539914192312
+      ],
+      "velocity_residual_norm_km_s": 0.0007576352728636988
+    },
+    {
+      "utc": "2000-06-27T20:15:00.000Z",
+      "offset_min": 15,
+      "production_position_gcrs_km": [
+        -9150.499625180373,
+        -1204.4708750132231,
+        -2042.1797021316568
+      ],
+      "gmat_position_earthicrf_km": [
+        -9151.007491356482,
+        -1204.5051467199696,
+        -2041.4794222649582
+      ],
+      "gmat_minus_production_position_km": [
+        -0.5078661761090189,
+        -0.0342717067464946,
+        0.7002798666985655
+      ],
+      "position_residual_norm_km": 0.8657335008085775,
+      "production_velocity_gcrs_km_s": [
+        2.328009513006691,
+        -4.900150668329161,
+        -2.9586638839130046
+      ],
+      "gmat_velocity_earthicrf_km_s": [
+        2.3269942178798333,
+        -4.900226008609533,
+        -2.959204250146402
+      ],
+      "gmat_minus_production_velocity_km_s": [
+        -0.0010152951268578292,
+        -7.534028037170515e-05,
+        -0.0005403662333973713
+      ],
+      "velocity_residual_norm_km_s": 0.0011526040164183903
+    },
+    {
+      "utc": "2000-06-27T20:20:00.000Z",
+      "offset_min": 20,
+      "production_position_gcrs_km": [
+        -8256.998201825132,
+        -2637.2340715864866,
+        -2878.5477318422027
+      ],
+      "gmat_position_earthicrf_km": [
+        -8257.867428643296,
+        -2637.2981601039437,
+        -2877.9005603453193
+      ],
+      "gmat_minus_production_position_km": [
+        -0.869226818163952,
+        -0.06408851745709399,
+        0.6471714968834021
+      ],
+      "position_residual_norm_km": 1.0855844259492577,
+      "production_velocity_gcrs_km_s": [
+        3.6285867087826773,
+        -4.610935731562222,
+        -2.588848670592597
+      ],
+      "gmat_velocity_earthicrf_km_s": [
+        3.6273623171874254,
+        -4.611173471209146,
+        -2.5897856568606596
+      ],
+      "gmat_minus_production_velocity_km_s": [
+        -0.0012243915952518947,
+        -0.00023773964692441751,
+        -0.0009369862680626007
+      ],
+      "velocity_residual_norm_km_s": 0.0015599994181989638
+    },
+    {
+      "utc": "2000-06-27T20:25:00.000Z",
+      "offset_min": 25,
+      "production_position_gcrs_km": [
+        -6976.094423334647,
+        -3944.7310501114985,
+        -3578.498436682407
+      ],
+      "gmat_position_earthicrf_km": [
+        -6977.379959734322,
+        -3944.8758364242162,
+        -3578.1055364047725
+      ],
+      "gmat_minus_production_position_km": [
+        -1.2855363996750384,
+        -0.14478631271776976,
+        0.39290027763445323
+      ],
+      "position_residual_norm_km": 1.3520124035692491,
+      "production_velocity_gcrs_km_s": [
+        4.900252824558265,
+        -4.058258073744128,
+        -2.04664578134134
+      ],
+      "gmat_velocity_earthicrf_km_s": [
+        4.898901727116396,
+        -4.0587378340965,
+        -2.0480075178270223
+      ],
+      "gmat_minus_production_velocity_km_s": [
+        -0.0013510974418693422,
+        -0.0004797603523725158,
+        -0.0013617364856823855
+      ],
+      "velocity_residual_norm_km_s": 0.001977362017834138
+    },
+    {
+      "utc": "2000-06-27T20:30:00.000Z",
+      "offset_min": 30,
+      "production_position_gcrs_km": [
+        -5327.397406142181,
+        -5041.918176945669,
+        -4087.800563069812
+      ],
+      "gmat_position_earthicrf_km": [
+        -5329.117183963876,
+        -5042.241672060391,
+        -4087.8616294455755
+      ],
+      "gmat_minus_production_position_km": [
+        -1.719777821695061,
+        -0.3234951147214815,
+        -0.0610663757634029
+      ],
+      "position_residual_norm_km": 1.7510036971667853,
+      "production_velocity_gcrs_km_s": [
+        6.064665007034819,
+        -3.2027848105617522,
+        -1.3164228044247466
+      ],
+      "gmat_velocity_earthicrf_km_s": [
+        6.063254020346996,
+        -3.2036362773252725,
+        -1.318187151179837
+      ],
+      "gmat_minus_production_velocity_km_s": [
+        -0.0014109866878229127,
+        -0.0008514667635202144,
+        -0.0017643467550905179
+      ],
+      "velocity_residual_norm_km_s": 0.0024142904868286875
+    },
+    {
+      "utc": "2000-06-27T20:35:00.000Z",
+      "offset_min": 35,
+      "production_position_gcrs_km": [
+        -3359.4917959422955,
+        -5833.200932373532,
+        -4349.135292228276
+      ],
+      "gmat_position_earthicrf_km": [
+        -3361.6137056087155,
+        -5833.868782251958,
+        -4349.8128766453
+      ],
+      "gmat_minus_production_position_km": [
+        -2.121909666419924,
+        -0.6678498784258409,
+        -0.6775844170242635
+      ],
+      "position_residual_norm_km": 2.3254343109952247,
+      "production_velocity_gcrs_km_s": [
+        7.0056805156400515,
+        -2.016268974108243,
+        -0.3951262393657089
+      ],
+      "gmat_velocity_earthicrf_km_s": [
+        7.004298550507395,
+        -2.0177266835822847,
+        -0.39723807175503517
+      ],
+      "gmat_minus_production_velocity_km_s": [
+        -0.0013819651326567595,
+        -0.0014577094740415575,
+        -0.0021118323893262736
+      ],
+      "velocity_residual_norm_km_s": 0.0029145463762302783
+    },
+    {
+      "utc": "2000-06-27T20:40:00.000Z",
+      "offset_min": 40,
+      "production_position_gcrs_km": [
+        -1162.0687548382866,
+        -6218.893859538271,
+        -4308.075697305529
+      ],
+      "gmat_position_earthicrf_km": [
+        -1164.4895522068546,
+        -6220.154866830777,
+        -4309.454778977223
+      ],
+      "gmat_minus_production_position_km": [
+        -2.4207973685679463,
+        -1.2610072925062923,
+        -1.379081671694621
+      ],
+      "position_residual_norm_km": 3.058147404659163,
+      "production_velocity_gcrs_km_s": [
+        7.565997407396026,
+        -0.5044424290590541,
+        0.6919381002753653
+      ],
+      "gmat_velocity_earthicrf_km_s": [
+        7.564884169217748,
+        -0.5068495225370486,
+        0.6895633474070373
+      ],
+      "gmat_minus_production_velocity_km_s": [
+        -0.0011132381782772427,
+        -0.002407093477994504,
+        -0.0023747528683280006
+      ],
+      "velocity_residual_norm_km_s": 0.0035598945825697954
+    }
+  ],
+  "continuity_review": "All nine exact-epoch states finite; sampled position and velocity residual norms increase smoothly and monotonically, with no unexplained sampled jump. This does not prove continuous behavior between samples."
+}

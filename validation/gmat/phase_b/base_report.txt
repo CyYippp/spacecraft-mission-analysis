@@ -1,0 +1,18 @@
+Vanguard.UTCGregorian     Vanguard.EarthICRF.X      Vanguard.EarthICRF.Y      Vanguard.EarthICRF.Z      Vanguard.EarthICRF.VX     Vanguard.EarthICRF.VY     Vanguard.EarthICRF.VZ     
+27 Jun 2000 20:00:00.000   -9557.2684337569535       3166.2383747281901        823.86327553545584        -1.3289096210919524       -4.5449373123392443       -3.2162795468301506       
+Vanguard.UTCGregorian     Vanguard.EarthICRF.X      Vanguard.EarthICRF.Y      Vanguard.EarthICRF.Z      Vanguard.EarthICRF.VX     Vanguard.EarthICRF.VY     Vanguard.EarthICRF.VZ     
+27 Jun 2000 20:05:00.000   -9785.2616195157225       1755.0696615580209        -149.82721687358233       -0.17737491124730223      -4.8372284483812216       -3.2559962911428841       
+Vanguard.UTCGregorian     Vanguard.EarthICRF.X      Vanguard.EarthICRF.Y      Vanguard.EarthICRF.Z      Vanguard.EarthICRF.VX     Vanguard.EarthICRF.VY     Vanguard.EarthICRF.VZ     
+27 Jun 2000 20:10:00.000   -9656.2760426800942       280.38075681255083        -1117.7049977665454       1.0481394405993636        -4.9645169456672011       -3.1753049038654657       
+Vanguard.UTCGregorian     Vanguard.EarthICRF.X      Vanguard.EarthICRF.Y      Vanguard.EarthICRF.Z      Vanguard.EarthICRF.VX     Vanguard.EarthICRF.VY     Vanguard.EarthICRF.VZ     
+27 Jun 2000 20:15:00.000   -9151.0074913564822       -1204.5051467199696       -2041.4794222649582       2.3269942178798333        -4.9002260086095326       -2.959204250146402        
+Vanguard.UTCGregorian     Vanguard.EarthICRF.X      Vanguard.EarthICRF.Y      Vanguard.EarthICRF.Z      Vanguard.EarthICRF.VX     Vanguard.EarthICRF.VY     Vanguard.EarthICRF.VZ     
+27 Jun 2000 20:20:00.000   -8257.8674286432961       -2637.2981601039437       -2877.9005603453193       3.6273623171874254        -4.6111734712091463       -2.5897856568606596       
+Vanguard.UTCGregorian     Vanguard.EarthICRF.X      Vanguard.EarthICRF.Y      Vanguard.EarthICRF.Z      Vanguard.EarthICRF.VX     Vanguard.EarthICRF.VY     Vanguard.EarthICRF.VZ     
+27 Jun 2000 20:25:00.000   -6977.3799597343223       -3944.8758364242162       -3578.1055364047725       4.8989017271163959        -4.0587378340965001       -2.0480075178270223       
+Vanguard.UTCGregorian     Vanguard.EarthICRF.X      Vanguard.EarthICRF.Y      Vanguard.EarthICRF.Z      Vanguard.EarthICRF.VX     Vanguard.EarthICRF.VY     Vanguard.EarthICRF.VZ     
+27 Jun 2000 20:30:00.000   -5329.1171839638764       -5042.2416720603906       -4087.8616294455755       6.0632540203469958        -3.2036362773252725       -1.3181871511798371       
+Vanguard.UTCGregorian     Vanguard.EarthICRF.X      Vanguard.EarthICRF.Y      Vanguard.EarthICRF.Z      Vanguard.EarthICRF.VX     Vanguard.EarthICRF.VY     Vanguard.EarthICRF.VZ     
+27 Jun 2000 20:35:00.000   -3361.6137056087155       -5833.8687822519578       -4349.8128766453001       7.0042985505073947        -2.0177266835822847       -0.39723807175503517      
+Vanguard.UTCGregorian     Vanguard.EarthICRF.X      Vanguard.EarthICRF.Y      Vanguard.EarthICRF.Z      Vanguard.EarthICRF.VX     Vanguard.EarthICRF.VY     Vanguard.EarthICRF.VZ     
+27 Jun 2000 20:40:00.000   -1164.4895522068546       -6220.1548668307769       -4309.4547789772232       7.5648841692177484        -0.50684952253704862      0.68956334740703729       

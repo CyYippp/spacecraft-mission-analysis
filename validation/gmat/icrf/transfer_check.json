@@ -1,0 +1,202 @@
+{
+  "protocol": "PROTOCOL.md, frozen before comparison",
+  "status": "PASS",
+  "position_limit_km": 0.001,
+  "velocity_limit_km_s": 1e-06,
+  "convention": "Astropy TEME to GCRS using canonical explicit EOP; Skyfield geocentric inertial",
+  "shared_sgp4_kernel": true,
+  "config_sha256": "822ee68dd955add87e2d00c60b310140976dde560f1afd2698f93355da7e9d99",
+  "eop_table_identity": "test_only_eop.json",
+  "eop_table_sha256": "bd3769c7c5f55131e4ca5472e4787daaa9f2674502b01c9bbdbd573a4f77e824",
+  "tle_lines": [
+    "1 00005U 58002B   00179.78495062  .00000023  00000-0  28098-4 0  4753",
+    "2 00005  34.2682 348.7242 1859667 331.7664  19.3264 10.82419157413667"
+  ],
+  "versions": {
+    "astropy": "7.2.1",
+    "skyfield": "1.55",
+    "sgp4": "2.27"
+  },
+  "samples": [
+    {
+      "utc": "2000-06-27T19:59:00Z",
+      "astropy_gcrs_position_km": [
+        -9470.909931476446,
+        3436.6665328430927,
+        1016.2907808991856
+      ],
+      "astropy_gcrs_velocity_km_s": [
+        -1.5490624791709706,
+        -4.468555601903063,
+        -3.194960715206207
+      ],
+      "skyfield_geocentric_position_km": [
+        -9470.909931460736,
+        3436.666532844678,
+        1016.2907810401289
+      ],
+      "skyfield_geocentric_velocity_km_s": [
+        -1.5490625068924742,
+        -4.468555667232633,
+        -3.1949607521147145
+      ],
+      "astropy_minus_skyfield_position_km": [
+        -1.5710611478425562e-08,
+        -1.585249265190214e-09,
+        -1.4094325706537347e-07
+      ],
+      "astropy_minus_skyfield_velocity_km_s": [
+        2.7721503537136982e-08,
+        6.532957019800278e-08,
+        3.690850736148832e-08
+      ],
+      "position_residual_norm_km": 1.4182502614297228e-07,
+      "velocity_residual_norm_km_s": 7.999170217133967e-08,
+      "pass": true
+    },
+    {
+      "utc": "2000-06-27T20:00:00Z",
+      "astropy_gcrs_position_km": [
+        -9557.268433756957,
+        3166.23837472819,
+        823.863275535456
+      ],
+      "astropy_gcrs_velocity_km_s": [
+        -1.3289096210919524,
+        -4.544937312339243,
+        -3.216279546830151
+      ],
+      "skyfield_geocentric_position_km": [
+        -9557.268433744108,
+        3166.2383747300228,
+        823.8632756772998
+      ],
+      "skyfield_geocentric_velocity_km_s": [
+        -1.3289096462540395,
+        -4.544937378595321,
+        -3.2162795835554787
+      ],
+      "astropy_minus_skyfield_position_km": [
+        -1.284934114664793e-08,
+        -1.8326318240724504e-09,
+        -1.4184388419380412e-07
+      ],
+      "astropy_minus_skyfield_velocity_km_s": [
+        2.516208708058798e-08,
+        6.625607795740507e-08,
+        3.6725327667852525e-08
+      ],
+      "position_residual_norm_km": 1.42436482652763e-07,
+      "velocity_residual_norm_km_s": 7.982323085956847e-08,
+      "pass": true
+    },
+    {
+      "utc": "2000-06-27T20:20:00Z",
+      "astropy_gcrs_position_km": [
+        -8256.998201825132,
+        -2637.2340715864866,
+        -2878.5477318422027
+      ],
+      "astropy_gcrs_velocity_km_s": [
+        3.6285867087826773,
+        -4.610935731562222,
+        -2.588848670592597
+      ],
+      "skyfield_geocentric_position_km": [
+        -8256.99820186743,
+        -2637.234071580328,
+        -2878.5477317265113
+      ],
+      "skyfield_geocentric_velocity_km_s": [
+        3.628586736862563,
+        -4.610935795167123,
+        -2.5888486930313936
+      ],
+      "astropy_minus_skyfield_position_km": [
+        4.2298779590055346e-08,
+        -6.1586433730553836e-09,
+        -1.1569136404432356e-07
+      ],
+      "astropy_minus_skyfield_velocity_km_s": [
+        -2.8079885527887427e-08,
+        6.360490090173698e-08,
+        2.2438796598578392e-08
+      ],
+      "position_residual_norm_km": 1.2333534512636984e-07,
+      "velocity_residual_norm_km_s": 7.305862702495453e-08,
+      "pass": true
+    },
+    {
+      "utc": "2000-06-27T20:40:00Z",
+      "astropy_gcrs_position_km": [
+        -1162.0687548382866,
+        -6218.893859538271,
+        -4308.075697305529
+      ],
+      "astropy_gcrs_velocity_km_s": [
+        7.565997407396026,
+        -0.5044424290590541,
+        0.6919381002753653
+      ],
+      "skyfield_geocentric_position_km": [
+        -1162.0687549023983,
+        -6218.893859532398,
+        -4308.075697296702
+      ],
+      "skyfield_geocentric_velocity_km_s": [
+        7.5659974656685165,
+        -0.5044424449561835,
+        0.6919381073994721
+      ],
+      "astropy_minus_skyfield_position_km": [
+        6.411164577002637e-08,
+        -5.872607289347798e-09,
+        -8.826646080706269e-09
+      ],
+      "astropy_minus_skyfield_velocity_km_s": [
+        -5.827249083267816e-08,
+        1.58971293906518e-08,
+        -7.12410685999032e-09
+      ],
+      "position_residual_norm_km": 6.498230775180494e-08,
+      "velocity_residual_norm_km_s": 6.082067748110216e-08,
+      "pass": true
+    },
+    {
+      "utc": "2000-06-27T20:41:00Z",
+      "astropy_gcrs_position_km": [
+        -706.5051807007624,
+        -6239.109871128535,
+        -4259.623536807652
+      ],
+      "astropy_gcrs_velocity_km_s": [
+        7.6163949139048555,
+        -0.16791952879884775,
+        0.9237957199866287
+      ],
+      "skyfield_geocentric_position_km": [
+        -706.5051807641581,
+        -6239.109871122868,
+        -4259.623536805421
+      ],
+      "skyfield_geocentric_velocity_km_s": [
+        7.616394972161488,
+        -0.16791954138072315,
+        0.9237957286478404
+      ],
+      "astropy_minus_skyfield_position_km": [
+        6.339575975289335e-08,
+        -5.667061486747116e-09,
+        -2.230990503448993e-09
+      ],
+      "astropy_minus_skyfield_velocity_km_s": [
+        -5.825663240699441e-08,
+        1.2581875402650766e-08,
+        -8.661211747806874e-09
+      ],
+      "position_residual_norm_km": 6.368763819743691e-08,
+      "velocity_residual_norm_km_s": 6.022586983175791e-08,
+      "pass": true
+    }
+  ]
+}

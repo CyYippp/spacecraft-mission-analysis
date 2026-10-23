@@ -1,0 +1,27 @@
+utcIF                     iFixed                    utcFF                     fFixed                    
+27 Jun 2000 19:59:00.000  5645.389835155235         27 Jun 2000 20:01:00.000  6024.496125196986         
+                          -8344.990537282032                                  -8050.391279425899        
+                          1016.053778715939                                   630.0595638048942         
+                          3.27017447144226                                    3.04568402833047          
+                          2.294567285851372                                   2.614958898748228         
+                          -3.194890752453375                                  -3.233172051041493        
+utcIMJ                    iMJ                       utcFMJ                    fMJ                       
+27 Jun 2000 19:59:00.000  -9470.959925057601        27 Jun 2000 20:01:00.000  -9630.35247638586         
+                          3436.524206581509                                   2891.255439855062         
+                          1016.306162027903                                   630.3027291622059         
+                          -1.548999932280112                                  -1.10513907891379         
+                          -4.468576182974068                                  -4.615562896941347        
+                          -3.194961883588323                                  -3.233254588277212        
+taiIF                     iTaiFixed                 taiFF                     fTaiFixed                 
+27 Jun 2000 19:59:32.000  5645.389835155235         27 Jun 2000 20:01:32.000  6024.496125196986         
+                          -8344.990537282032                                  -8050.391279425899        
+                          1016.053778715939                                   630.0595638048942         
+                          3.27017447144226                                    3.04568402833047          
+                          2.294567285851372                                   2.614958898748228         
+                          -3.194890752453375                                  -3.233172051041493        
+ImportedVanguard.UTCGregorian   ImportedVanguard.TAIGregorian   ImportedVanguard.A1ModJulian   ImportedVanguard.ElapsedSecs   ImportedVanguard.EarthFixed.X   ImportedVanguard.EarthFixed.Y   ImportedVanguard.EarthFixed.Z   ImportedVanguard.EarthMJ2000Eq.X   ImportedVanguard.EarthMJ2000Eq.Y   ImportedVanguard.EarthMJ2000Eq.Z   
+27 Jun 2000 20:00:00.000        27 Jun 2000 20:00:32.000        21723.33370410164              0                              -5727.292838790564              4196.161904069771               1300.131537026879               7100                               0                                  1300                               
+ImportedVanguard.UTCGregorian   ImportedVanguard.TAIGregorian   ImportedVanguard.A1ModJulian   ImportedVanguard.ElapsedSecs   ImportedVanguard.EarthFixed.X   ImportedVanguard.EarthFixed.Y   ImportedVanguard.EarthFixed.Z   ImportedVanguard.EarthMJ2000Eq.X   ImportedVanguard.EarthMJ2000Eq.Y   ImportedVanguard.EarthMJ2000Eq.Z   
+27 Jun 2000 19:59:00.000        27 Jun 2000 19:59:32.000        21723.3330096572               -59.99999988125637             -5745.59730687191               4171.063370652309               1300.131510759144               7100                               0                                  1300                               
+ImportedVanguard.UTCGregorian   ImportedVanguard.TAIGregorian   ImportedVanguard.A1ModJulian   ImportedVanguard.ElapsedSecs   ImportedVanguard.EarthFixed.X   ImportedVanguard.EarthFixed.Y   ImportedVanguard.EarthFixed.Z   ImportedVanguard.EarthMJ2000Eq.X   ImportedVanguard.EarthMJ2000Eq.Y   ImportedVanguard.EarthMJ2000Eq.Z   
+27 Jun 2000 20:00:00.000        27 Jun 2000 20:00:32.000        21723.33370410164              0                              5838.908648141503               -8202.071350192926              823.6306346095722               -9557.545492595509                 3165.39797153804                   823.8785687312989                  

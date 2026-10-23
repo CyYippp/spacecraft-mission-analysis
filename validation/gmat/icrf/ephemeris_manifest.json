@@ -1,0 +1,15 @@
+{
+  "file": "vanguard_icrf_1s.e",
+  "sha256": "25947878388a27baaad24370f75df1691740b6514842ddb7a4e3a3aef11dacd7",
+  "generator_sha256": "e7946fed7460c379f0affba14e67a5667145a30509906166f4b37d09f8da4794",
+  "generator_executed_source": "generator_executed.txt",
+  "transfer_check_sha256": "6ad39d5e32cd35d62ab571be6c83f217951b10e14c2fbc7b40ed044b4c81594e",
+  "samples": 2521,
+  "sampling_s": 1.0,
+  "first_utc": "2000-06-27T19:59:00Z",
+  "last_utc": "2000-06-27T20:41:00Z",
+  "source": "Production WGS72 SGP4 TEME; validation-only Astropy TEME\u2192GCRS",
+  "stk_coordinate_system": "ICRF",
+  "gcrs_to_stk_icrf": "Provisional geocentric ICRS-aligned transfer convention",
+  "eop_table_sha256": "bd3769c7c5f55131e4ca5472e4787daaa9f2674502b01c9bbdbd573a4f77e824"
+}

@@ -1,0 +1,15 @@
+Create Spacecraft DirectFixed;
+DirectFixed.DateFormat = UTCGregorian;
+DirectFixed.Epoch = '27 Jun 2000 20:00:00.000';
+DirectFixed.CoordinateSystem = EarthFixed;
+DirectFixed.DisplayStateType = Cartesian;
+DirectFixed.X = 5838.310528078179;
+DirectFixed.Y = -8202.497108395251;
+DirectFixed.Z = 823.6306343037619;
+DirectFixed.VX = 3.159919590713798;
+DirectFixed.VY = 2.455229284751113;
+DirectFixed.VZ = -3.216204150275416;
+Create ReportFile DirectReport;
+DirectReport.Filename = 'C:/Users/Cyrus/Documents/ChatGPT/P1 - Spacecraft Mission Analysis Tool/validation/gmat/fixed_gate_diagnostic/direct_fixed_report.txt';
+BeginMissionSequence;
+Report DirectReport DirectFixed.UTCGregorian DirectFixed.TAIGregorian DirectFixed.A1ModJulian DirectFixed.EarthFixed.X DirectFixed.EarthFixed.Y DirectFixed.EarthFixed.Z DirectFixed.EarthMJ2000Eq.X DirectFixed.EarthMJ2000Eq.Y DirectFixed.EarthMJ2000Eq.Z;

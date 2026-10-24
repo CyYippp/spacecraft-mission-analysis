@@ -34,6 +34,7 @@
   if(!document.getElementById('config-path').value)document.getElementById('configuration').open=true;
   function displayId(id){const match=/^(\d{4})(\d{2})(\d{2})T(\d{2})(\d{2})(\d{2})Z-(.+)$/.exec(id);return match?`${match[1]}-${match[2]}-${match[3]} ${match[4]}:${match[5]}:${match[6]} UTC · ${match[7]}`:id;}
   function link(label,href){const a=document.createElement('a');a.textContent=label;a.href=href;a.target='_blank';a.rel='noopener';return a;}
+  async function apiFetch(route,options){try{return await fetch(route,options);}catch{throw Error('Cannot reach the local dashboard. Double-click start-dashboard.cmd again, use the new browser tab, and keep its command window open.');}}
   function showRun(run){
     selectedId=run.id;
     document.getElementById('run-id').textContent=displayId(run.id);
@@ -50,14 +51,14 @@
     for(const button of recent.querySelectorAll('button'))button.setAttribute('aria-current',String(button.dataset.id===run.id));
   }
   async function loadRuns(focusId){
-    const response=await fetch('api/runs');if(!response.ok)throw Error('Could not load saved runs.');
+    const response=await apiFetch('api/runs');if(!response.ok)throw Error('Could not load saved runs.');
     const runs=await response.json();recent.replaceChildren();
     for(const run of runs){const li=document.createElement('li');const button=document.createElement('button');button.type='button';button.dataset.id=run.id;button.textContent=displayId(run.id);const small=document.createElement('small');small.textContent=run.status+' · '+run.window_count+' station windows';button.append(small);button.addEventListener('click',()=>showRun(run));li.append(button);recent.append(li);}
     const target=runs.find(run=>run.id===focusId)||runs.find(run=>run.id===selectedId)||runs[0];if(target)showRun(target);
   }
   form.addEventListener('submit',async event=>{
     event.preventDefault();const button=document.getElementById('run-button');button.disabled=true;statusLine.className='status busy';statusLine.textContent='Running the analysis and saving its evidence…';
-    try{const response=await fetch('api/run',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({config_path:document.getElementById('config-path').value})});const result=await response.json();if(!response.ok)throw Error(result.error||'The run could not be completed.');await loadRuns(result.id);statusLine.className='status';statusLine.textContent='Run saved. Review the report and notices below.';}
+    try{const response=await apiFetch('api/run',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({config_path:document.getElementById('config-path').value})});const result=await response.json();if(!response.ok)throw Error(result.error||'The run could not be completed.');await loadRuns(result.id);statusLine.className='status';statusLine.textContent='Run saved. Review the report and notices below.';}
     catch(error){statusLine.className='status error';statusLine.textContent=error.message||'The run could not be completed.';}
     finally{button.disabled=false;}
   });

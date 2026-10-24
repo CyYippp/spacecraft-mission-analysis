@@ -86,7 +86,10 @@ JSON file. The dashboard does not edit scientific inputs or add calculation
 options; an explicit Earth-orientation table is still resolved relative to that
 configuration file. The Vanguard table is test-only. For Windows checkouts,
 `start-dashboard.cmd` opens the same local dashboard after dependencies have
-been installed. Close its terminal window or press `Ctrl+C` to stop the server.
+been installed. Keep its terminal window open while using the dashboard. Each
+launch creates a new browser address; use the newly opened tab, since an old tab
+cannot run analyses after its server stops. Close the terminal window or press
+`Ctrl+C` to stop the server.
 
 The service binds only to `127.0.0.1`, uses a session-specific URL, and saves
 each run in a new folder under `outputs/dashboard-runs/` by default. Recent runs

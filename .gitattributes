@@ -1,2 +1,4 @@
 * text=auto eol=lf
 validation/gmat/** -text
+validation/gmat/**/*.e linguist-detectable=false
+validation/gmat/**/*.script linguist-detectable=false

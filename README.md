@@ -1,5 +1,39 @@
 # Spacecraft Mission Analysis Tool
 
+**In plain English:** give this tool a satellite's published orbit data and the
+positions of some ground stations, and it works out exactly when the satellite
+rises above and sets below each station's visibility limit, and how much of the
+time at least one station can see it. It is an independent portfolio project,
+run the way an engineering team would run one: written requirements,
+verification and validation records, an issue log and design decisions, all in
+this repository.
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="docs/figures/vanguard_pass_dark.svg">
+  <img alt="Elevation of Vanguard 1 above two ground stations on 27 June 2000, crossing the 10 degree visibility mask; the rise and set times found by the tool are marked" src="docs/figures/vanguard_pass_light.svg">
+</picture>
+
+The worked example uses Vanguard 1, launched in 1958 and the oldest satellite
+still in orbit. The [figure script](docs/figures/make_vanguard_pass_figure.py)
+redraws the chart from the production code and the committed run output.
+
+### Headline results
+
+Every acceptance limit below was written down before the comparison was run.
+
+| Check | Result | Limit |
+| --- | --- | --- |
+| Rise/set times vs NASA's GMAT R2026a, Vanguard 1 at two stations | max 0.050 s | 0.25 s |
+| Blind hold-out vs Skyfield, 24 h at a southern-hemisphere station: rise/set times | max 0.0019 s | 0.020 s |
+| Same hold-out: elevation at 319 sample times | max 1.1 × 10⁻¹² ° | 1 × 10⁻⁹ ° |
+| Automated tests, run in CI on every push | 203 | — |
+| Clean reinstall of the archived example | all 7 output files byte-identical | — |
+
+These are agreements between independent implementations of the same
+calculation, not measured real-world pass accuracy; Skyfield also shares this
+tool's SGP4 library. One GMAT check failed and is kept on record with its
+diagnosis. The sections below give the exact scope of each result.
+
 **Problem:** Given an archived two-line element set (TLE), fixed ground stations
 and a UTC interval, when is a spacecraft geometrically above each station's
 elevation mask, and how much of the interval has access through any station?

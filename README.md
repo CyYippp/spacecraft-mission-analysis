@@ -34,6 +34,22 @@ calculation, not measured real-world pass accuracy; Skyfield also shares this
 tool's SGP4 library. One GMAT check failed and is kept on record with its
 diagnosis. The sections below give the exact scope of each result.
 
+### How this was built
+
+This project was built with AI coding agents. I (Cyrus Yip) chose the
+problem, wrote the requirements, agreed the tool's limits, set up the
+repository structure and decided the engineering process: an issue log,
+written decision records, and a verification and validation plan in which
+every acceptance limit is fixed before the test runs. Claude Code and Codex
+wrote the code and tests, drafted the records, and worked through the
+diagnoses of the failed checks.
+
+AI writes code quickly, so nothing here is accepted on trust. Every claim
+traces to a test or an independent comparison, and failed checks stay on
+record. The [issue register](docs/issues.md) and
+[decision records](docs/decisions/README.md) show where the work went wrong
+and how it was corrected.
+
 **Problem:** Given an archived two-line element set (TLE), fixed ground stations
 and a UTC interval, when is a spacecraft geometrically above each station's
 elevation mask, and how much of the interval has access through any station?

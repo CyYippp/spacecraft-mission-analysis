@@ -36,19 +36,20 @@ diagnosis. The sections below give the exact scope of each result.
 
 ### How this was built
 
-This project was built with AI coding agents. I (Cyrus Yip) chose the
-problem, wrote the requirements, agreed the tool's limits, set up the
-repository structure and decided the engineering process: an issue log,
-written decision records, and a verification and validation plan in which
-every acceptance limit is fixed before the test runs. Claude Code and Codex
-wrote the code and tests, drafted the records, and worked through the
-diagnoses of the failed checks.
+I used AI coding agents, including Claude Code and Codex, extensively during
+implementation. They generated substantial parts of the production code, tests
+and documentation.
 
-AI writes code quickly, so nothing here is accepted on trust. Every claim
-traces to a test or an independent comparison, and failed checks stay on
-record. The [issue register](docs/issues.md) and
-[decision records](docs/decisions/README.md) show where the work went wrong
-and how it was corrected.
+My role was to define the engineering problem and requirements, set the scope
+and acceptance criteria, decide the verification and validation approach, and
+determine what evidence was sufficient to support each engineering claim.
+AI-generated work was not treated as evidence of correctness by itself;
+results were checked through automated tests, analytical cases and independent
+comparisons, with discrepancies and failed checks retained in the repository.
+
+The [issue register](docs/issues.md) and
+[decision records](docs/decisions/README.md) show the problems encountered, the
+evidence considered and the resulting engineering decisions.
 
 **Problem:** Given an archived two-line element set (TLE), fixed ground stations
 and a UTC interval, when is a spacecraft geometrically above each station's
